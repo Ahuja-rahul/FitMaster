@@ -5,3 +5,4 @@ It is a versatile workout application that focuses on body part-specific exercis
 ##Group G
 
 - Rahul Nareshkumar Ahuja
+- KrunalKumar Narendrabhai Parmar
