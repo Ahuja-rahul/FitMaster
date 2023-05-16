@@ -6,3 +6,4 @@ It is a versatile workout application that focuses on body part-specific exercis
 
 - Rahul Nareshkumar Ahuja
 - KrunalKumar Narendrabhai Parmar
+- Aashish Gautam
