@@ -22,3 +22,7 @@ It is a versatile workout application that focuses on body part-specific exercis
 -   Diet plan - Optimize your fitness journey with a personalized diet plan to complement your workouts and achieve optimal results.
 -   Profile Section: Body Measurement - Track and record your body measurements to monitor your progress and visualize your fitness transformation.
 -   Reminder - Set reminders to ensure you never miss a workout session and stay committed to your goals.
+-	Workout notes - Keep track of your thoughts, progress, and insights by adding notes to your workouts for a comprehensive training log.
+-	Calorie tracking - Monitor your calorie intake and expenditure to manage your weight and make informed dietary choices.
+-	Workout Duration Options - Choose from a variety of workout durations, including 10-minute, 20-minute, or 30-minute options, to accommodate busy schedules and time constraints.
+-	Dark Mode - Switch to a sleek and eye-friendly dark mode for a comfortable workout experience, even in low-light environments.
