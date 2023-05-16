@@ -14,3 +14,7 @@ It is a versatile workout application that focuses on body part-specific exercis
 -	Customized workout plan - Tailor your workout plan according to your preferences and goals for a personalized fitness experience.
 -	Create workout - Design your own workouts from scratch to suit your unique training style.
 -	Edit and delete workout - Easily modify or remove workouts to adapt to your changing fitness needs.
+-	Specific muscle workout plan - Access specialized workout plans targeting specific muscles to enhance your strength and definition.
+-	Default workout plans - Get started quickly with pre-designed workout plans to kickstart your fitness journey.
+-	Challenges and Achievements - Engage in challenges and unlock achievements to stay motivated and track your progress.
+-	Notifications-alert - Stay informed and motivated with timely notifications and alerts for your workout schedule.
