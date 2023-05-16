@@ -18,3 +18,7 @@ It is a versatile workout application that focuses on body part-specific exercis
 -	Default workout plans - Get started quickly with pre-designed workout plans to kickstart your fitness journey.
 -	Challenges and Achievements - Engage in challenges and unlock achievements to stay motivated and track your progress.
 -	Notifications-alert - Stay informed and motivated with timely notifications and alerts for your workout schedule.
+-   No equipment home workout - Access a wide range of equipment-free workouts for convenient and effective home training.
+-   Diet plan - Optimize your fitness journey with a personalized diet plan to complement your workouts and achieve optimal results.
+-   Profile Section: Body Measurement - Track and record your body measurements to monitor your progress and visualize your fitness transformation.
+-   Reminder - Set reminders to ensure you never miss a workout session and stay committed to your goals.
