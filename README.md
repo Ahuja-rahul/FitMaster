@@ -10,19 +10,16 @@ It is a versatile workout application that focuses on body part-specific exercis
 
 ## Features
 
--	Search Workout - Discover targeted workouts for specific body parts to optimize your training.
--	Customized workout plan - Tailor your workout plan according to your preferences and goals for a personalized fitness experience.
--	Create workout - Design your own workouts from scratch to suit your unique training style.
--	Edit and delete workout - Easily modify or remove workouts to adapt to your changing fitness needs.
--	Specific muscle workout plan - Access specialized workout plans targeting specific muscles to enhance your strength and definition.
--	Default workout plans - Get started quickly with pre-designed workout plans to kickstart your fitness journey.
--	Challenges and Achievements - Engage in challenges and unlock achievements to stay motivated and track your progress.
--	Notifications-alert - Stay informed and motivated with timely notifications and alerts for your workout schedule.
--   No equipment home workout - Access a wide range of equipment-free workouts for convenient and effective home training.
--   Diet plan - Optimize your fitness journey with a personalized diet plan to complement your workouts and achieve optimal results.
--   Profile Section: Body Measurement - Track and record your body measurements to monitor your progress and visualize your fitness transformation.
--   Reminder - Set reminders to ensure you never miss a workout session and stay committed to your goals.
--	Workout notes - Keep track of your thoughts, progress, and insights by adding notes to your workouts for a comprehensive training log.
--	Calorie tracking - Monitor your calorie intake and expenditure to manage your weight and make informed dietary choices.
--	Workout Duration Options - Choose from a variety of workout durations, including 10-minute, 20-minute, or 30-minute options, to accommodate busy schedules and time constraints.
--	Dark Mode - Switch to a sleek and eye-friendly dark mode for a comfortable workout experience, even in low-light environments.
+-   User can search a Workout - Discover targeted workouts for specific body parts to optimize your training.
+-	User can get customized workout plan - User can get custom workout plan based on 2 preferences viz. weight loss or muscle gain.
+-	User can Edit and delete workout - Easily modify or remove workouts to adapt to your changing fitness needs.
+-	User can filter workout plan for single desired muscle - Access specialized workout plans targeting specific muscles to enhance your strength and definition.
+-	User gets prebuild default workout plans - Get started quickly with pre-designed workout plans to kickstart your fitness journey.
+-	User gets Notifications each day to workout - Stay informed and motivated with timely notifications and alerts for your workout schedule.
+-   User Profile Section: Body Measurement - Track and record your body measurements to monitor your progress and visualize your fitness transformation.
+-   User can set reminder - Set reminders to ensure you never miss a workout session and stay committed to your goals.
+-	User can set dark Mode - Switch to a sleek and eye-friendly dark mode for a comfortable workout experience, even in low-light environments.
+-   App Splash Screen - Default launch Screen for the app.
+-   App Dashboard - Default home screen of the app.
+-   User Preferences - Settings tab for user to make changes of few settings like notifications.
+-	User can create and name workout - Design your own workouts from scratch to suit your unique training style.
