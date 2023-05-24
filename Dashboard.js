@@ -1,17 +1,22 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Icon from 'react-native-vector-icons/Ionicons';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import { MaterialIcons } from '@expo/vector-icons';
+import HomeScreen from './HomeScreen';
+
 
 // Define your screen components
-const HomeScreen = () => (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Home Screen</Text>
-    </View>
-);
+// const HomeScreen = () => (
+//     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+//         <Text>Home Screen</Text>
+//     </View>
+// );
 
-const ProfileScreen = () => (
+const MyworkoutScreen = () => (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Profile Screen</Text>
+        <Text>Workout Screen</Text>
     </View>
 );
 
@@ -31,16 +36,19 @@ const Dashboard = () => (
             component={HomeScreen}
             options={{
                 tabBarLabel: 'Home',
-                // You can add icons for the tabs here
-                // tabBarIcon: ...
+                tabBarIcon: ({ color, size }) => (
+                    <Icon name="home" color={color} size={size} />
+                )
             }}
         />
         <Tab.Screen
-            name="Profile"
-            component={ProfileScreen}
+            name="My Workout"
+            component={MyworkoutScreen}
             options={{
-                tabBarLabel: 'Profile',
-                // tabBarIcon: ...
+                tabBarLabel: 'My Workout',
+                tabBarIcon: ({ color, size }) => (
+                    <MaterialIcons name="fitness-center" size={24} color="black" />
+                )
             }}
         />
         <Tab.Screen
@@ -48,7 +56,9 @@ const Dashboard = () => (
             component={SettingsScreen}
             options={{
                 tabBarLabel: 'Settings',
-                // tabBarIcon: ...
+                tabBarIcon: ({ color, size }) => (
+                    <Icon name="settings-outline" color={color} size={size} />
+                )
             }}
         />
     </Tab.Navigator>
