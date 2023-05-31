@@ -33,7 +33,7 @@ const HomeScreen = ({ navigation }) => {
                     <Text style={styles.bannerText}>Banner 2</Text>
                 </Pressable>
             </ScrollView>
-
+            
             <View style={styles.container}>
                 <View style={styles.boxContainer}>
                     <Pressable

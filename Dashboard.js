@@ -2,9 +2,12 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { NavigationContainer } from '@react-navigation/native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import { MaterialIcons } from '@expo/vector-icons';
 import HomeScreen from './HomeScreen';
+import MyWorkoutScreen from './MyWorkoutScreen';
+import StackNavigator from './assets/StackNavigator';
 
 
 // Define your screen components
@@ -14,11 +17,11 @@ import HomeScreen from './HomeScreen';
 //     </View>
 // );
 
-const MyworkoutScreen = () => (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Workout Screen</Text>
-    </View>
-);
+// const MyworkoutScreen = () => (
+//     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+//         <Text>Workout Screen</Text>
+//     </View>
+// );
 
 const SettingsScreen = () => (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -43,7 +46,7 @@ const Dashboard = () => (
         />
         <Tab.Screen
             name="My Workout"
-            component={MyworkoutScreen}
+            component={MyWorkoutScreen}
             options={{
                 tabBarLabel: 'My Workout',
                 tabBarIcon: ({ color, size }) => (

@@ -2,11 +2,12 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import Dashboard from './Dashboard';
+import MyStack from './assets/StackNavigator';
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Dashboard />
+      <MyStack/>
     </NavigationContainer>
   );
 }
