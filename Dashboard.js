@@ -5,23 +5,9 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { NavigationContainer } from '@react-navigation/native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import { MaterialIcons } from '@expo/vector-icons';
-import HomeScreen from './HomeScreen';
-import MyWorkoutScreen from './MyWorkoutScreen';
-import StackNavigator from './assets/StackNavigator';
+import HomeScreen from './Screens/HomeScreen';
+import MyWorkoutScreen from './Screens/MyWorkoutScreen';
 
-
-// Define your screen components
-// const HomeScreen = () => (
-//     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-//         <Text>Home Screen</Text>
-//     </View>
-// );
-
-// const MyworkoutScreen = () => (
-//     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-//         <Text>Workout Screen</Text>
-//     </View>
-// );
 
 const SettingsScreen = () => (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -64,6 +50,7 @@ const Dashboard = () => (
                 )
             }}
         />
+
     </Tab.Navigator>
 );
 

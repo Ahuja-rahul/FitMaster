@@ -7,7 +7,7 @@ const HomeScreen = ({ navigation }) => {
     };
 
     const windowWidth = Dimensions.get('window').width;
-    const boxSize = (windowWidth / 3) - 40;
+    const boxSize = (windowWidth / 2) - 30;
     const scrollViewRef = useRef(null);
 
     useEffect(() => {
@@ -26,80 +26,92 @@ const HomeScreen = ({ navigation }) => {
                 pagingEnabled
                 showsHorizontalScrollIndicator={false}
             >
-                <Pressable style={styles.hriozontalBanner}>
+                <Pressable style={styles.hriozontalBanner}
+                onPress={() => handleBoxPress('W1')}>
                     <Text style={styles.bannerText}>Banner 1</Text>
                 </Pressable>
-                <Pressable style={styles.hriozontalBanner}>
+                <Pressable style={styles.hriozontalBanner}
+                onPress={() => handleBoxPress('W1')}>
                     <Text style={styles.bannerText}>Banner 2</Text>
                 </Pressable>
             </ScrollView>
             
+            <Text style={styles.popularWorkoutsText}>
+                Popular Workouts
+            </Text>
+
             <View style={styles.container}>
                 <View style={styles.boxContainer}>
                     <Pressable
                         style={[styles.box, { width: boxSize, height: boxSize }]}
-                        onPress={() => handleBoxPress('Screen1')}
+                        onPress={() => handleBoxPress('W1')}
                     >
                         <Image
-                            source={require('./assets/image1.jpg')}
+                            source={require('../assets/image1.jpg')}
                             style={styles.image}
                         />
-                        <Text style={styles.boxText}>Box 1</Text>
+                        <Text style={styles.boxText}>Back n Bicep</Text>
+                        <Text style={styles.boxText2}>Beginner</Text>
                     </Pressable>
 
                     <Pressable
                         style={[styles.box, { width: boxSize, height: boxSize }]}
-                        onPress={() => handleBoxPress('Screen2')}
+                        onPress={() => handleBoxPress('W2')}
                     >
                         <Image
-                            source={require('./assets/image2.jpg')}
+                             source={require('../assets/image2.jpg')}
                             style={styles.image}
                         />
-                        <Text style={styles.boxText}>Box 2</Text>
+                        <Text style={styles.boxText}>Back n Bicep</Text>
+                        <Text style={styles.boxText2}>Advanced</Text>
                     </Pressable>
 
                     <Pressable
                         style={[styles.box, { width: boxSize, height: boxSize }]}
-                        onPress={() => handleBoxPress('Screen3')}
+                        onPress={() => handleBoxPress('W3')}
                     >
                         <Image
-                            source={require('./assets/image1.jpg')}
+                            source={require('../assets/image1.jpg')}
                             style={styles.image}
                         />
-                        <Text style={styles.boxText}>Box 3</Text>
+                        <Text style={styles.boxText}>Chest n Tricep</Text>
+                        <Text style={styles.boxText2}>Beginner</Text>
                     </Pressable>
 
                     <Pressable
                         style={[styles.box, { width: boxSize, height: boxSize }]}
-                        onPress={() => handleBoxPress('Screen4')}
+                        onPress={() => handleBoxPress('W4')}
                     >
                         <Image
-                            source={require('./assets/image1.jpg')}
+                             source={require('../assets/image2.jpg')}
                             style={styles.image}
                         />
-                        <Text style={styles.boxText}>Box 4</Text>
+                      <Text style={styles.boxText}>Chest n Tricep</Text>
+                        <Text style={styles.boxText2}>Advanced</Text>
                     </Pressable>
 
                     <Pressable
                         style={[styles.box, { width: boxSize, height: boxSize }]}
-                        onPress={() => handleBoxPress('Screen5')}
+                        onPress={() => handleBoxPress('W1')}
                     >
                         <Image
-                            source={require('./assets/image1.jpg')}
+                            source={require('../assets/image1.jpg')}
                             style={styles.image}
                         />
-                        <Text style={styles.boxText}>Box 5</Text>
+                         <Text style={styles.boxText}>Shoulders n Legs</Text>
+                        <Text style={styles.boxText2}>Beginner</Text>
                     </Pressable>
 
                     <Pressable
                         style={[styles.box, { width: boxSize, height: boxSize }]}
-                        onPress={() => handleBoxPress('Screen6')}
+                        onPress={() => handleBoxPress('W2')}
                     >
                         <Image
-                            source={require('./assets/image1.jpg')}
+                            source={require('../assets/image2.jpg')}
                             style={styles.image}
                         />
-                        <Text style={styles.boxText}>Box 6</Text>
+                         <Text style={styles.boxText}>Shoulders n Legs</Text>
+                        <Text style={styles.boxText2}>Advanced</Text>
                     </Pressable>
                 </View>
             </View>
@@ -114,11 +126,18 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 10,
     },
+    // boxContainer: {
+    //     flexDirection: 'row',
+    //     flexWrap: 'wrap',
+    //     justifyContent: 'center',
+    //     alignItems: 'center',
+    // },
     boxContainer: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         alignItems: 'center',
+        paddingHorizontal: 10,
     },
     box: {
         margin: 5,
@@ -134,14 +153,20 @@ const styles = StyleSheet.create({
 
     },
     hriozontalBanner: {
-        width: 300,
-        height: 100,
+        width: 340,
+        height: 180,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#e0e0e0',
         borderRadius: 10,
         marginHorizontal: 10,
         marginTop: 10,
+    },
+    popularWorkoutsText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginTop: 20,
+        marginLeft: 10,
     },
     bannerText: {
         fontSize: 16,
@@ -151,6 +176,10 @@ const styles = StyleSheet.create({
         marginTop: 5,
         fontSize: 14,
         fontWeight: 'bold',
+    },
+    boxText2: {
+        marginTop: 5,
+        fontSize: 12,
     },
 });
 
