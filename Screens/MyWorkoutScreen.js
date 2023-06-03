@@ -19,4 +19,3 @@ const MyWorkoutScreen = () => {
 };
 
 export default MyWorkoutScreen;
-
