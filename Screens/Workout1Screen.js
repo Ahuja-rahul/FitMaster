@@ -102,8 +102,21 @@ const styles = StyleSheet.create({
   workoutContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 5,
+    
+    borderColor: 'gray',
+    padding: 10,
+    shadowColor: '#000',
+    
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
+  // workoutContainer: {
+  //   flexDirection: 'row',
+  //   alignItems: 'center',
+  //   marginBottom: 20,
+  // },
   workoutImageContainer: {
     flex: 1,
     alignItems: 'flex-start',
@@ -117,6 +130,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     resizeMode: 'contain',
+    marginTop: 10,
   },
   workoutName: {
     fontSize: 18,
