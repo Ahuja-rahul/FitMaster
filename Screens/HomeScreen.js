@@ -28,11 +28,17 @@ const HomeScreen = ({ navigation }) => {
             >
                 <Pressable style={styles.hriozontalBanner}
                 onPress={() => handleBoxPress('W1')}>
-                    <Text style={styles.bannerText}>Banner 1</Text>
+                    <Image
+                source={require('../assets/bannerImage1.jpg')}
+                style={styles.bannerImage}/>
+                    {/* <Text style={styles.bannerText}>Banner 1</Text> */}
                 </Pressable>
                 <Pressable style={styles.hriozontalBanner}
                 onPress={() => handleBoxPress('W1')}>
-                    <Text style={styles.bannerText}>Banner 2</Text>
+                    <Image
+                source={require('../assets/bannerImage2.jpg')}
+                style={styles.bannerImage}/>
+                    {/* <Text style={styles.bannerText}>Banner 2</Text> */}
                 </Pressable>
             </ScrollView>
 
@@ -132,6 +138,12 @@ const styles = StyleSheet.create({
     //     justifyContent: 'center',
     //     alignItems: 'center',
     // },
+    bannerImage: {
+        width: '100%',
+        height: '100%',
+        resizeMode: 'cover',
+        borderRadius: 10,
+      },
     bannerImage: {
         width: '100%',
         height: '100%',
