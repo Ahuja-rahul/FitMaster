@@ -27,14 +27,14 @@ const HomeScreen = ({ navigation }) => {
                 showsHorizontalScrollIndicator={false}
             >
                 <Pressable style={styles.hriozontalBanner}
-                onPress={() => handleBoxPress('W1')}>
+                onPress={() => handleBoxPress('Banner')}>
                     <Image
                 source={require('../assets/bannerImage1.jpg')}
                 style={styles.bannerImage}/>
                     {/* <Text style={styles.bannerText}>Banner 1</Text> */}
                 </Pressable>
                 <Pressable style={styles.hriozontalBanner}
-                onPress={() => handleBoxPress('W1')}>
+                onPress={() => handleBoxPress('Banner')}>
                     <Image
                 source={require('../assets/bannerImage2.jpg')}
                 style={styles.bannerImage}/>

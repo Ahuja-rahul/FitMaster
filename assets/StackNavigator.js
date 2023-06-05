@@ -9,6 +9,7 @@ import Workout3Screen from '../Screens/Workout3Screen';
 import Workout4Screen from '../Screens/Workout4Screen';
 import Workout5Screen from '../Screens/Workout5Screen';
 import Workout6Screen from '../Screens/Workout1Screen';
+import Banner from '../Screens/Banner';
 
 const Stack = createStackNavigator();
 
@@ -25,6 +26,7 @@ function MyStack() {
             <Stack.Screen name="W4" component={Workout4Screen} options={{headerShown:false}}/>
             <Stack.Screen name="W5" component={Workout5Screen} options={{headerShown:false}}/>
             <Stack.Screen name="W6" component={Workout6Screen} options={{headerShown:false}}/>
+            <Stack.Screen name="Banner" component={Banner} options={{headerShown:false}}/>
             
           </Stack.Navigator>
         
