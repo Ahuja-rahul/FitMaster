@@ -92,7 +92,7 @@ const HomeScreen = ({ navigation }) => {
 
                     <Pressable
                         style={[styles.box, { width: boxSize, height: boxSize }]}
-                        onPress={() => handleBoxPress('W1')}
+                        onPress={() => handleBoxPress('W5')}
                     >
                         <Image
                             source={require('../assets/image1.jpg')}
@@ -104,7 +104,7 @@ const HomeScreen = ({ navigation }) => {
 
                     <Pressable
                         style={[styles.box, { width: boxSize, height: boxSize }]}
-                        onPress={() => handleBoxPress('W2')}
+                        onPress={() => handleBoxPress('W6')}
                     >
                         <Image
                             source={require('../assets/image2.jpg')}

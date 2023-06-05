@@ -9,49 +9,49 @@ const Workout2Screen = () => {
   const handleBoxPress = (screenName) => {
     navigation.navigate(screenName);
   };
-
+ 
   const workouts = [
     {
       id: 1,
       name: 'Weighted Pull-Ups',
       reps: '10 reps 4 sets',
-      image: require('../assets/image1.jpg'),
+      image: require('../assets/Workout2screens/weighted-pull-up.gif'),
     },
     {
       id: 2,
       name: 'Barbell Rows',
       reps: '15 reps and 4 sets, increse weight each set', 
-      image: require('../assets/image2.jpg'),
+      image: require('../assets/Workout2screens/barbell-row.gif'),
     },
     {
       id: 3,
       name: 'One-Arm Dumbbell Rows',
       reps: '15 reps and 4 sets, increse weight each set',
-      image: require('../assets/image2.jpg'),
+      image: require('../assets/Workout2screens/one-arm-dumbbell-row.gif'),
     },
     {
       id: 4,
       name: 'Chin-Ups',
       reps: '15 reps and 4 sets, increse weight each set. Last set drop set',
-      image: require('../assets/image2.jpg'),
+      image: require('../assets/Workout2screens/chin-ups.gif'),
     },
     {
       id: 5,
       name: 'T-Bar Rows',
       reps: '15 reps and 4 sets, increse weight each set',
-      image: require('../assets/image2.jpg'),
+      image: require('../assets/Workout2screens/t-bar-row.gif'),
     },
     {
       id: 6,
       name: 'Concentration Curls',
       reps: '15 reps and 4 sets',
-      image: require('../assets/image2.jpg'),
+      image: require('../assets/Workout2screens/concentration-curl.gif'),
     },
     {
       id: 7,
       name: 'Hammer Curls',
       reps: 'Drop set',
-      image: require('../assets/image2.jpg'),
+      image: require('../assets/Workout2screens/hammer-curl.gif'),
     },
   ];
 

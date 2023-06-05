@@ -15,37 +15,37 @@ const Workout1Screen = () => {
       id: 1,
       name: 'Pull-ups',
       reps: '8 reps and 3 sets',
-      image: require('../assets/Workout1screens/Pull-ups.jpg'),
+      image: require('../assets/Workout1screen/Pullups.gif'),
     },
     {
       id: 2,
       name: 'Lat Pulldowns',
       reps: '12 reps and 3 sets',
-      image: require('../assets/Workout1screens/LatPulldowns.jpg'),
+      image: require('../assets/Workout1screen/LatPulldowns.gif'),
     },
     {
       id: 3,
       name: 'Dumbbell Rows',
       reps: '12 reps and 3 sets',
-      image: require('../assets/Workout1screens/DumbbellRows.jpg'),
+      image: require('../assets/Workout1screen/DumbbellRows.gif'),
     },
     {
       id: 4,
       name: 'Barbell Rows',
       reps: '12 reps and 3 sets',
-      image: require('../assets/Workout1screens/BarbellRows.jpg'),
+      image: require('../assets/Workout1screen/BarbellRows.gif'),
     },
     {
       id: 5,
       name: 'Hammer Curls',
       reps: '12 reps and 3 sets',
-      image: require('../assets/Workout1screens/HammerCurls.jpg'),
+      image: require('../assets/Workout1screen/HammerCurls.gif'),
     },
     {
       id: 6,
       name: 'Alternating Dumbbell Curls',
       reps: '12 reps and 3 sets',
-      image: require('../assets/Workout1screens/AlternatingDumbbellCurls.jpg'),
+      image: require('../assets/Workout1screen/AlternatingDumbbellCurls.gif'),
     },
   ];
 

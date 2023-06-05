@@ -15,25 +15,25 @@ const Workout3Screen = () => {
       id: 1,
       name: 'Push-Ups',
       reps: '20 reps and 5 sets',
-      image: require('../assets/image1.jpg'),
+      image: require('../assets/Workout3screens/pushup.gif'),
     },
     {
       id: 2,
       name: 'Dumbbell Chest Press',
       reps: '12 reps and 3 sets',
-      image: require('../assets/image2.jpg'),
+      image: require('../assets/Workout3screens/dumbbellChestPress.gif'),
     },
     {
       id: 3,
       name: 'Triceps Dips',
       reps: '12 reps and 3 sets',
-      image: require('../assets/image2.jpg'),
+      image: require('../assets/Workout3screens/tricepdips.gif'),
     },
     {
       id: 4,
       name: 'Triceps Kickbacks:',
       reps: '12 reps and 3 sets',
-      image: require('../assets/image2.jpg'),
+      image: require('../assets/Workout3screens/tricepkickbacks.gif'),
     },
     
   ];
