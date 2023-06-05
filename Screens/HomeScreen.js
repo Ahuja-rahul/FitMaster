@@ -47,7 +47,7 @@ const HomeScreen = ({ navigation }) => {
                         onPress={() => handleBoxPress('W1')}
                     >
                         <Image
-                            source={require('../assets/image1.jpg')}
+                            source={require('../assets/WorkoutScreen/BacknBicepB.png')}
                             style={styles.image}
                         />
                         <Text style={styles.boxText}>Back n Bicep</Text>
@@ -59,7 +59,7 @@ const HomeScreen = ({ navigation }) => {
                         onPress={() => handleBoxPress('W2')}
                     >
                         <Image
-                             source={require('../assets/image2.jpg')}
+                             source={require('../assets/WorkoutScreen/BacknBicep.png')}
                             style={styles.image}
                         />
                         <Text style={styles.boxText}>Back n Bicep</Text>
@@ -71,7 +71,7 @@ const HomeScreen = ({ navigation }) => {
                         onPress={() => handleBoxPress('W3')}
                     >
                         <Image
-                            source={require('../assets/image1.jpg')}
+                            source={require('../assets/WorkoutScreen/ChestnTricepB.png')}
                             style={styles.image}
                         />
                         <Text style={styles.boxText}>Chest n Tricep</Text>
@@ -83,7 +83,7 @@ const HomeScreen = ({ navigation }) => {
                         onPress={() => handleBoxPress('W4')}
                     >
                         <Image
-                             source={require('../assets/image2.jpg')}
+                             source={require('../assets/WorkoutScreen/ChestnTricepA.png')}
                             style={styles.image}
                         />
                       <Text style={styles.boxText}>Chest n Tricep</Text>
@@ -95,7 +95,7 @@ const HomeScreen = ({ navigation }) => {
                         onPress={() => handleBoxPress('W5')}
                     >
                         <Image
-                            source={require('../assets/image1.jpg')}
+                            source={require('../assets/WorkoutScreen/LegnShoulderB.png')}
                             style={styles.image}
                         />
                          <Text style={styles.boxText}>Shoulders n Legs</Text>
@@ -107,7 +107,7 @@ const HomeScreen = ({ navigation }) => {
                         onPress={() => handleBoxPress('W6')}
                     >
                         <Image
-                            source={require('../assets/image2.jpg')}
+                            source={require('../assets/WorkoutScreen/LegnShoulderA.png')}
                             style={styles.image}
                         />
                          <Text style={styles.boxText}>Shoulders n Legs</Text>
