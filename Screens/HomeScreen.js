@@ -28,20 +28,14 @@ const HomeScreen = ({ navigation }) => {
             >
                 <Pressable style={styles.hriozontalBanner}
                 onPress={() => handleBoxPress('W1')}>
-                    <Image
-                source={require('../assets/bannerImage1.jpg')}
-                style={styles.bannerImage}/>
-                    {/* <Text style={styles.bannerText}>Banner 1</Text> */}
+                    <Text style={styles.bannerText}>Banner 1</Text>
                 </Pressable>
                 <Pressable style={styles.hriozontalBanner}
                 onPress={() => handleBoxPress('W1')}>
-                    <Image
-                source={require('../assets/bannerImage2.jpg')}
-                style={styles.bannerImage}/>
-                    {/* <Text style={styles.bannerText}>Banner 2</Text> */}
+                    <Text style={styles.bannerText}>Banner 2</Text>
                 </Pressable>
             </ScrollView>
-            
+
             <Text style={styles.popularWorkoutsText}>
                 Popular Workouts
             </Text>
@@ -65,7 +59,7 @@ const HomeScreen = ({ navigation }) => {
                         onPress={() => handleBoxPress('W2')}
                     >
                         <Image
-                             source={require('../assets/WorkoutScreen/BacknBicep.png')}
+                            source={require('../assets/WorkoutScreen/BacknBicep.png')}
                             style={styles.image}
                         />
                         <Text style={styles.boxText}>Back n Bicep</Text>
@@ -89,10 +83,10 @@ const HomeScreen = ({ navigation }) => {
                         onPress={() => handleBoxPress('W4')}
                     >
                         <Image
-                             source={require('../assets/WorkoutScreen/ChestnTricepA.png')}
+                            source={require('../assets/WorkoutScreen/ChestnTricepA.png')}
                             style={styles.image}
                         />
-                      <Text style={styles.boxText}>Chest n Tricep</Text>
+                        <Text style={styles.boxText}>Chest n Tricep</Text>
                         <Text style={styles.boxText2}>Advanced</Text>
                     </Pressable>
 
@@ -104,7 +98,7 @@ const HomeScreen = ({ navigation }) => {
                             source={require('../assets/WorkoutScreen/LegnShoulderB.png')}
                             style={styles.image}
                         />
-                         <Text style={styles.boxText}>Shoulders n Legs</Text>
+                        <Text style={styles.boxText}>Shoulders n Legs</Text>
                         <Text style={styles.boxText2}>Beginner</Text>
                     </Pressable>
 
@@ -116,7 +110,7 @@ const HomeScreen = ({ navigation }) => {
                             source={require('../assets/WorkoutScreen/LegnShoulderA.png')}
                             style={styles.image}
                         />
-                         <Text style={styles.boxText}>Shoulders n Legs</Text>
+                        <Text style={styles.boxText}>Shoulders n Legs</Text>
                         <Text style={styles.boxText2}>Advanced</Text>
                     </Pressable>
                 </View>
@@ -157,6 +151,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#e0e0e0',
         borderRadius: 10,
+        padding: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.3,
+        shadowRadius: 2,
+        elevation: 3,
     },
     image: {
         width: '70%',
@@ -188,10 +188,12 @@ const styles = StyleSheet.create({
         marginTop: 5,
         fontSize: 14,
         fontWeight: 'bold',
+        textAlign: 'center',
     },
     boxText2: {
         marginTop: 5,
         fontSize: 12,
+        textAlign: 'center',
     },
 });
 
