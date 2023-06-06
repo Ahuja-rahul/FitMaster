@@ -10,50 +10,51 @@ const Workout6Screen = () => {
     navigation.navigate(screenName);
   };
 
-  const workouts = [
-    {
-      id: 1,
-      name: 'Barbell Squat with Chains',
-      reps: '10 reps',
-      image: require('../assets/Workout6screens/BarbellSquatwithChains.gif'),
-    },
-    {
-      id: 2,
-      name: 'Bulgarian Split Squats',
-      reps: '12 reps',
-      image: require('../assets/Workout6screens/BulgarianSplitSquats.gif'),
-    },
-    {
-      id: 3,
-      name: 'Pistol Squats',
-      reps: '12 reps',
-      image: require('../assets/Workout6screens/PistolSquats.gif'),
-    },
-    {
-      id: 4,
-      name: 'Standing Barbell Overhead Press',
-      reps: '12 reps',
-      image: require('../assets/Workout6screens/StandingBarbellOverheadPress.gif'),
-    },
-    {
-      id: 5,
-      name: 'Handstand Push-ups',
-      reps: '12 reps',
-      image: require('../assets/Workout6screens/HandstandPushups.gif'),
-    },
-    {
-      id: 6,
-      name: 'Arnold Press',
-      reps: '12 reps',
-      image: require('../assets/Workout6screens/ArnoldPress.gif'),
-    },
-    {
-      id: 7,
-      name: 'Dumbbell Lateral Raises',
-      reps: '12 reps',
-      image: require('../assets/Workout6screens/DumbbellLateralRaises.gif'),
-    },
-  ];
+ 
+const workouts = [
+  {
+    id: 1,
+    name: 'Barbell Squat with Chains',
+    reps: '10 reps',
+    image: require('../assets/Workout6screen/BarbellSquatwithChains.gif'),
+  },
+  {
+    id: 2,
+    name: 'Bulgarian Split Squats',
+    reps: '12 reps',
+    image: require('../assets/Workout6screen/BulgarianSplitSquats.gif'),
+  },
+  {
+    id: 3,
+    name: 'Pistol Squats',
+    reps: '12 reps',
+    image: require('../assets/Workout6screen/PistolSquats.gif'),
+  },
+  {
+    id: 4,
+    name: 'Standing Barbell Overhead Press',
+    reps: '12 reps',
+    image: require('../assets/Workout6screen/StandingBarbellOverheadPress.gif'),
+  },
+  {
+    id: 5,
+    name: 'Handstand Push-ups',
+    reps: '12 reps',
+    image: require('../assets/Workout6screen/HandstandPushups.gif'),
+  },
+  {
+    id: 6,
+    name: 'Arnold Press',
+    reps: '12 reps',
+    image: require('../assets/Workout6screen/ArnoldPress.gif'),
+  },
+  {
+    id: 7,
+    name: 'Dumbbell Lateral Raises',
+    reps: '12 reps',
+    image: require('../assets/Workout6screen/DumbbellLateralRaises.gif'),
+  },
+];
 
   return (
     <SafeAreaView style={[styles.container, Platform.OS === 'android' && styles.androidPadding]}>
@@ -107,14 +108,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 5,
-    
     borderColor: 'gray',
     padding: 10,
-    shadowColor: '#000',
-    
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    ...Platform.select({
+      android: {
+        elevation: 5,
+        shadowColor: '#000',
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+      },
+      ios: {
+        // No shadow styles for iOS
+      },
+    }),
   },
   workoutImageContainer: {
     flex: 1,
@@ -143,3 +149,5 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
 });
+
+

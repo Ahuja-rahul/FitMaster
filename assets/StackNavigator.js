@@ -8,7 +8,7 @@ import Workout2Screen from '../Screens/Workout2Screen';
 import Workout3Screen from '../Screens/Workout3Screen';
 import Workout4Screen from '../Screens/Workout4Screen';
 import Workout5Screen from '../Screens/Workout5Screen';
-import Workout6Screen from '../Screens/Workout1Screen';
+import Workout6Screen from '../Screens/Workout6Screen';
 import Banner from '../Screens/Banner';
 
 const Stack = createStackNavigator();

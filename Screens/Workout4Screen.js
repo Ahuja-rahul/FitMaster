@@ -120,14 +120,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 5,
-    
     borderColor: 'gray',
     padding: 10,
-    shadowColor: '#000',
-    
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    ...Platform.select({
+      android: {
+        elevation: 5,
+        shadowColor: '#000',
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+      },
+      ios: {
+        // No shadow styles for iOS
+      },
+    }),
   },
   workoutImageContainer: {
     flex: 1,
