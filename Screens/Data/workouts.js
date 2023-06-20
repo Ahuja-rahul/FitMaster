@@ -242,6 +242,6 @@ const data = [
   ];
   
   
-  
+  const myWorkouts = []
 
-  export {data};
+  export {data, myWorkouts};
