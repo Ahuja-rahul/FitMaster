@@ -10,6 +10,8 @@ import Workout5Screen from '../Screens/Workout5Screen';
 import Workout6Screen from '../Screens/Workout6Screen';
 import Banner from '../Screens/Banner';
 import SearchScreen from '../Screens/SearchScreen';
+import SettingScreen from '../Screens/SettingScreen';
+import ProfileScreen from '../Screens/ProfileScreen';
 
 
 const Stack = createStackNavigator();
@@ -28,6 +30,8 @@ function MyStack() {
       <Stack.Screen name="LegnShoulder Beginner" component={Workout5Screen} options={{ headerShown: true, headerBackTitleVisible: false }} />
       <Stack.Screen name="LegnShoulder Advanced" component={Workout6Screen} options={{ headerShown: true, headerBackTitleVisible: false }} />
       <Stack.Screen name="Banner" component={Banner} options={{ headerShown: false }} />
+      <Stack.Screen name="Settings" component={SettingScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: true }} />
     </Stack.Navigator>
   );
 }
