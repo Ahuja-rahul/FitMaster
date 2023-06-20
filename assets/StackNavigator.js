@@ -21,12 +21,12 @@ function MyStack() {
       <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
       <Stack.Screen name="WorkOutScreen" component={MyWorkoutScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Search" component={SearchScreen} options={{ headerShown: true }} />
-      <Stack.Screen name="BackBicepB" component={Workout1Screen} options={{headerShown: true,headerBackTitleVisible: false,}}/>
-      <Stack.Screen name="BacknBicepA" component={Workout2Screen} options={{ headerShown: true, headerBackTitleVisible: false }} />
-      <Stack.Screen name="ChestnTricepB" component={Workout3Screen} options={{ headerShown: true, headerBackTitleVisible: false }} />
-      <Stack.Screen name="ChestnTricepA" component={Workout4Screen} options={{ headerShown: true, headerBackTitleVisible: false }} />
-      <Stack.Screen name="LegnShoulderB" component={Workout5Screen} options={{ headerShown: true, headerBackTitleVisible: false }} />
-      <Stack.Screen name="LegnShoulderA" component={Workout6Screen} options={{ headerShown: true, headerBackTitleVisible: false }} />
+      <Stack.Screen name="BacknBicep Beginner" component={Workout1Screen} options={{headerShown: true,headerBackTitleVisible: false,}}/>
+      <Stack.Screen name="BacknBicep Advanced" component={Workout2Screen} options={{ headerShown: true, headerBackTitleVisible: false }} />
+      <Stack.Screen name="ChestnTricep Beginner" component={Workout3Screen} options={{ headerShown: true, headerBackTitleVisible: false }} />
+      <Stack.Screen name="ChestnTricep Advanced" component={Workout4Screen} options={{ headerShown: true, headerBackTitleVisible: false }} />
+      <Stack.Screen name="LegnShoulder Beginner" component={Workout5Screen} options={{ headerShown: true, headerBackTitleVisible: false }} />
+      <Stack.Screen name="LegnShoulder Advanced" component={Workout6Screen} options={{ headerShown: true, headerBackTitleVisible: false }} />
       <Stack.Screen name="Banner" component={Banner} options={{ headerShown: false }} />
     </Stack.Navigator>
   );

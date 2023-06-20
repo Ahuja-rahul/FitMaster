@@ -26,31 +26,22 @@ const HomeScreen = ({ navigation }) => {
                 pagingEnabled
                 showsHorizontalScrollIndicator={false}
             >
-                <Pressable style={styles.hriozontalBanner}
-                onPress={() => handleBoxPress('Banner')}>
-                    <Image
-                source={require('../assets/bannerImage1.jpg')}
-                style={styles.bannerImage}/>
-                    {/* <Text style={styles.bannerText}>Banner 1</Text> */}
+                <Pressable style={styles.hriozontalBanner} onPress={() => handleBoxPress('Banner')}>
+                    <Image source={require('../assets/bannerImage1.jpg')} style={styles.bannerImage} />
                 </Pressable>
-                <Pressable style={styles.hriozontalBanner}
-                onPress={() => handleBoxPress('Banner')}>
-                    <Image
-                source={require('../assets/bannerImage2.jpg')}
-                style={styles.bannerImage}/>
-                    {/* <Text style={styles.bannerText}>Banner 2</Text> */}
+                <Pressable style={styles.hriozontalBanner} onPress={() => handleBoxPress('Banner')}>
+                    <Image source={require('../assets/bannerImage2.jpg')} style={styles.bannerImage} />
                 </Pressable>
             </ScrollView>
 
-            <Text style={styles.popularWorkoutsText}>
-                Popular Workouts
-            </Text>
+
+            <Text style={styles.popularWorkoutsText}>Popular Workouts</Text>
 
             <View style={styles.container}>
                 <View style={styles.boxContainer}>
                     <Pressable
                         style={[styles.box, { width: boxSize, height: boxSize }]}
-                        onPress={() => handleBoxPress('W1')}
+                        onPress={() => handleBoxPress('BacknBicep Beginner')}
                     >
                         <Image
                             source={require('../assets/WorkoutScreen/BacknBicepB.png')}
@@ -60,9 +51,10 @@ const HomeScreen = ({ navigation }) => {
                         <Text style={styles.boxText2}>Beginner</Text>
                     </Pressable>
 
+
                     <Pressable
                         style={[styles.box, { width: boxSize, height: boxSize }]}
-                        onPress={() => handleBoxPress('W2')}
+                        onPress={() => handleBoxPress('BacknBicep Advanced')}
                     >
                         <Image
                             source={require('../assets/WorkoutScreen/BacknBicep.png')}
@@ -74,7 +66,7 @@ const HomeScreen = ({ navigation }) => {
 
                     <Pressable
                         style={[styles.box, { width: boxSize, height: boxSize }]}
-                        onPress={() => handleBoxPress('W3')}
+                        onPress={() => handleBoxPress('ChestnTricep Beginner')}
                     >
                         <Image
                             source={require('../assets/WorkoutScreen/ChestnTricepB.png')}
@@ -86,7 +78,7 @@ const HomeScreen = ({ navigation }) => {
 
                     <Pressable
                         style={[styles.box, { width: boxSize, height: boxSize }]}
-                        onPress={() => handleBoxPress('W4')}
+                        onPress={() => handleBoxPress('ChestnTricep Advanced')}
                     >
                         <Image
                             source={require('../assets/WorkoutScreen/ChestnTricepA.png')}
@@ -98,7 +90,7 @@ const HomeScreen = ({ navigation }) => {
 
                     <Pressable
                         style={[styles.box, { width: boxSize, height: boxSize }]}
-                        onPress={() => handleBoxPress('W5')}
+                        onPress={() => handleBoxPress('LegnShoulder Beginner')}
                     >
                         <Image
                             source={require('../assets/WorkoutScreen/LegnShoulderB.png')}
@@ -110,7 +102,7 @@ const HomeScreen = ({ navigation }) => {
 
                     <Pressable
                         style={[styles.box, { width: boxSize, height: boxSize }]}
-                        onPress={() => handleBoxPress('W6')}
+                        onPress={() => handleBoxPress('LegnShoulder Advanced')}
                     >
                         <Image
                             source={require('../assets/WorkoutScreen/LegnShoulderA.png')}
@@ -143,13 +135,13 @@ const styles = StyleSheet.create({
         height: '100%',
         resizeMode: 'cover',
         borderRadius: 10,
-      },
+    },
     bannerImage: {
         width: '100%',
         height: '100%',
         resizeMode: 'cover',
         borderRadius: 10,
-      },
+    },
     boxContainer: {
         flexDirection: 'row',
         flexWrap: 'wrap',

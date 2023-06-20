@@ -53,9 +53,6 @@ const Workout1Screen = () => {
     <SafeAreaView style={[styles.container, Platform.OS === 'android' && styles.androidPadding]}>
       <ScrollView stickyHeaderIndices={[0]}>
         <View style={styles.toolbar}>
-          <Pressable onPress={() => handleBoxPress('Dash')}>
-            <Ionicons name="arrow-back" size={24} color="black" />
-          </Pressable>
         </View>
         <View style={styles.content}>
           {workouts.map((workout) => (
