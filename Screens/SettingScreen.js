@@ -24,7 +24,7 @@ const SettingScreen = ({ navigation }) => {
           style={styles.profileImage}
           source={require('../assets/icon.png')}
         />
-        <Text style={styles.profileName}>John Doe</Text>
+        <Text style={styles.profileName}>Guest</Text>
       </Pressable>
       <Text style={styles.title}>Settings</Text>
       <Text style={styles.subtitle}>General</Text>

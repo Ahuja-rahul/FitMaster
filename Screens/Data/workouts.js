@@ -242,6 +242,11 @@ const data = [
   ];
   
   
-  const myWorkouts = []
+  
 
-  export {data, myWorkouts};
+  var myWorkouts = []
+var myMeasurements = []
+
+export { data, myWorkouts, myMeasurements };
+
+  
