@@ -65,7 +65,6 @@ const ProfileScreen = () => {
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding" keyboardVerticalOffset={Platform.select({ ios: 0, android: 25 })}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {/* <Text style={styles.title}>Profile</Text> */}
         <Text style={styles.subtitle}>Body Measurements</Text>
         {measurements.map((measurement, index) => (
           <View key={index} style={styles.measurementItem}>

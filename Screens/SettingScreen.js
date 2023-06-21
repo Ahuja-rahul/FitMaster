@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Switch, Image, Pressable } from 'react-native';
+import { StyleSheet, View, Text, Switch, Image, Modal, TextInput, Button, TouchableOpacity } from 'react-native';
 
 const SettingScreen = ({ navigation }) => {
   const [notificationEnabled, setNotificationEnabled] = useState(false);
   const [darkModeEnabled, setDarkModeEnabled] = useState(false);
+  const [profileName, setProfileName] = useState('Guest');
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [newProfileName, setNewProfileName] = useState('');
 
   const goToProfile = () => {
     navigation.navigate('Profile');
@@ -17,15 +20,35 @@ const SettingScreen = ({ navigation }) => {
     setDarkModeEnabled(!darkModeEnabled);
   };
 
+  const handleProfileNameChange = (text) => {
+    setProfileName(text);
+  };
+
+  const handleModalOpen = () => {
+    setModalVisible(true);
+    setNewProfileName(profileName);
+  };
+
+  const handleModalClose = () => {
+    setModalVisible(false);
+  };
+
+  const handleSaveProfileName = () => {
+    setProfileName(newProfileName);
+    setModalVisible(false);
+  };
+
   return (
     <View style={styles.container}>
-      <Pressable onPress={goToProfile} style={styles.profileContainer}>
+      <Text style={styles.subtitle}>Profile</Text>
+      <View onPress={goToProfile} style={styles.profileContainer}>
         <Image
           style={styles.profileImage}
           source={require('../assets/icon.png')}
         />
-        <Text style={styles.profileName}>Guest</Text>
-      </Pressable>
+        <Text style={styles.profileName}>{profileName}</Text>
+        <Button title="Go to Profile" onPress={goToProfile} />
+      </View>
       <Text style={styles.title}>Settings</Text>
       <Text style={styles.subtitle}>General</Text>
       <View style={styles.settingItem}>
@@ -42,6 +65,34 @@ const SettingScreen = ({ navigation }) => {
           onValueChange={toggleDarkMode}
         />
       </View>
+      <Text style={styles.subtitle}>Profile</Text>
+      <View style={styles.settingItem}>
+        <Text>Profile Name</Text>
+        <Button title="Change Name" onPress={handleModalOpen} />
+      </View>
+      <Modal
+        visible={isModalVisible}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={handleModalClose}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Change Profile Name</Text>
+            <TextInput
+              style={styles.modalTextInput}
+              value={newProfileName}
+              onChangeText={setNewProfileName}
+            />
+            <View style={styles.modalButtonContainer}>
+              <View style={{ paddingRight: 8 }}>
+                <Button title="Cancel" onPress={handleModalClose} />
+              </View>
+              <Button title="Save" onPress={handleSaveProfileName} />
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -84,6 +135,34 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    marginHorizontal: 40,
+    padding: 20,
+    borderRadius: 8,
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 12,
+  },
+  modalTextInput: {
+    height: 40,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 4,
+    paddingHorizontal: 8,
+    marginBottom: 12,
+  },
+  modalButtonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
   },
 });
 
