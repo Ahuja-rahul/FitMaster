@@ -47,10 +47,21 @@ const SettingScreen = ({ navigation }) => {
           source={require('../assets/icon.png')}
         />
         <Text style={styles.profileName}>{profileName}</Text>
-        
       </View>
-      <Text style={styles.title}>Settings</Text>
-      <Text style={styles.subtitle}>General</Text>
+
+      <Text style={styles.subtitle}>Settings</Text>
+     
+
+      <Text style={styles.title}>Profile</Text>
+      <View style={styles.settingItem}>
+        <Text>Profile Name</Text>
+        <Button title="Change Name" onPress={handleModalOpen} />
+      </View>
+      <View style={styles.settingItem}>
+        <Text>Body Measurement</Text>
+        <Button title="Go to Measurement" onPress={goToProfile} />
+      </View>
+      <Text style={styles.title}>General</Text>
       <View style={styles.settingItem}>
         <Text>Notifications</Text>
         <Switch
@@ -65,16 +76,7 @@ const SettingScreen = ({ navigation }) => {
           onValueChange={toggleDarkMode}
         />
       </View>
-      <Text style={styles.subtitle}>Profile</Text>
-      <View style={styles.settingItem}>
-        <Text>Profile Name</Text>
-        <Button title="Change Name" onPress={handleModalOpen} />
-      </View>
-      <View style={styles.settingItem}>
-        <Text>Boby Measurement</Text>
-        <Button title="Go to measurement" onPress={goToProfile} />
-      </View>
-      
+
       <Modal
         visible={isModalVisible}
         animationType="slide"
@@ -126,6 +128,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 16,
+    marginTop: 16,
   },
   subtitle: {
     fontSize: 18,
@@ -144,6 +147,7 @@ const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalContent: {
@@ -151,6 +155,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 40,
     padding: 20,
     borderRadius: 8,
+    alignItems: 'center',
   },
   modalTitle: {
     fontSize: 18,
@@ -164,10 +169,13 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     paddingHorizontal: 8,
     marginBottom: 12,
+    width: '100%',
   },
   modalButtonContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
+    width: '100%',
+    marginTop: 12,
   },
 });
 
