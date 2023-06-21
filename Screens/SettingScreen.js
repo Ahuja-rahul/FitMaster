@@ -41,36 +41,35 @@ const SettingScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.subtitle}>Profile</Text>
-      <View onPress={goToProfile} style={styles.profileContainer}>
+      <TouchableOpacity style={styles.profileContainer}>
         <Image
           style={styles.profileImage}
           source={require('../assets/icon.png')}
         />
         <Text style={styles.profileName}>{profileName}</Text>
-      </View>
+      </TouchableOpacity>
 
       <Text style={styles.subtitle}>Settings</Text>
-     
 
       <Text style={styles.title}>Profile</Text>
       <View style={styles.settingItem}>
-        <Text>Profile Name</Text>
+        <Text style={styles.settingText}>Profile Name</Text>
         <Button title="Change Name" onPress={handleModalOpen} />
       </View>
       <View style={styles.settingItem}>
-        <Text>Body Measurement</Text>
+        <Text style={styles.settingText}>Body Measurement</Text>
         <Button title="Go to Measurement" onPress={goToProfile} />
       </View>
       <Text style={styles.title}>General</Text>
       <View style={styles.settingItem}>
-        <Text>Notifications</Text>
+        <Text style={styles.settingText}>Notifications</Text>
         <Switch
           value={notificationEnabled}
           onValueChange={toggleNotification}
         />
       </View>
       <View style={styles.settingItem}>
-        <Text>Dark Mode</Text>
+        <Text style={styles.settingText}>Dark Mode</Text>
         <Switch
           value={darkModeEnabled}
           onValueChange={toggleDarkMode}
@@ -92,8 +91,8 @@ const SettingScreen = ({ navigation }) => {
               onChangeText={setNewProfileName}
             />
             <View style={styles.modalButtonContainer}>
-              <View style={{ paddingRight: 8 }}>
-                <Button title="Cancel" onPress={handleModalClose} />
+              <View style={styles.modalButton}>
+                <Button title="Cancel" onPress={handleModalClose} color="#666" />
               </View>
               <Button title="Save" onPress={handleSaveProfileName} />
             </View>
@@ -108,11 +107,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+    backgroundColor: '#F5F5F5',
   },
   profileContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 16,
+    backgroundColor: '#FFF',
+    padding: 12,
+    borderRadius: 8,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
   profileImage: {
     width: 50,
@@ -123,18 +134,21 @@ const styles = StyleSheet.create({
   profileName: {
     fontSize: 20,
     fontWeight: 'bold',
+    color: '#333',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 16,
     marginTop: 16,
+    color: '#333',
   },
   subtitle: {
     fontSize: 18,
     fontWeight: 'bold',
     marginTop: 16,
     marginBottom: 8,
+    color: '#666',
   },
   settingItem: {
     paddingVertical: 12,
@@ -143,6 +157,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  settingText: {
+    fontSize: 16,
+    color: '#333',
   },
   modalContainer: {
     flex: 1,
@@ -161,6 +179,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 12,
+    color: '#333',
   },
   modalTextInput: {
     height: 40,
@@ -170,12 +189,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     marginBottom: 12,
     width: '100%',
+    color: '#333',
   },
   modalButtonContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
     width: '100%',
     marginTop: 12,
+  },
+  modalButton: {
+    paddingRight: 8,
   },
 });
 
