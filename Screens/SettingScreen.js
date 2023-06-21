@@ -47,7 +47,7 @@ const SettingScreen = ({ navigation }) => {
           source={require('../assets/icon.png')}
         />
         <Text style={styles.profileName}>{profileName}</Text>
-        <Button title="Go to Profile" onPress={goToProfile} />
+        
       </View>
       <Text style={styles.title}>Settings</Text>
       <Text style={styles.subtitle}>General</Text>
@@ -70,6 +70,11 @@ const SettingScreen = ({ navigation }) => {
         <Text>Profile Name</Text>
         <Button title="Change Name" onPress={handleModalOpen} />
       </View>
+      <View style={styles.settingItem}>
+        <Text>Boby Measurement</Text>
+        <Button title="Go to measurement" onPress={goToProfile} />
+      </View>
+      
       <Modal
         visible={isModalVisible}
         animationType="slide"
