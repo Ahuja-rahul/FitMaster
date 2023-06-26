@@ -62,18 +62,18 @@ const SettingScreen = ({ navigation }) => {
       </View>
       <Text style={styles.title}>General</Text>
       <View style={styles.settingItem}>
-        <Text style={styles.settingText}>Notifications</Text>
-        <Switch
+        {/* <Text style={styles.settingText}>Notifications</Text> */}
+        {/* <Switch
           value={notificationEnabled}
           onValueChange={toggleNotification}
-        />
+        /> */}
       </View>
       <View style={styles.settingItem}>
-        <Text style={styles.settingText}>Dark Mode</Text>
-        <Switch
+        {/* <Text style={styles.settingText}>Dark Mode</Text> */}
+        {/* <Switch
           value={darkModeEnabled}
           onValueChange={toggleDarkMode}
-        />
+        /> */}
       </View>
 
       <Modal
