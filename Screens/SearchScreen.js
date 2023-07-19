@@ -11,8 +11,10 @@ const SearchScreen = ({ navigation }) => {
   const handleSearchQueryChange = (query) => {
     setSearchQuery(query);
 
-    const filtered = data.filter((workout) =>
-      workout.name.toLowerCase().includes(query.toLowerCase())
+    const filtered = data.filter(
+      (workout) =>
+        workout.name.toLowerCase().includes(query.toLowerCase()) ||
+        workout.type.toLowerCase().includes(query.toLowerCase())
     );
     setFilteredWorkouts(filtered);
   };
@@ -38,6 +40,11 @@ const SearchScreen = ({ navigation }) => {
     </View>
   );
 
+  let title = null;
+  if (searchQuery !== '' && filteredWorkouts.length > 0) {
+    title = <Text style={styles.title}>Results for: {searchQuery}</Text>;
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.toolbar}>
@@ -48,6 +55,7 @@ const SearchScreen = ({ navigation }) => {
           onChangeText={handleSearchQueryChange}
         />
       </View>
+      {title}
       <FlatList
         data={filteredWorkouts}
         renderItem={renderItem}
@@ -109,6 +117,11 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
     backgroundColor: '#fff',
+  },
+  title: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    marginBottom: 10,
   },
 });
 
