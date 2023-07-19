@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, Switch, Image, Modal, TextInput, Button, TouchableOpacity } from 'react-native';
+import * as Notification from  'expo-notifications'
 
 const SettingScreen = ({ navigation }) => {
   const [notificationEnabled, setNotificationEnabled] = useState(false);
@@ -12,8 +13,23 @@ const SettingScreen = ({ navigation }) => {
     navigation.navigate('Profile');
   };
 
-  const toggleNotification = () => {
-    setNotificationEnabled(!notificationEnabled);
+  const toggleNotification = (value) => {
+    setNotificationEnabled(value);
+    if (value) {
+      console.log("Permision granted");
+      Notification.scheduleNotificationAsync({
+        content: {
+          title: "Local Notification",
+          body: "This is local notification",
+        
+        },
+        trigger: {
+          seconds: 3,
+        },
+      });
+    } else {
+     console.log("No permition");
+    }
   };
 
   const toggleDarkMode = () => {
@@ -62,18 +78,18 @@ const SettingScreen = ({ navigation }) => {
       </View>
       <Text style={styles.title}>General</Text>
       <View style={styles.settingItem}>
-        {/* <Text style={styles.settingText}>Notifications</Text> */}
-        {/* <Switch
+        <Text style={styles.settingText}>Notifications</Text>
+        <Switch
           value={notificationEnabled}
           onValueChange={toggleNotification}
-        /> */}
+        />
       </View>
       <View style={styles.settingItem}>
-        {/* <Text style={styles.settingText}>Dark Mode</Text> */}
-        {/* <Switch
+        <Text style={styles.settingText}>Dark Mode</Text>
+        <Switch
           value={darkModeEnabled}
           onValueChange={toggleDarkMode}
-        /> */}
+        />
       </View>
 
       <Modal
