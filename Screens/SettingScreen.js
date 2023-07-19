@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Switch, Image, Modal, TextInput, Button, TouchableOpacity } from 'react-native';
-import * as Notification from  'expo-notifications'
+import { StyleSheet, View, Text, Switch, Image, Modal, TextInput, Button, TouchableOpacity, FlatList } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import * as Notification from  'expo-notifications' 
 
 const SettingScreen = ({ navigation }) => {
   const [notificationEnabled, setNotificationEnabled] = useState(false);
@@ -8,6 +9,11 @@ const SettingScreen = ({ navigation }) => {
   const [profileName, setProfileName] = useState('Guest');
   const [isModalVisible, setModalVisible] = useState(false);
   const [newProfileName, setNewProfileName] = useState('');
+  const [reminders, setReminders] = useState([]);
+  const [newReminderTitle, setNewReminderTitle] = useState('');
+  const [newReminderTime, setNewReminderTime] = useState('');
+  const [newReminderTimePickerVisible, setNewReminderTimePickerVisible] = useState(false);
+
 
   const goToProfile = () => {
     navigation.navigate('Profile');
@@ -31,7 +37,6 @@ const SettingScreen = ({ navigation }) => {
      console.log("No permition");
     }
   };
-
   const toggleDarkMode = () => {
     setDarkModeEnabled(!darkModeEnabled);
   };
@@ -52,6 +57,41 @@ const SettingScreen = ({ navigation }) => {
   const handleSaveProfileName = () => {
     setProfileName(newProfileName);
     setModalVisible(false);
+  };
+
+  const handleAddReminder = () => {
+    const newReminder = {
+      id: Date.now().toString(),
+      title: newReminderTitle,
+      time: newReminderTime,
+    };
+
+    setReminders([...reminders, newReminder]);
+    setNewReminderTitle('');
+    setNewReminderTime('');
+  };
+
+  const handleDeleteReminder = (id) => {
+    const updatedReminders = reminders.filter((reminder) => reminder.id !== id);
+    setReminders(updatedReminders);
+  };
+
+  const handleTimePicker = () => {
+    setNewReminderTimePickerVisible(true);
+  };
+
+  const handleTimePickerConfirm = (event, selectedTime) => {
+    if (selectedTime) {
+      const hours = selectedTime.getHours();
+      const minutes = selectedTime.getMinutes();
+      const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+      setNewReminderTime(formattedTime);
+    }
+    setNewReminderTimePickerVisible(false);
+  };
+
+  const handleTimePickerCancel = () => {
+    setNewReminderTimePickerVisible(false);
   };
 
   return (
@@ -83,6 +123,7 @@ const SettingScreen = ({ navigation }) => {
           value={notificationEnabled}
           onValueChange={toggleNotification}
         />
+     
       </View>
       <View style={styles.settingItem}>
         <Text style={styles.settingText}>Dark Mode</Text>
@@ -91,6 +132,44 @@ const SettingScreen = ({ navigation }) => {
           onValueChange={toggleDarkMode}
         />
       </View>
+
+      <Text style={styles.title}>Reminders</Text>
+      <View style={styles.addReminderContainer}>
+        <TextInput
+          style={styles.addReminderInput}
+          placeholder="Enter reminder title"
+          value={newReminderTitle}
+          onChangeText={setNewReminderTitle}
+        />
+        <TouchableOpacity style={styles.timePickerButton} onPress={handleTimePicker}>
+          <Text style={styles.timePickerButtonText}>{newReminderTime || 'Select Time'}</Text>
+        </TouchableOpacity>
+        <Button title="Add" onPress={handleAddReminder} />
+      </View>
+      <FlatList
+        data={reminders}
+        renderItem={({ item }) => (
+          <View style={styles.reminderItem}>
+            <Text>{item.title}</Text>
+            <Text style={styles.reminderTime}>{item.time}</Text>
+            <TouchableOpacity onPress={() => handleDeleteReminder(item.id)}>
+              <Text style={styles.deleteReminderText}>Delete</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+        keyExtractor={(item) => item.id}
+      />
+
+      {newReminderTimePickerVisible && (
+        <DateTimePicker
+          value={new Date()}
+          mode="time"
+          is24Hour={false}
+          display="default"
+          onChange={handleTimePickerConfirm}
+          onCancel={handleTimePickerCancel}
+        />
+      )}
 
       <Modal
         visible={isModalVisible}
@@ -215,6 +294,45 @@ const styles = StyleSheet.create({
   },
   modalButton: {
     paddingRight: 8,
+  },
+  addReminderContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 8,
+  },
+  addReminderInput: {
+    flex: 1,
+    marginRight: 8,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 4,
+    paddingHorizontal: 8,
+    height: 40,
+  },
+  timePickerButton: {
+    backgroundColor: '#ccc',
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 4,
+  },
+  timePickerButtonText: {
+    color: '#333',
+  },
+  reminderItem: {
+    paddingVertical: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  reminderTime: {
+    color: '#999',
+    fontSize: 12,
+  },
+  deleteReminderText: {
+    color: 'red',
+    fontSize: 12,
   },
 });
 
