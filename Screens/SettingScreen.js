@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Switch, Image, Modal, TextInput, Button, TouchableOpacity, FlatList } from 'react-native';
+import { StyleSheet, View, Text, Switch, Image, Modal, TextInput, Button, TouchableOpacity, FlatList, ScrollView } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as Notification from  'expo-notifications' 
 
@@ -95,6 +95,7 @@ const SettingScreen = ({ navigation }) => {
   };
 
   return (
+    <ScrollView>
     <View style={styles.container}>
       <Text style={styles.subtitle}>Profile</Text>
       <TouchableOpacity style={styles.profileContainer}>
@@ -195,6 +196,7 @@ const SettingScreen = ({ navigation }) => {
         </View>
       </Modal>
     </View>
+    </ScrollView>
   );
 };
 
