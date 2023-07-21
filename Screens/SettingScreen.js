@@ -12,6 +12,21 @@ Notifications.setNotificationHandler({
   }),
 });
 
+ // Get the current date and time.
+ const now = new Date();
+
+ // Set the time you want the notification to be triggered (e.g., 10:00 AM).
+ const notificationTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 10, 30, 0);
+
+ // If the notification time is in the past, add one day to it to ensure it triggers tomorrow.
+ if (notificationTime < now) {
+   notificationTime.setDate(notificationTime.getDate() + 1);
+ }
+
+ // Calculate the number of seconds between the current time and the notification time.
+ const secondsUntilNotification = (notificationTime.getTime() - now.getTime()) / 1000;
+
+
 const SettingScreen = ({ navigation }) => {
   const [notificationEnabled, setNotificationEnabled] = useState(false);
   const [darkModeEnabled, setDarkModeEnabled] = useState(false);
@@ -222,11 +237,10 @@ const SettingScreen = ({ navigation }) => {
 async function schedulePushNotification() {
   await Notifications.scheduleNotificationAsync({
     content: {
-      title: "You've got mail! 📬",
-      body: 'Here is the notification body',
-      data: { data: 'goes here' },
+      title: "Daily Workout Boost 🏋️‍♀️",
+      body: 'Good morning! Time to sweat it out and start your day with an energizing workout! 🏋️‍♂️💪',
     },
-    trigger: { seconds: 2 },
+    trigger: { seconds: secondsUntilNotification },
   });
 }
 
