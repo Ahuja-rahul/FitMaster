@@ -3,7 +3,12 @@ import { StyleSheet, View, Text, Switch, Image, Modal, TextInput, Button, Toucha
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as Notifications from 'expo-notifications';
 import * as Device from 'expo-device';
+import Reminder from './components/Reminder';
+import { hour, minute, scheduleReminder } from './components/Reminder';
 
+
+var globalHours = 23;
+var globalMinutes = 59;
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -11,21 +16,6 @@ Notifications.setNotificationHandler({
     shouldSetBadge: false,
   }),
 });
-
- // Get the current date and time.
- const now = new Date();
-
- // Set the time you want the notification to be triggered (e.g., 10:00 AM).
- const notificationTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 10, 30, 0);
-
- // If the notification time is in the past, add one day to it to ensure it triggers tomorrow.
- if (notificationTime < now) {
-   notificationTime.setDate(notificationTime.getDate() + 1);
- }
-
- // Calculate the number of seconds between the current time and the notification time.
- const secondsUntilNotification = (notificationTime.getTime() - now.getTime()) / 1000;
-
 
 const SettingScreen = ({ navigation }) => {
   const [notificationEnabled, setNotificationEnabled] = useState(false);
@@ -119,7 +109,9 @@ const SettingScreen = ({ navigation }) => {
   const handleTimePickerConfirm = (event, selectedTime) => {
     if (selectedTime) {
       const hours = selectedTime.getHours();
+      globalHours = hours;
       const minutes = selectedTime.getMinutes();
+      globalMinutes = minutes
       const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
       setNewReminderTime(formattedTime);
     }
@@ -129,6 +121,7 @@ const SettingScreen = ({ navigation }) => {
   const handleTimePickerCancel = () => {
     setNewReminderTimePickerVisible(false);
   };
+ 
 
   return (
     <View style={styles.container}>
@@ -160,13 +153,13 @@ const SettingScreen = ({ navigation }) => {
           onValueChange={toggleNotification}
         />
       </View>
-      <View style={styles.settingItem}>
+      {/* <View style={styles.settingItem}>
         <Text style={styles.settingText}>Dark Mode</Text>
         <Switch
           value={darkModeEnabled}
           onValueChange={toggleDarkMode}
         />
-      </View>
+      </View> */}
 
       <Text style={styles.title}>Reminders</Text>
       <View style={styles.addReminderContainer}>
@@ -179,7 +172,7 @@ const SettingScreen = ({ navigation }) => {
         <TouchableOpacity style={styles.timePickerButton} onPress={handleTimePicker}>
           <Text style={styles.timePickerButtonText}>{newReminderTime || 'Select Time'}</Text>
         </TouchableOpacity>
-        <Button title="Add" onPress={handleAddReminder} />
+        <Button title="Add" onPress={add()} />
       </View>
 
       <FlatList
@@ -235,6 +228,22 @@ const SettingScreen = ({ navigation }) => {
 };
 
 async function schedulePushNotification() {
+
+ // Get the current date and time.
+ const now = new Date();
+
+ // Set the time you want the notification to be triggered (e.g., 10:00 AM).
+ const notificationTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 21, 2, 0);
+
+ // If the notification time is in the past, add one day to it to ensure it triggers tomorrow.
+ if (notificationTime < now) {
+   notificationTime.setDate(notificationTime.getDate() + 1);
+ }
+
+ // Calculate the number of seconds between the current time and the notification time.
+ const secondsUntilNotification = (notificationTime.getTime() - now.getTime()) / 1000;
+
+
   await Notifications.scheduleNotificationAsync({
     content: {
       title: "Daily Workout Boost 🏋️‍♀️",
@@ -275,6 +284,14 @@ async function registerForPushNotificationsAsync() {
 
   return token;
 }
+
+
+function add(){
+
+  console.log(globalHours)
+  scheduleReminder(globalHours, globalMinutes)
+ }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
