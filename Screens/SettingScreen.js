@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, View, Text, Switch, Image, Modal, TextInput, Button, TouchableOpacity, FlatList, Platform } from 'react-native';
+import { StyleSheet, View, Text, Switch, Image, Modal, TextInput, Button, TouchableOpacity, FlatList, Platform, ScrollView } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as Notifications from 'expo-notifications';
 import * as Device from 'expo-device';
 import Reminder from './components/Reminder';
 import { hour, minute, scheduleReminder } from './components/Reminder';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 var globalHours = 23;
 var globalMinutes = 59;
@@ -27,17 +27,30 @@ const SettingScreen = ({ navigation }) => {
   const [newReminderTitle, setNewReminderTitle] = useState('');
   const [newReminderTime, setNewReminderTime] = useState('');
   const [newReminderTimePickerVisible, setNewReminderTimePickerVisible] = useState(false);
-
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
 
+
+
+
   const goToProfile = () => {
     navigation.navigate('Profile');
   };
 
+  const [bodyMeasurements, setBodyMeasurements] = useState({
+    height: '',
+    weight: '',
+    chest: '',
+    waist: '',
+    hips: '',
+  });
+
   useEffect(() => {
+    loadProfileData();
+    loadReminders();
+    loadBodyMeasurements();
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
 
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
@@ -67,10 +80,6 @@ const SettingScreen = ({ navigation }) => {
     setDarkModeEnabled(!darkModeEnabled);
   };
 
-  const handleProfileNameChange = (text) => {
-    setProfileName(text);
-  };
-
   const handleModalOpen = () => {
     setModalVisible(true);
     setNewProfileName(profileName);
@@ -82,6 +91,7 @@ const SettingScreen = ({ navigation }) => {
 
   const handleSaveProfileName = () => {
     setProfileName(newProfileName);
+    saveProfileData(newProfileName);
     setModalVisible(false);
   };
 
@@ -111,7 +121,7 @@ const SettingScreen = ({ navigation }) => {
       const hours = selectedTime.getHours();
       globalHours = hours;
       const minutes = selectedTime.getMinutes();
-      globalMinutes = minutes
+      globalMinutes = minutes;
       const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
       setNewReminderTime(formattedTime);
     }
@@ -121,11 +131,178 @@ const SettingScreen = ({ navigation }) => {
   const handleTimePickerCancel = () => {
     setNewReminderTimePickerVisible(false);
   };
- 
+
+  // Load profile data from AsyncStorage on component mount
+  useEffect(() => {
+    loadProfileData();
+    loadReminders();
+    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      setNotification(notification);
+    });
+
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log(response);
+    });
+
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener.current);
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
+
+  // Function to load profile data from AsyncStorage
+  const loadProfileData = async () => {
+    try {
+      const profileData = await AsyncStorage.getItem('profileData');
+      if (profileData) {
+        const { profileName } = JSON.parse(profileData);
+        setProfileName(profileName);
+      }
+    } catch (error) {
+      console.log('Error loading profile data:', error);
+    }
+  };
+
+  // Function to load reminders data from AsyncStorage
+  const loadReminders = async () => {
+    try {
+      const remindersData = await AsyncStorage.getItem('remindersData');
+      if (remindersData) {
+        const reminders = JSON.parse(remindersData);
+        setReminders(reminders);
+      }
+    } catch (error) {
+      console.log('Error loading reminders data:', error);
+    }
+  };
+
+  // Function to save profile data to AsyncStorage
+  const saveProfileData = async (profileName) => {
+    const profileData = { profileName };
+    try {
+      await AsyncStorage.setItem('profileData', JSON.stringify(profileData));
+    } catch (error) {
+      console.log('Error saving profile data:', error);
+    }
+  };
+
+  // Function to save reminders data to AsyncStorage
+  const saveReminders = async () => {
+    try {
+      await AsyncStorage.setItem('remindersData', JSON.stringify(reminders));
+    } catch (error) {
+      console.log('Error saving reminders data:', error);
+    }
+  };
+
+  // Update profile name state and save it to AsyncStorage
+  // const handleProfileNameChange = (text) => {
+  //   setProfileName(text);
+  //   saveProfileData(text);
+  // };
+
+  // Save reminders data to AsyncStorage whenever it changes
+  useEffect(() => {
+    saveReminders();
+  }, [reminders]);
+
+
+ const loadBodyMeasurements = async () => {
+  try {
+    const bodyMeasurementsData = await AsyncStorage.getItem('bodyMeasurementsData');
+    if (bodyMeasurementsData) {
+      const bodyMeasurements = JSON.parse(bodyMeasurementsData);
+      setBodyMeasurements(bodyMeasurements);
+    }
+  } catch (error) {
+    console.log('Error loading body measurements data:', error);
+  }
+};
+
+// Function to save body measurements data to AsyncStorage
+const saveBodyMeasurements = async () => {
+  try {
+    await AsyncStorage.setItem('bodyMeasurementsData', JSON.stringify(bodyMeasurements));
+  } catch (error) {
+    console.log('Error saving body measurements data:', error);
+  }
+};
+
+// Save body measurements data to AsyncStorage whenever it changes
+useEffect(() => {
+  saveBodyMeasurements();
+}, [bodyMeasurements]);
+
+  async function schedulePushNotification() {
+
+    // Get the current date and time.
+    const now = new Date();
+   
+    // Set the time you want the notification to be triggered (e.g., 10:00 AM).
+    const notificationTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 21, 2, 0);
+   
+    // If the notification time is in the past, add one day to it to ensure it triggers tomorrow.
+    if (notificationTime < now) {
+      notificationTime.setDate(notificationTime.getDate() + 1);
+    }
+   
+    // Calculate the number of seconds between the current time and the notification time.
+    const secondsUntilNotification = (notificationTime.getTime() - now.getTime()) / 1000;
+   
+   
+     await Notifications.scheduleNotificationAsync({
+       content: {
+         title: "Daily Workout Boost 🏋️‍♀️",
+         body: 'Good morning! Time to sweat it out and start your day with an energizing workout! 🏋️‍♂️💪',
+       },
+       trigger: { seconds: secondsUntilNotification },
+     });
+   }
+   
+   async function registerForPushNotificationsAsync() {
+     let token;
+   
+     if (Platform.OS === 'android') {
+       await Notifications.setNotificationChannelAsync('default', {
+         name: 'default',
+         importance: Notifications.AndroidImportance.MAX,
+         vibrationPattern: [0, 250, 250, 250],
+         lightColor: '#FF231F7C',
+       });
+     }
+   
+     if (Device.isDevice) {
+       const { status: existingStatus } = await Notifications.getPermissionsAsync();
+       let finalStatus = existingStatus;
+       if (existingStatus !== 'granted') {
+         const { status } = await Notifications.requestPermissionsAsync();
+         finalStatus = status;
+       }
+       if (finalStatus !== 'granted') {
+         alert('Failed to get push token for push notification!');
+         return;
+       }
+       token = (await Notifications.getExpoPushTokenAsync()).data;
+       console.log(token);
+     } else {
+       //alert('Must use physical device for Push Notifications');
+       console.log("Using Emulator")
+     }
+   
+     return token;
+   }
+
+  function add() {
+    console.log(globalHours);
+    scheduleReminder(globalHours, globalMinutes);
+  }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.subtitle}>Profile</Text>
+    <ScrollView>
+    <View style={[styles.container, darkModeEnabled && styles.darkContainer]}>
+      <Text style={[styles.subtitle, darkModeEnabled && styles.darkText]}>Profile</Text>
       <TouchableOpacity style={styles.profileContainer}>
         <Image
           style={styles.profileImage}
@@ -134,16 +311,58 @@ const SettingScreen = ({ navigation }) => {
         <Text style={styles.profileName}>{profileName}</Text>
       </TouchableOpacity>
 
-      <Text style={styles.subtitle}>Settings</Text>
+      <Text style={[styles.title, darkModeEnabled && styles.darkText]}>Settings</Text>
 
       <Text style={styles.title}>Profile</Text>
       <View style={styles.settingItem}>
         <Text style={styles.settingText}>Profile Name</Text>
         <Button title="Change Name" onPress={handleModalOpen} />
       </View>
+        <Text style={styles.title}>Body Measurements</Text>
       <View style={styles.settingItem}>
-        <Text style={styles.settingText}>Body Measurement</Text>
-        <Button title="Go to Measurement" onPress={goToProfile} />
+        <Text style={styles.settingText}>Height</Text>
+        <TextInput
+          style={styles.settingInput}
+          placeholder="Enter height"
+          value={bodyMeasurements.height}
+          onChangeText={(text) => setBodyMeasurements({ ...bodyMeasurements, height: text })}
+        />
+      </View>
+      <View style={styles.settingItem}>
+        <Text style={styles.settingText}>Weight</Text>
+        <TextInput
+          style={styles.settingInput}
+          placeholder="Enter weight"
+          value={bodyMeasurements.weight}
+          onChangeText={(text) => setBodyMeasurements({ ...bodyMeasurements, weight: text })}
+        />
+      </View>
+      <View style={styles.settingItem}>
+        <Text style={styles.settingText}>Chest</Text>
+        <TextInput
+          style={styles.settingInput}
+          placeholder="Enter chest measurement"
+          value={bodyMeasurements.chest}
+          onChangeText={(text) => setBodyMeasurements({ ...bodyMeasurements, chest: text })}
+        />
+      </View>
+      <View style={styles.settingItem}>
+        <Text style={styles.settingText}>Waist</Text>
+        <TextInput
+          style={styles.settingInput}
+          placeholder="Enter waist measurement"
+          value={bodyMeasurements.waist}
+          onChangeText={(text) => setBodyMeasurements({ ...bodyMeasurements, waist: text })}
+        />
+      </View>
+      <View style={styles.settingItem}>
+        <Text style={styles.settingText}>Hips</Text>
+        <TextInput
+          style={styles.settingInput}
+          placeholder="Enter hips measurement"
+          value={bodyMeasurements.hips}
+          onChangeText={(text) => setBodyMeasurements({ ...bodyMeasurements, hips: text })}
+        />
       </View>
       <Text style={styles.title}>General</Text>
       <View style={styles.settingItem}>
@@ -153,13 +372,13 @@ const SettingScreen = ({ navigation }) => {
           onValueChange={toggleNotification}
         />
       </View>
-      {/* <View style={styles.settingItem}>
+      <View style={styles.settingItem}>
         <Text style={styles.settingText}>Dark Mode</Text>
         <Switch
           value={darkModeEnabled}
           onValueChange={toggleDarkMode}
         />
-      </View> */}
+      </View>
 
       <Text style={styles.title}>Reminders</Text>
       <View style={styles.addReminderContainer}>
@@ -172,7 +391,7 @@ const SettingScreen = ({ navigation }) => {
         <TouchableOpacity style={styles.timePickerButton} onPress={handleTimePicker}>
           <Text style={styles.timePickerButtonText}>{newReminderTime || 'Select Time'}</Text>
         </TouchableOpacity>
-        <Button title="Add" onPress={add()} />
+        <Button title="Add" onPress={add} />
       </View>
 
       <FlatList
@@ -224,73 +443,9 @@ const SettingScreen = ({ navigation }) => {
         </View>
       </Modal>
     </View>
+    </ScrollView>
   );
 };
-
-async function schedulePushNotification() {
-
- // Get the current date and time.
- const now = new Date();
-
- // Set the time you want the notification to be triggered (e.g., 10:00 AM).
- const notificationTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 21, 2, 0);
-
- // If the notification time is in the past, add one day to it to ensure it triggers tomorrow.
- if (notificationTime < now) {
-   notificationTime.setDate(notificationTime.getDate() + 1);
- }
-
- // Calculate the number of seconds between the current time and the notification time.
- const secondsUntilNotification = (notificationTime.getTime() - now.getTime()) / 1000;
-
-
-  await Notifications.scheduleNotificationAsync({
-    content: {
-      title: "Daily Workout Boost 🏋️‍♀️",
-      body: 'Good morning! Time to sweat it out and start your day with an energizing workout! 🏋️‍♂️💪',
-    },
-    trigger: { seconds: secondsUntilNotification },
-  });
-}
-
-async function registerForPushNotificationsAsync() {
-  let token;
-
-  if (Platform.OS === 'android') {
-    await Notifications.setNotificationChannelAsync('default', {
-      name: 'default',
-      importance: Notifications.AndroidImportance.MAX,
-      vibrationPattern: [0, 250, 250, 250],
-      lightColor: '#FF231F7C',
-    });
-  }
-
-  if (Device.isDevice) {
-    const { status: existingStatus } = await Notifications.getPermissionsAsync();
-    let finalStatus = existingStatus;
-    if (existingStatus !== 'granted') {
-      const { status } = await Notifications.requestPermissionsAsync();
-      finalStatus = status;
-    }
-    if (finalStatus !== 'granted') {
-      alert('Failed to get push token for push notification!');
-      return;
-    }
-    token = (await Notifications.getExpoPushTokenAsync()).data;
-    console.log(token);
-  } else {
-    alert('Must use physical device for Push Notifications');
-  }
-
-  return token;
-}
-
-
-function add(){
-
-  console.log(globalHours)
-  scheduleReminder(globalHours, globalMinutes)
- }
 
 const styles = StyleSheet.create({
   container: {
@@ -427,6 +582,12 @@ const styles = StyleSheet.create({
   deleteReminderText: {
     color: 'red',
     fontSize: 12,
+  },
+  darkContainer: {
+    backgroundColor: '#1a1a1a', // Dark mode background color
+  },
+  darkText: {
+    color: '#FFFFFF', // Dark mode text color
   },
 });
 
