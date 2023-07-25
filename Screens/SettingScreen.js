@@ -301,150 +301,153 @@ useEffect(() => {
 
   return (
     <ScrollView>
-    <View style={[styles.container, darkModeEnabled && styles.darkContainer]}>
-      <Text style={[styles.subtitle, darkModeEnabled && styles.darkText]}>Profile</Text>
-      <TouchableOpacity style={styles.profileContainer}>
-        <Image
-          style={styles.profileImage}
-          source={require('../assets/icon.png')}
-        />
-        <Text style={styles.profileName}>{profileName}</Text>
-      </TouchableOpacity>
-
-      <Text style={[styles.title, darkModeEnabled && styles.darkText]}>Settings</Text>
-
-      <Text style={styles.title}>Profile</Text>
-      <View style={styles.settingItem}>
-        <Text style={styles.settingText}>Profile Name</Text>
-        <Button title="Change Name" onPress={handleModalOpen} />
-      </View>
-        <Text style={styles.title}>Body Measurements</Text>
-      <View style={styles.settingItem}>
-        <Text style={styles.settingText}>Height</Text>
-        <TextInput
-          style={styles.settingInput}
-          placeholder="Enter height"
-          value={bodyMeasurements.height}
-          onChangeText={(text) => setBodyMeasurements({ ...bodyMeasurements, height: text })}
-        />
-      </View>
-      <View style={styles.settingItem}>
-        <Text style={styles.settingText}>Weight</Text>
-        <TextInput
-          style={styles.settingInput}
-          placeholder="Enter weight"
-          value={bodyMeasurements.weight}
-          onChangeText={(text) => setBodyMeasurements({ ...bodyMeasurements, weight: text })}
-        />
-      </View>
-      <View style={styles.settingItem}>
-        <Text style={styles.settingText}>Chest</Text>
-        <TextInput
-          style={styles.settingInput}
-          placeholder="Enter chest measurement"
-          value={bodyMeasurements.chest}
-          onChangeText={(text) => setBodyMeasurements({ ...bodyMeasurements, chest: text })}
-        />
-      </View>
-      <View style={styles.settingItem}>
-        <Text style={styles.settingText}>Waist</Text>
-        <TextInput
-          style={styles.settingInput}
-          placeholder="Enter waist measurement"
-          value={bodyMeasurements.waist}
-          onChangeText={(text) => setBodyMeasurements({ ...bodyMeasurements, waist: text })}
-        />
-      </View>
-      <View style={styles.settingItem}>
-        <Text style={styles.settingText}>Hips</Text>
-        <TextInput
-          style={styles.settingInput}
-          placeholder="Enter hips measurement"
-          value={bodyMeasurements.hips}
-          onChangeText={(text) => setBodyMeasurements({ ...bodyMeasurements, hips: text })}
-        />
-      </View>
-      <Text style={styles.title}>General</Text>
-      <View style={styles.settingItem}>
-        <Text style={styles.settingText}>Notifications</Text>
-        <Switch
-          value={notificationEnabled}
-          onValueChange={toggleNotification}
-        />
-      </View>
-      <View style={styles.settingItem}>
-        <Text style={styles.settingText}>Dark Mode</Text>
-        <Switch
-          value={darkModeEnabled}
-          onValueChange={toggleDarkMode}
-        />
-      </View>
-
-      <Text style={styles.title}>Reminders</Text>
-      <View style={styles.addReminderContainer}>
-        <TextInput
-          style={styles.addReminderInput}
-          placeholder="Enter reminder title"
-          value={newReminderTitle}
-          onChangeText={setNewReminderTitle}
-        />
-        <TouchableOpacity style={styles.timePickerButton} onPress={handleTimePicker}>
-          <Text style={styles.timePickerButtonText}>{newReminderTime || 'Select Time'}</Text>
+      <View style={[styles.container, darkModeEnabled && styles.darkContainer]}>
+        <Text style={[styles.subtitle, darkModeEnabled && styles.darkText]}>Profile</Text>
+        <TouchableOpacity style={styles.profileContainer}>
+          <Image
+            style={styles.profileImage}
+            source={require('../assets/icon.png')}
+          />
+          <Text style={[styles.profileName, darkModeEnabled && styles.darkText]}>{profileName}</Text>
         </TouchableOpacity>
-        <Button title="Add" onPress={add} />
-      </View>
-
-      <FlatList
-        data={reminders}
-        renderItem={({ item }) => (
-          <View style={styles.reminderItem}>
-            <Text>{item.title}</Text>
-            <Text style={styles.reminderTime}>{item.time}</Text>
-            <TouchableOpacity onPress={() => handleDeleteReminder(item.id)}>
-              <Text style={styles.deleteReminderText}>Delete</Text>
-            </TouchableOpacity>
-          </View>
-        )}
-        keyExtractor={(item) => item.id}
-      />
-
-      {newReminderTimePickerVisible && (
-        <DateTimePicker
-          value={new Date()}
-          mode="time"
-          is24Hour={false}
-          display="default"
-          onChange={handleTimePickerConfirm}
-          onCancel={handleTimePickerCancel}
+  
+        <Text style={[styles.subtitle, darkModeEnabled && styles.darkText]}>Settings</Text>
+  
+        <Text style={[styles.title, darkModeEnabled && styles.darkText]}>Profile</Text>
+        <View style={styles.settingItem}>
+          <Text style={[styles.settingText, darkModeEnabled && styles.darkText]}>Profile Name</Text>
+          <Button title="Change Name" onPress={handleModalOpen} />
+        </View>
+        <Text style={[styles.title, darkModeEnabled && styles.darkText]}>Body Measurements</Text>
+        <View style={styles.settingItem}>
+          <Text style={[styles.settingText, darkModeEnabled && styles.darkText]}>Height</Text>
+          <TextInput
+            style={[styles.settingInput, darkModeEnabled && styles.darkInput]}
+            placeholder="Enter height"
+            value={bodyMeasurements.height}
+            onChangeText={(text) => setBodyMeasurements({ ...bodyMeasurements, height: text })}
+          />
+        </View>
+        <View style={styles.settingItem}>
+          <Text style={[styles.settingText, darkModeEnabled && styles.darkText]}>Weight</Text>
+          <TextInput
+            style={[styles.settingInput, darkModeEnabled && styles.darkInput]}
+            placeholder="Enter weight"
+            value={bodyMeasurements.weight}
+            onChangeText={(text) => setBodyMeasurements({ ...bodyMeasurements, weight: text })}
+          />
+        </View>
+        <View style={styles.settingItem}>
+          <Text style={[styles.settingText, darkModeEnabled && styles.darkText]}>Chest</Text>
+          <TextInput
+            style={[styles.settingInput, darkModeEnabled && styles.darkInput]}
+            placeholder="Enter chest measurement"
+            value={bodyMeasurements.chest}
+            onChangeText={(text) => setBodyMeasurements({ ...bodyMeasurements, chest: text })}
+          />
+        </View>
+        <View style={styles.settingItem}>
+          <Text style={[styles.settingText, darkModeEnabled && styles.darkText]}>Waist</Text>
+          <TextInput
+            style={[styles.settingInput, darkModeEnabled && styles.darkInput]}
+            placeholder="Enter waist measurement"
+            value={bodyMeasurements.waist}
+            onChangeText={(text) => setBodyMeasurements({ ...bodyMeasurements, waist: text })}
+          />
+        </View>
+        <View style={styles.settingItem}>
+          <Text style={[styles.settingText, darkModeEnabled && styles.darkText]}>Hips</Text>
+          <TextInput
+            style={[styles.settingInput, darkModeEnabled && styles.darkInput]}
+            placeholder="Enter hips measurement"
+            value={bodyMeasurements.hips}
+            onChangeText={(text) => setBodyMeasurements({ ...bodyMeasurements, hips: text })}
+          />
+        </View>
+        <Text style={[styles.title, darkModeEnabled && styles.darkText]}>General</Text>
+        <View style={styles.settingItem}>
+          <Text style={[styles.settingText, darkModeEnabled && styles.darkText]}>Notifications</Text>
+          <Switch
+            value={notificationEnabled}
+            onValueChange={toggleNotification}
+          />
+        </View>
+        <View style={styles.settingItem}>
+          <Text style={[styles.settingText, darkModeEnabled && styles.darkText]}>Dark Mode</Text>
+          <Switch
+            value={darkModeEnabled}
+            onValueChange={toggleDarkMode}
+            //trackColor={{ false: "#767577", true: "#81b0ff" }} // Customize the switch colors if needed
+            //thumbColor={darkModeEnabled ? "#f5dd4b" : "#f4f3f4"} // Customize the switch thumb color if needed
+          />
+        </View>
+  
+        <Text style={[styles.title, darkModeEnabled && styles.darkText]}>Reminders</Text>
+        <View style={styles.addReminderContainer}>
+          <TextInput
+            style={[styles.addReminderInput, darkModeEnabled && styles.darkInput]}
+            placeholder="Enter reminder title"
+            value={newReminderTitle}
+            onChangeText={setNewReminderTitle}
+          />
+          <TouchableOpacity style={styles.timePickerButton} onPress={handleTimePicker}>
+            <Text style={styles.timePickerButtonText}>{newReminderTime || 'Select Time'}</Text>
+          </TouchableOpacity>
+          <Button title="Add" onPress={add} />
+        </View>
+  
+        <FlatList
+          data={reminders}
+          renderItem={({ item }) => (
+            <View style={styles.reminderItem}>
+              <Text style={[styles.darkText]}>{item.title}</Text>
+              <Text style={[styles.reminderTime, darkModeEnabled && styles.darkText]}>{item.time}</Text>
+              <TouchableOpacity onPress={() => handleDeleteReminder(item.id)}>
+                <Text style={[styles.deleteReminderText, darkModeEnabled && styles.darkText]}>Delete</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+          keyExtractor={(item) => item.id}
         />
-      )}
-
-      <Modal
-        visible={isModalVisible}
-        animationType="slide"
-        transparent={true}
-        onRequestClose={handleModalClose}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Change Profile Name</Text>
-            <TextInput
-              style={styles.modalTextInput}
-              value={newProfileName}
-              onChangeText={setNewProfileName}
-            />
-            <View style={styles.modalButtonContainer}>
-              <View style={styles.modalButton}>
-                <Button title="Cancel" onPress={handleModalClose} color="#666" />
+  
+        {newReminderTimePickerVisible && (
+          <DateTimePicker
+            value={new Date()}
+            mode="time"
+            is24Hour={false}
+            display="default"
+            onChange={handleTimePickerConfirm}
+            onCancel={handleTimePickerCancel}
+          />
+        )}
+  
+        <Modal
+          visible={isModalVisible}
+          animationType="slide"
+          transparent={true}
+          onRequestClose={handleModalClose}
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              <Text style={[styles.modalTitle, darkModeEnabled && styles.darkText]}>Change Profile Name</Text>
+              <TextInput
+                style={[styles.modalTextInput, darkModeEnabled && styles.darkInput]}
+                value={newProfileName}
+                onChangeText={setNewProfileName}
+              />
+              <View style={styles.modalButtonContainer}>
+                <View style={styles.modalButton}>
+                  <Button title="Cancel" onPress={handleModalClose} color="#666" />
+                </View>
+                <Button title="Save" onPress={handleSaveProfileName} />
               </View>
-              <Button title="Save" onPress={handleSaveProfileName} />
             </View>
           </View>
-        </View>
-      </Modal>
-    </View>
+        </Modal>
+      </View>
     </ScrollView>
   );
+  
 };
 
 const styles = StyleSheet.create({
@@ -452,6 +455,11 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: '#F5F5F5',
+  },
+  darkContainer: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: '#000000', // Dark mode background color
   },
   profileContainer: {
     flexDirection: 'row',
@@ -480,6 +488,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#333',
   },
+  darkText: {
+    color: '#FFFFFF', // Dark mode text color
+  },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
@@ -505,6 +516,9 @@ const styles = StyleSheet.create({
   settingText: {
     fontSize: 16,
     color: '#333',
+  },
+  darkText: {
+    color: '#FFFFFF', // Dark mode text color
   },
   modalContainer: {
     flex: 1,
@@ -557,6 +571,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     paddingHorizontal: 8,
     height: 40,
+    color: '#333',
   },
   timePickerButton: {
     backgroundColor: '#ccc',
@@ -583,12 +598,7 @@ const styles = StyleSheet.create({
     color: 'red',
     fontSize: 12,
   },
-  darkContainer: {
-    backgroundColor: '#1a1a1a', // Dark mode background color
-  },
-  darkText: {
-    color: '#FFFFFF', // Dark mode text color
-  },
 });
+
 
 export default SettingScreen;
