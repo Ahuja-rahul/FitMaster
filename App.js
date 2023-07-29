@@ -6,8 +6,8 @@ import Dashboard from './Dashboard';
 import MyStack from './assets/StackNavigator';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import DarkTheme from '/Users/krunalparmar/MAP/SEM3/Cpstone/FitMaster/theme/DarkTheme.js';
-import DefaultTheme from '/Users/krunalparmar/MAP/SEM3/Cpstone/FitMaster/theme/DefaultTheme.js';
+import DarkTheme from './theme/DarkTheme'
+import DefaultTheme from './theme/DefaultTheme';
 import { AppContext } from './context/AppContext';
 export default function App() {
   const [isDarkTheme, setIsDarkTheme] = useState(false);

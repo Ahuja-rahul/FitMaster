@@ -246,7 +246,7 @@ const SettingScreen = ({ navigation }) => {
     const now = new Date();
 
     // Set the time you want the notification to be triggered (e.g., 10:00 AM).
-    const notificationTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 21, 2, 0);
+    const notificationTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 12, 53, 0);
 
     // If the notification time is in the past, add one day to it to ensure it triggers tomorrow.
     if (notificationTime < now) {
@@ -421,7 +421,7 @@ const SettingScreen = ({ navigation }) => {
           <Button title="Add" onPress={add} />
         </View>
 
-        <FlatList
+        {/* <FlatList
           data={reminders}
           renderItem={({ item }) => (
             <View style={styles.reminderItem}>
@@ -433,7 +433,7 @@ const SettingScreen = ({ navigation }) => {
             </View>
           )}
           keyExtractor={(item) => item.id}
-        />
+        /> */}
 
         {newReminderTimePickerVisible && (
           <DateTimePicker
