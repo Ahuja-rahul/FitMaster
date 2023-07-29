@@ -34,8 +34,8 @@ const SettingScreen = ({ navigation }) => {
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
-  const { colors, } = useTheme();
- const { isDarkTheme, setIsDarkTheme } = React.useContext(AppContext)
+  const { colors } = useTheme();
+  const { isDarkTheme, setIsDarkTheme } = React.useContext(AppContext)
 
 
 
@@ -214,90 +214,90 @@ const SettingScreen = ({ navigation }) => {
   }, [reminders]);
 
 
- const loadBodyMeasurements = async () => {
-  try {
-    const bodyMeasurementsData = await AsyncStorage.getItem('bodyMeasurementsData');
-    if (bodyMeasurementsData) {
-      const bodyMeasurements = JSON.parse(bodyMeasurementsData);
-      setBodyMeasurements(bodyMeasurements);
+  const loadBodyMeasurements = async () => {
+    try {
+      const bodyMeasurementsData = await AsyncStorage.getItem('bodyMeasurementsData');
+      if (bodyMeasurementsData) {
+        const bodyMeasurements = JSON.parse(bodyMeasurementsData);
+        setBodyMeasurements(bodyMeasurements);
+      }
+    } catch (error) {
+      console.log('Error loading body measurements data:', error);
     }
-  } catch (error) {
-    console.log('Error loading body measurements data:', error);
-  }
-};
+  };
 
-// Function to save body measurements data to AsyncStorage
-const saveBodyMeasurements = async () => {
-  try {
-    await AsyncStorage.setItem('bodyMeasurementsData', JSON.stringify(bodyMeasurements));
-  } catch (error) {
-    console.log('Error saving body measurements data:', error);
-  }
-};
+  // Function to save body measurements data to AsyncStorage
+  const saveBodyMeasurements = async () => {
+    try {
+      await AsyncStorage.setItem('bodyMeasurementsData', JSON.stringify(bodyMeasurements));
+    } catch (error) {
+      console.log('Error saving body measurements data:', error);
+    }
+  };
 
-// Save body measurements data to AsyncStorage whenever it changes
-useEffect(() => {
-  saveBodyMeasurements();
-}, [bodyMeasurements]);
+  // Save body measurements data to AsyncStorage whenever it changes
+  useEffect(() => {
+    saveBodyMeasurements();
+  }, [bodyMeasurements]);
 
   async function schedulePushNotification() {
 
     // Get the current date and time.
     const now = new Date();
-   
+
     // Set the time you want the notification to be triggered (e.g., 10:00 AM).
     const notificationTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 21, 2, 0);
-   
+
     // If the notification time is in the past, add one day to it to ensure it triggers tomorrow.
     if (notificationTime < now) {
       notificationTime.setDate(notificationTime.getDate() + 1);
     }
-   
+
     // Calculate the number of seconds between the current time and the notification time.
     const secondsUntilNotification = (notificationTime.getTime() - now.getTime()) / 1000;
-   
-   
-     await Notifications.scheduleNotificationAsync({
-       content: {
-         title: "Daily Workout Boost 🏋️‍♀️",
-         body: 'Good morning! Time to sweat it out and start your day with an energizing workout! 🏋️‍♂️💪',
-       },
-       trigger: { seconds: secondsUntilNotification },
-     });
-   }
-   
-   async function registerForPushNotificationsAsync() {
-     let token;
-   
-     if (Platform.OS === 'android') {
-       await Notifications.setNotificationChannelAsync('default', {
-         name: 'default',
-         importance: Notifications.AndroidImportance.MAX,
-         vibrationPattern: [0, 250, 250, 250],
-         lightColor: '#FF231F7C',
-       });
-     }
-   
-     if (Device.isDevice) {
-       const { status: existingStatus } = await Notifications.getPermissionsAsync();
-       let finalStatus = existingStatus;
-       if (existingStatus !== 'granted') {
-         const { status } = await Notifications.requestPermissionsAsync();
-         finalStatus = status;
-       }
-       if (finalStatus !== 'granted') {
-         alert('Failed to get push token for push notification!');
-         return;
-       }
-       token = (await Notifications.getExpoPushTokenAsync()).data;
-       console.log(token);
-     } else {
-       //alert('Must use physical device for Push Notifications');
-       console.log("Using Emulator")
-     }
-   
-     return token;
-   }
+
+
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Daily Workout Boost 🏋️‍♀️",
+        body: 'Good morning! Time to sweat it out and start your day with an energizing workout! 🏋️‍♂️💪',
+      },
+      trigger: { seconds: secondsUntilNotification },
+    });
+  }
+
+  async function registerForPushNotificationsAsync() {
+    let token;
+
+    if (Platform.OS === 'android') {
+      await Notifications.setNotificationChannelAsync('default', {
+        name: 'default',
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: '#FF231F7C',
+      });
+    }
+
+    if (Device.isDevice) {
+      const { status: existingStatus } = await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+      if (existingStatus !== 'granted') {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+      if (finalStatus !== 'granted') {
+        alert('Failed to get push token for push notification!');
+        return;
+      }
+      token = (await Notifications.getExpoPushTokenAsync()).data;
+      console.log(token);
+    } else {
+      //alert('Must use physical device for Push Notifications');
+      console.log("Using Emulator")
+    }
+
+    return token;
+  }
 
   function add() {
     console.log(globalHours);
@@ -306,18 +306,18 @@ useEffect(() => {
 
   return (
     <ScrollView>
-     <View style={[styles.settingText, isDarkTheme && styles.darkText]}>
+      <View style={[styles.settingText, isDarkTheme && styles.darkText]}>
         <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Profile</Text>
-        <TouchableOpacity style={styles.profileContainer}>
+        <TouchableOpacity style={[styles.profileContainer,isDarkTheme && styles.darkText]}>
           <Image
             style={styles.profileImage}
             source={require('../assets/icon.png')}
           />
           <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>{profileName}</Text>
         </TouchableOpacity>
-  
+
         <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Settings</Text>
-  
+
         <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Profile</Text>
         <View style={styles.settingItem}>
           <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Profile Name</Text>
@@ -326,9 +326,16 @@ useEffect(() => {
         <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Body Measurements</Text>
         <View style={styles.settingItem}>
           <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Height</Text>
-          <TextInput
-            style={[styles.settingInput, darkModeEnabled && styles.darkInput]}
+          {/* <TextInput
+            style={[styles.settingText, isDarkTheme && styles.darkText]}
             placeholder="Enter height"
+            value={bodyMeasurements.height}
+            onChangeText={(text) => setBodyMeasurements({ ...bodyMeasurements, height: text })}
+          /> */}
+          <TextInput
+            style={[styles.settingText, isDarkTheme && styles.darkText]}
+            placeholder="Enter height"
+            placeholderTextColor={isDarkTheme ? "#999" : "#ccc"}
             value={bodyMeasurements.height}
             onChangeText={(text) => setBodyMeasurements({ ...bodyMeasurements, height: text })}
           />
@@ -338,6 +345,7 @@ useEffect(() => {
           <TextInput
             style={[styles.settingText, isDarkTheme && styles.darkText]}
             placeholder="Enter weight"
+            placeholderTextColor={isDarkTheme ? "#999" : "#ccc"}
             value={bodyMeasurements.weight}
             onChangeText={(text) => setBodyMeasurements({ ...bodyMeasurements, weight: text })}
           />
@@ -347,6 +355,7 @@ useEffect(() => {
           <TextInput
             style={[styles.settingText, isDarkTheme && styles.darkText]}
             placeholder="Enter chest measurement"
+            placeholderTextColor={isDarkTheme ? "#999" : "#ccc"}
             value={bodyMeasurements.chest}
             onChangeText={(text) => setBodyMeasurements({ ...bodyMeasurements, chest: text })}
           />
@@ -356,6 +365,7 @@ useEffect(() => {
           <TextInput
             style={[styles.settingText, isDarkTheme && styles.darkText]}
             placeholder="Enter waist measurement"
+            placeholderTextColor={isDarkTheme ? "#999" : "#ccc"}
             value={bodyMeasurements.waist}
             onChangeText={(text) => setBodyMeasurements({ ...bodyMeasurements, waist: text })}
           />
@@ -365,6 +375,7 @@ useEffect(() => {
           <TextInput
             style={[styles.settingText, isDarkTheme && styles.darkText]}
             placeholder="Enter hips measurement"
+            placeholderTextColor={isDarkTheme ? "#999" : "#ccc"}
             value={bodyMeasurements.hips}
             onChangeText={(text) => setBodyMeasurements({ ...bodyMeasurements, hips: text })}
           />
@@ -377,8 +388,8 @@ useEffect(() => {
             onValueChange={toggleNotification}
           />
         </View>
-    
-{/* <View style={styles.settingItem}>
+
+        {/* <View style={styles.settingItem}>
   <Text style={[styles.settingText, darkModeEnabled && styles.darkText]}>Dark Mode</Text>
   <Switch
     value={darkModeEnabled}
@@ -386,20 +397,21 @@ useEffect(() => {
   />
 </View> */}
 
-<View style={styles.settingItem}>
-      <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Dark Mode</Text>
-      <Switch
-        value={isDarkTheme}
-        onValueChange={(value) => setIsDarkTheme(value)}
-      />
-    </View>
+        <View style={styles.settingItem}>
+          <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Dark Mode</Text>
+          <Switch
+            value={isDarkTheme}
+            onValueChange={(value) => setIsDarkTheme(value)}
+          />
+        </View>
 
-  
+
         <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Reminders</Text>
         <View style={styles.addReminderContainer}>
           <TextInput
             style={[styles.settingText, isDarkTheme && styles.darkText]}
             placeholder="Enter reminder title"
+            placeholderTextColor={isDarkTheme ? "#999" : "#ccc"}
             value={newReminderTitle}
             onChangeText={setNewReminderTitle}
           />
@@ -408,21 +420,21 @@ useEffect(() => {
           </TouchableOpacity>
           <Button title="Add" onPress={add} />
         </View>
-  
+
         <FlatList
           data={reminders}
           renderItem={({ item }) => (
             <View style={styles.reminderItem}>
               <Text style={[styles.darkText]}>{item.title}</Text>
-              <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>{item.time}</Text>
+              <Text style={[styles.reminderTime, isDarkTheme && styles.darkText]}>{item.time}</Text>
               <TouchableOpacity onPress={() => handleDeleteReminder(item.id)}>
-                <Text style={[styles.deleteReminderText, darkModeEnabled && styles.darkText]}>Delete</Text>
+                <Text style={[styles.deleteReminderText, isDarkTheme && styles.darkText]}>Delete</Text>
               </TouchableOpacity>
             </View>
           )}
           keyExtractor={(item) => item.id}
         />
-  
+
         {newReminderTimePickerVisible && (
           <DateTimePicker
             value={new Date()}
@@ -433,23 +445,23 @@ useEffect(() => {
             onCancel={handleTimePickerCancel}
           />
         )}
-  
+
         <Modal
           visible={isModalVisible}
           animationType="slide"
           transparent={true}
           onRequestClose={handleModalClose}
         >
-          <View style={styles.modalContainer}>
-            <View style={styles.modalContent}>
+          <View style={[styles.modalContainer, isDarkTheme && styles.darkText]}>
+            <View style={[styles.modalContent, isDarkTheme && styles.darkText]}>
               <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Change Profile Name</Text>
               <TextInput
                 style={[styles.settingText, isDarkTheme && styles.darkText]}
                 value={newProfileName}
                 onChangeText={setNewProfileName}
               />
-              <View style={styles.modalButtonContainer}>
-                <View style={styles.modalButton}>
+              <View style={[styles.modalButtonContainer, isDarkTheme && styles.darkText]}>
+                <View style={styles.modalButtonis}>
                   <Button title="Cancel" onPress={handleModalClose} color="#666" />
                 </View>
                 <Button title="Save" onPress={handleSaveProfileName} />
@@ -460,7 +472,7 @@ useEffect(() => {
       </View>
     </ScrollView>
   );
-  
+
 };
 
 const styles = StyleSheet.create({
@@ -501,9 +513,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#333',
   },
-  darkText: {
-    color: '#FFFFFF', // Dark mode text color
-  },
+  
   title: {
     fontSize: 24,
     fontWeight: 'bold',
@@ -610,6 +620,15 @@ const styles = StyleSheet.create({
   deleteReminderText: {
     color: 'red',
     fontSize: 12,
+  },
+  darkProfileContainer: {
+    backgroundColor: '#333',
+    borderColor: '#666', 
+  },
+  darkTextInput: {
+    backgroundColor: '#333',  
+    borderColor: '#666', 
+    color: '#FFFFFF',
   },
 });
 

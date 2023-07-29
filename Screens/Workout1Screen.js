@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import {StyleSheet,Text,View,Pressable,SafeAreaView,Platform,Image,ScrollView,Modal,TouchableOpacity,} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { useTheme } from '@react-navigation/native';
 
 const Workout1Screen = () => {
   const navigation = useNavigation();
   const [selectedWorkout, setSelectedWorkout] = useState(null);
+  const { colors } = useTheme();
 
   const handleBoxPress = (screenName) => {
     navigation.navigate(screenName);

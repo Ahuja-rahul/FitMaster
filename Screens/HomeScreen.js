@@ -1,6 +1,8 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useContext } from 'react';
 import { View, Text, Image, StyleSheet, Dimensions, Pressable, ScrollView } from 'react-native';
 import { useTheme } from '@react-navigation/native';
+import { AppContext } from '../context/AppContext';
+
 
 const HomeScreen = ({ navigation }) => {
     const handleBoxPress = (screenName) => {
@@ -10,7 +12,7 @@ const HomeScreen = ({ navigation }) => {
     const windowWidth = Dimensions.get('window').width;
     const boxSize = (windowWidth / 2) - 30;
     const scrollViewRef = useRef(null);
-    const { colors } = useTheme();
+    const { colors, isDarkTheme } = useContext(AppContext);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -22,13 +24,14 @@ const HomeScreen = ({ navigation }) => {
 
     return (
         <ScrollView>
-            <ScrollView
+           
+              <ScrollView
                 horizontal
                 ref={scrollViewRef}
                 pagingEnabled
                 showsHorizontalScrollIndicator={false}
             >
-                <Pressable style={styles.hriozontalBanner} onPress={() => handleBoxPress('Banner')}>
+                <Pressable style={[styles.hriozontalBanner, isDarkTheme && styles.darkText]} onPress={() => handleBoxPress('Banner')}>
                     <Image source={require('../assets/bannerImage1.jpg')} style={styles.bannerImage} />
                 </Pressable>
                 <Pressable style={styles.hriozontalBanner} onPress={() => handleBoxPress('Banner')}>
@@ -37,88 +40,98 @@ const HomeScreen = ({ navigation }) => {
             </ScrollView>
 
 
-            <Text style={styles.popularWorkoutsText}>Popular Workouts</Text>
+            <Text style={[styles.popularWorkoutsText, isDarkTheme && styles.darkText]}>Popular Workouts</Text>
 
-            <View style={styles.container}>
-                <View style={styles.boxContainer}>
-                    <Pressable
-                        style={[styles.box, { width: boxSize, height: boxSize }]}
+            <View style={[styles.container, isDarkTheme && styles.darkText]}>
+                <View style={[styles.boxContainer, isDarkTheme && styles.darkText]}>
+                    {/* <Pressable
+                        style={[styles.box, { width: boxSize, height: boxSize }, isDarkTheme && styles.darkText]}
                         onPress={() => handleBoxPress('BacknBicep Beginner')}
                     >
                         <Image
                             source={require('../assets/WorkoutScreen/BacknBicepB.png')}
                             style={styles.image}
                         />
-                        <Text style={styles.boxText}>Back n Bicep</Text>
-                        <Text style={styles.boxText2}>Beginner</Text>
+                        <Text style={[styles.boxText, isDarkTheme && styles.darkText]}>Back n Bicep</Text>
+                        <Text style={[styles.boxText2, isDarkTheme && styles.darkText]}>Beginner</Text>
+                    </Pressable> */}
+                   <Pressable
+                        style={[styles.box, { width: boxSize, height: boxSize }, isDarkTheme && styles.darkBox]}
+                        onPress={() => handleBoxPress('BacknBicep Beginner')}
+                    >
+                        <Image
+                            source={require('../assets/WorkoutScreen/BacknBicepB.png')}
+                            style={styles.image}
+                        />
+                        <Text style={[styles.boxText, isDarkTheme && styles.darkText]}>Back n Bicep</Text>
+                        <Text style={[styles.boxText2, isDarkTheme && styles.darkText]}>Beginner</Text>
                     </Pressable>
 
 
                     <Pressable
-                        style={[styles.box, { width: boxSize, height: boxSize }]}
+                        style={[styles.box, { width: boxSize, height: boxSize }, isDarkTheme && styles.darkBox]}
                         onPress={() => handleBoxPress('BacknBicep Advanced')}
                     >
                         <Image
                             source={require('../assets/WorkoutScreen/BacknBicep.png')}
                             style={styles.image}
                         />
-                        <Text style={styles.boxText}>Back n Bicep</Text>
-                        <Text style={styles.boxText2}>Advanced</Text>
+                        <Text style={[styles.boxText, isDarkTheme && styles.darkText]}>Back n Bicep</Text>
+                        <Text style={[styles.boxText, isDarkTheme && styles.darkText]}>Advanced</Text>
                     </Pressable>
 
                     <Pressable
-                        style={[styles.box, { width: boxSize, height: boxSize }]}
+                        style={[styles.box, { width: boxSize, height: boxSize }, isDarkTheme && styles.darkBox]}
                         onPress={() => handleBoxPress('ChestnTricep Beginner')}
                     >
                         <Image
                             source={require('../assets/WorkoutScreen/ChestnTricepB.png')}
                             style={styles.image}
                         />
-                        <Text style={styles.boxText}>Chest n Tricep</Text>
-                        <Text style={styles.boxText2}>Beginner</Text>
+                        <Text style={[styles.boxText, isDarkTheme && styles.darkText]}>Chest n Tricep</Text>
+                        <Text style={[styles.boxText, isDarkTheme && styles.darkText]}>Beginner</Text>
                     </Pressable>
 
                     <Pressable
-                        style={[styles.box, { width: boxSize, height: boxSize }]}
+                        style={[styles.box, { width: boxSize, height: boxSize }, isDarkTheme && styles.darkBox]}
                         onPress={() => handleBoxPress('ChestnTricep Advanced')}
                     >
                         <Image
                             source={require('../assets/WorkoutScreen/ChestnTricepA.png')}
                             style={styles.image}
                         />
-                        <Text style={styles.boxText}>Chest n Tricep</Text>
-                        <Text style={styles.boxText2}>Advanced</Text>
+                        <Text style={[styles.boxText, isDarkTheme && styles.darkText]}>Chest n Tricep</Text>
+                        <Text style={[styles.boxText, isDarkTheme && styles.darkText]}>Advanced</Text>
                     </Pressable>
 
                     <Pressable
-                        style={[styles.box, { width: boxSize, height: boxSize }]}
+                        style={[styles.box, { width: boxSize, height: boxSize }, isDarkTheme && styles.darkBox]}
                         onPress={() => handleBoxPress('LegnShoulder Beginner')}
                     >
                         <Image
                             source={require('../assets/WorkoutScreen/LegnShoulderB.png')}
                             style={styles.image}
                         />
-                        <Text style={styles.boxText}>Shoulders n Legs</Text>
-                        <Text style={styles.boxText2}>Beginner</Text>
+                        <Text style={[styles.boxText, isDarkTheme && styles.darkText]}>Shoulders n Legs</Text>
+                        <Text style={[styles.boxText, isDarkTheme && styles.darkText]}>Beginner</Text>
                     </Pressable>
 
                     <Pressable
-                        style={[styles.box, { width: boxSize, height: boxSize }]}
+                        style={[styles.box, { width: boxSize, height: boxSize }, isDarkTheme && styles.darkBox]}
                         onPress={() => handleBoxPress('LegnShoulder Advanced')}
                     >
                         <Image
                             source={require('../assets/WorkoutScreen/LegnShoulderA.png')}
                             style={styles.image}
                         />
-                        <Text style={styles.boxText}>Shoulders n Legs</Text>
-                        <Text style={styles.boxText2}>Advanced</Text>
+                        <Text style={[styles.boxText, isDarkTheme && styles.darkText]}>Shoulders n Legs</Text>
+                        <Text style={[styles.boxText, isDarkTheme && styles.darkText]}>Advanced</Text>
                     </Pressable>
                 </View>
             </View>
         </ScrollView>
     );
 };
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -126,18 +139,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 10,
     },
-    // boxContainer: {
-    //     flexDirection: 'row',
-    //     flexWrap: 'wrap',
-    //     justifyContent: 'center',
-    //     alignItems: 'center',
-    // },
-    bannerImage: {
-        width: '100%',
-        height: '100%',
-        resizeMode: 'cover',
-        borderRadius: 10,
-    },
+    darkContainer: {
+        flex: 1,
+        padding: 16,
+        backgroundColor: '#000000', // Dark mode background color
+      },
     bannerImage: {
         width: '100%',
         height: '100%',
@@ -201,6 +207,18 @@ const styles = StyleSheet.create({
         fontSize: 12,
         textAlign: 'center',
     },
+    darkText: {
+        color: '#FFFFFF', // Dark mode text color
+      },
+      darkBox: {
+        backgroundColor: '#333333', // Dark mode background color for the box
+    },
+    image: {
+        width: '70%',
+        height: '60%',
+        resizeMode: 'contain',// for darkmode
+    },
 });
+
 
 export default HomeScreen;
