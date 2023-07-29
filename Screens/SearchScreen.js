@@ -1,15 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { StyleSheet, View, Text, FlatList, Image, TextInput, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { data, myWorkouts } from './Data/workouts';
+import { useTheme } from '@react-navigation/native';
+import { AppContext } from '../context/AppContext';
+
 
 const SearchScreen = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredWorkouts, setFilteredWorkouts] = useState(data);
   const [selectedWorkouts, setSelectedWorkouts] = useState([]);
+  const { colors, isDarkTheme } = useContext(AppContext);
 
   const handleSearchQueryChange = (query) => {
     setSearchQuery(query);
+    
 
     const filtered = data.filter(
       (workout) =>
@@ -26,13 +31,13 @@ const SearchScreen = ({ navigation }) => {
   };
 
   const renderItem = ({ item }) => (
-    <View style={styles.workoutContainer}>
-      <View style={styles.workoutImageContainer}>
+    <View style={[styles.workoutContainer, isDarkTheme && styles.darkText]}>
+      <View style={[styles.workoutImageContainer, isDarkTheme && styles.darkText]}>
         <Image source={item.image} style={styles.workoutImage} />
       </View>
-      <View style={styles.workoutInfoContainer}>
-        <Text style={styles.workoutName}>{item.name}</Text>
-        <Text>{item.reps}</Text>
+      <View style={[styles.workoutInfoContainer, isDarkTheme && styles.darkText]}>
+        <Text style={[styles.workoutName, isDarkTheme && styles.darkText]}>{item.name}</Text>
+        <Text style={[styles.workoutName, isDarkTheme && styles.darkText]}>{item.reps}</Text>
       </View>
       <TouchableOpacity onPress={() => handleAddToMyWorkout(item)}>
         <Ionicons name="add-circle" size={24} color="green" />
@@ -46,11 +51,12 @@ const SearchScreen = ({ navigation }) => {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.toolbar}>
+    <View style={[styles.container, isDarkTheme && styles.darkText]}>
+      <View style={[styles.toolbar, isDarkTheme && styles.darkText]}>
         <TextInput
-          style={styles.searchInput}
+          style={[styles.searchInput,, isDarkTheme && styles.darkText]}
           placeholder="Search workouts..."
+          placeholderTextColor={isDarkTheme ? "#999" : "#ccc"}
           value={searchQuery}
           onChangeText={handleSearchQueryChange}
         />
@@ -69,6 +75,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+  },
+  darkContainer: {
+    flex: 1,
+    backgroundColor: '#000000', // Dark mode background color
   },
   toolbar: {
     flexDirection: 'row',
@@ -123,6 +133,15 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginBottom: 10,
   },
+  darkText: {
+    color: '#FFFFFF', // Dark mode text color
+  },
+  darkBox: {
+    backgroundColor: '#333333', // Dark mode background color for the box
+},
 });
+
+
+
 
 export default SearchScreen;
