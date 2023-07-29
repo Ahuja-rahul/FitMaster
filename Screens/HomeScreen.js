@@ -31,12 +31,18 @@ const HomeScreen = ({ navigation }) => {
                 pagingEnabled
                 showsHorizontalScrollIndicator={false}
             >
-                <Pressable style={[styles.hriozontalBanner, isDarkTheme && styles.darkText]} onPress={() => handleBoxPress('Banner')}>
+                <Pressable style={[styles.hriozontalBanner, isDarkTheme && styles.darkText]} onPress={() => handleBoxPress('Six Pack Abs')}>
+                    <Image source={require('../assets/banner1abs/absPic.jpeg')} style={styles.bannerImage} />
+                </Pressable>
+                <Pressable style={styles.hriozontalBanner} onPress={() => handleBoxPress('Weight Loss')}>
+                    <Image source={require('../assets/banner1abs/loss.jpg')} style={styles.bannerImage} />
+                </Pressable>
+                <Pressable style={styles.hriozontalBanner} onPress={() => handleBoxPress('HIIT')}>
+                    <Image source={require('../assets/banner1abs/HIIT.webp')} style={styles.bannerImage} />
+                </Pressable>
+                {/* <Pressable style={styles.hriozontalBanner} onPress={() => handleBoxPress('Banner')}>
                     <Image source={require('../assets/bannerImage1.jpg')} style={styles.bannerImage} />
-                </Pressable>
-                <Pressable style={styles.hriozontalBanner} onPress={() => handleBoxPress('Banner')}>
-                    <Image source={require('../assets/bannerImage2.jpg')} style={styles.bannerImage} />
-                </Pressable>
+                </Pressable> */}
             </ScrollView>
 
 

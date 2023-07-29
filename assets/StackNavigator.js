@@ -8,10 +8,12 @@ import Workout3Screen from '../Screens/Workout3Screen';
 import Workout4Screen from '../Screens/Workout4Screen';
 import Workout5Screen from '../Screens/Workout5Screen';
 import Workout6Screen from '../Screens/Workout6Screen';
-import Banner from '../Screens/Banner';
+import Banner1 from '../Screens/Banner1';
 import SearchScreen from '../Screens/SearchScreen';
 import SettingScreen from '../Screens/SettingScreen';
 import ProfileScreen from '../Screens/ProfileScreen';
+import Banner2 from '../Screens/Banner2WeightLoss';
+import Banner3 from '../Screens/HIIT';
 
 
 const Stack = createStackNavigator();
@@ -29,7 +31,12 @@ function MyStack() {
       <Stack.Screen name="ChestnTricep Advanced" component={Workout4Screen} options={{ headerShown: true, headerBackTitleVisible: false }} />
       <Stack.Screen name="LegnShoulder Beginner" component={Workout5Screen} options={{ headerShown: true, headerBackTitleVisible: false }} />
       <Stack.Screen name="LegnShoulder Advanced" component={Workout6Screen} options={{ headerShown: true, headerBackTitleVisible: false }} />
-      <Stack.Screen name="Banner" component={Banner} options={{ headerShown: false }} />
+      {/* <Stack.Screen name="Banner" component={Banner} options={{ headerShown: false }} /> */}
+      <Stack.Screen name="Six Pack Abs" component={Banner1} options={{ headerShown: true, headerBackTitleVisible: false }} />
+      <Stack.Screen name="Weight Loss" component={Banner2} options={{ headerShown: true, headerBackTitleVisible: false }} />
+      <Stack.Screen name="HIIT" component={Banner3} options={{ headerShown: true, headerBackTitleVisible: false }} />
+
+
       <Stack.Screen name="Settings" component={SettingScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: true }} />
     </Stack.Navigator>
