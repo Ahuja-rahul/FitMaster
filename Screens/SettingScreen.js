@@ -6,6 +6,9 @@ import * as Device from 'expo-device';
 import Reminder from './components/Reminder';
 import { hour, minute, scheduleReminder } from './components/Reminder';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useTheme } from '@react-navigation/native';
+import { AppContext } from '../context/AppContext';
+import { Ionicons } from '@expo/vector-icons';
 
 var globalHours = 23;
 var globalMinutes = 59;
@@ -31,6 +34,8 @@ const SettingScreen = ({ navigation }) => {
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
+  const { colors } = useTheme();
+ const { isDarkTheme, setIsDarkTheme } = React.useContext(AppContext)
 
 
 
@@ -301,7 +306,7 @@ useEffect(() => {
 
   return (
     <ScrollView>
-      <View style={[styles.container, darkModeEnabled && styles.darkContainer]}>
+     <View style={[styles.container, darkModeEnabled && styles.darkContainer]}>
         <Text style={[styles.subtitle, darkModeEnabled && styles.darkText]}>Profile</Text>
         <TouchableOpacity style={styles.profileContainer}>
           <Image
@@ -372,15 +377,22 @@ useEffect(() => {
             onValueChange={toggleNotification}
           />
         </View>
-        <View style={styles.settingItem}>
-          <Text style={[styles.settingText, darkModeEnabled && styles.darkText]}>Dark Mode</Text>
-          <Switch
-            value={darkModeEnabled}
-            onValueChange={toggleDarkMode}
-            //trackColor={{ false: "#767577", true: "#81b0ff" }} // Customize the switch colors if needed
-            //thumbColor={darkModeEnabled ? "#f5dd4b" : "#f4f3f4"} // Customize the switch thumb color if needed
-          />
-        </View>
+    
+{/* <View style={styles.settingItem}>
+  <Text style={[styles.settingText, darkModeEnabled && styles.darkText]}>Dark Mode</Text>
+  <Switch
+    value={darkModeEnabled}
+    onValueChange={setDarkModeEnabled}
+  />
+</View> */}
+<View style={styles.settingItem}>
+      <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Dark Mode</Text>
+      <Switch
+        value={isDarkTheme}
+        onValueChange={(value) => setIsDarkTheme(value)}
+      />
+    </View>
+
   
         <Text style={[styles.title, darkModeEnabled && styles.darkText]}>Reminders</Text>
         <View style={styles.addReminderContainer}>
