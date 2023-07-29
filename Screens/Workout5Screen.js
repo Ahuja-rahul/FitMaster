@@ -79,7 +79,6 @@ const Workout5Screen = () => {
 };
 
 export default Workout5Screen;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -99,39 +98,37 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 10,
   },
   workoutContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 5,
+    marginBottom: 10,
     borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 10,
+    backgroundColor: '#fff',
     padding: 10,
-    ...Platform.select({
-      android: {
-        elevation: 5,
-        shadowColor: '#000',
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-      },
-      ios: {
-        // No shadow styles for iOS
-      },
-    }),
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    elevation: 3,
   },
   workoutImageContainer: {
     flex: 1,
     alignItems: 'flex-start',
-    marginLeft: 20,
+    marginLeft: 10,
   },
   workoutInfoContainer: {
     flex: 2,
     marginLeft: 20,
   },
   workoutImage: {
-    width: 100,
-    height: 100,
+    width: 80,
+    height: 80,
     resizeMode: 'contain',
-    marginTop: 10,
+    marginTop: 5,
   },
   workoutName: {
     fontSize: 18,
