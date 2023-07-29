@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { View, Text, Image, StyleSheet, Dimensions, Pressable, ScrollView } from 'react-native';
+import { useTheme } from '@react-navigation/native';
 
 const HomeScreen = ({ navigation }) => {
     const handleBoxPress = (screenName) => {
@@ -9,6 +10,7 @@ const HomeScreen = ({ navigation }) => {
     const windowWidth = Dimensions.get('window').width;
     const boxSize = (windowWidth / 2) - 30;
     const scrollViewRef = useRef(null);
+    const { colors } = useTheme();
 
     useEffect(() => {
         const interval = setInterval(() => {

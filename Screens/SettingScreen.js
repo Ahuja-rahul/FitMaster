@@ -34,7 +34,7 @@ const SettingScreen = ({ navigation }) => {
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
-  const { colors } = useTheme();
+  const { colors, } = useTheme();
  const { isDarkTheme, setIsDarkTheme } = React.useContext(AppContext)
 
 
@@ -306,26 +306,26 @@ useEffect(() => {
 
   return (
     <ScrollView>
-     <View style={[styles.container, darkModeEnabled && styles.darkContainer]}>
-        <Text style={[styles.subtitle, darkModeEnabled && styles.darkText]}>Profile</Text>
+     <View style={[styles.settingText, isDarkTheme && styles.darkText]}>
+        <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Profile</Text>
         <TouchableOpacity style={styles.profileContainer}>
           <Image
             style={styles.profileImage}
             source={require('../assets/icon.png')}
           />
-          <Text style={[styles.profileName, darkModeEnabled && styles.darkText]}>{profileName}</Text>
+          <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>{profileName}</Text>
         </TouchableOpacity>
   
-        <Text style={[styles.subtitle, darkModeEnabled && styles.darkText]}>Settings</Text>
+        <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Settings</Text>
   
-        <Text style={[styles.title, darkModeEnabled && styles.darkText]}>Profile</Text>
+        <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Profile</Text>
         <View style={styles.settingItem}>
-          <Text style={[styles.settingText, darkModeEnabled && styles.darkText]}>Profile Name</Text>
+          <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Profile Name</Text>
           <Button title="Change Name" onPress={handleModalOpen} />
         </View>
-        <Text style={[styles.title, darkModeEnabled && styles.darkText]}>Body Measurements</Text>
+        <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Body Measurements</Text>
         <View style={styles.settingItem}>
-          <Text style={[styles.settingText, darkModeEnabled && styles.darkText]}>Height</Text>
+          <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Height</Text>
           <TextInput
             style={[styles.settingInput, darkModeEnabled && styles.darkInput]}
             placeholder="Enter height"
@@ -334,44 +334,44 @@ useEffect(() => {
           />
         </View>
         <View style={styles.settingItem}>
-          <Text style={[styles.settingText, darkModeEnabled && styles.darkText]}>Weight</Text>
+          <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Weight</Text>
           <TextInput
-            style={[styles.settingInput, darkModeEnabled && styles.darkInput]}
+            style={[styles.settingText, isDarkTheme && styles.darkText]}
             placeholder="Enter weight"
             value={bodyMeasurements.weight}
             onChangeText={(text) => setBodyMeasurements({ ...bodyMeasurements, weight: text })}
           />
         </View>
         <View style={styles.settingItem}>
-          <Text style={[styles.settingText, darkModeEnabled && styles.darkText]}>Chest</Text>
+          <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Chest</Text>
           <TextInput
-            style={[styles.settingInput, darkModeEnabled && styles.darkInput]}
+            style={[styles.settingText, isDarkTheme && styles.darkText]}
             placeholder="Enter chest measurement"
             value={bodyMeasurements.chest}
             onChangeText={(text) => setBodyMeasurements({ ...bodyMeasurements, chest: text })}
           />
         </View>
         <View style={styles.settingItem}>
-          <Text style={[styles.settingText, darkModeEnabled && styles.darkText]}>Waist</Text>
+          <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Waist</Text>
           <TextInput
-            style={[styles.settingInput, darkModeEnabled && styles.darkInput]}
+            style={[styles.settingText, isDarkTheme && styles.darkText]}
             placeholder="Enter waist measurement"
             value={bodyMeasurements.waist}
             onChangeText={(text) => setBodyMeasurements({ ...bodyMeasurements, waist: text })}
           />
         </View>
         <View style={styles.settingItem}>
-          <Text style={[styles.settingText, darkModeEnabled && styles.darkText]}>Hips</Text>
+          <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Hips</Text>
           <TextInput
-            style={[styles.settingInput, darkModeEnabled && styles.darkInput]}
+            style={[styles.settingText, isDarkTheme && styles.darkText]}
             placeholder="Enter hips measurement"
             value={bodyMeasurements.hips}
             onChangeText={(text) => setBodyMeasurements({ ...bodyMeasurements, hips: text })}
           />
         </View>
-        <Text style={[styles.title, darkModeEnabled && styles.darkText]}>General</Text>
+        <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>General</Text>
         <View style={styles.settingItem}>
-          <Text style={[styles.settingText, darkModeEnabled && styles.darkText]}>Notifications</Text>
+          <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Notifications</Text>
           <Switch
             value={notificationEnabled}
             onValueChange={toggleNotification}
@@ -385,6 +385,7 @@ useEffect(() => {
     onValueChange={setDarkModeEnabled}
   />
 </View> */}
+
 <View style={styles.settingItem}>
       <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Dark Mode</Text>
       <Switch
@@ -394,10 +395,10 @@ useEffect(() => {
     </View>
 
   
-        <Text style={[styles.title, darkModeEnabled && styles.darkText]}>Reminders</Text>
+        <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Reminders</Text>
         <View style={styles.addReminderContainer}>
           <TextInput
-            style={[styles.addReminderInput, darkModeEnabled && styles.darkInput]}
+            style={[styles.settingText, isDarkTheme && styles.darkText]}
             placeholder="Enter reminder title"
             value={newReminderTitle}
             onChangeText={setNewReminderTitle}
@@ -413,7 +414,7 @@ useEffect(() => {
           renderItem={({ item }) => (
             <View style={styles.reminderItem}>
               <Text style={[styles.darkText]}>{item.title}</Text>
-              <Text style={[styles.reminderTime, darkModeEnabled && styles.darkText]}>{item.time}</Text>
+              <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>{item.time}</Text>
               <TouchableOpacity onPress={() => handleDeleteReminder(item.id)}>
                 <Text style={[styles.deleteReminderText, darkModeEnabled && styles.darkText]}>Delete</Text>
               </TouchableOpacity>
@@ -441,9 +442,9 @@ useEffect(() => {
         >
           <View style={styles.modalContainer}>
             <View style={styles.modalContent}>
-              <Text style={[styles.modalTitle, darkModeEnabled && styles.darkText]}>Change Profile Name</Text>
+              <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Change Profile Name</Text>
               <TextInput
-                style={[styles.modalTextInput, darkModeEnabled && styles.darkInput]}
+                style={[styles.settingText, isDarkTheme && styles.darkText]}
                 value={newProfileName}
                 onChangeText={setNewProfileName}
               />
