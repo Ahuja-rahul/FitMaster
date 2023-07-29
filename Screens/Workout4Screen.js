@@ -1,13 +1,17 @@
-import { StyleSheet, Text, View, Pressable, SafeAreaView, Platform, Image, ScrollView } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
+import {StyleSheet,Text,View,Pressable,SafeAreaView,Platform,Image,ScrollView,Modal,TouchableOpacity,} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-
 const Workout4Screen = () => {
   const navigation = useNavigation();
+  const [selectedWorkout, setSelectedWorkout] = useState(null);
 
   const handleBoxPress = (screenName) => {
     navigation.navigate(screenName);
+  };
+
+  const handleWorkoutPress = (workout) => {
+    setSelectedWorkout(workout);
   };
 
   const workouts = [
@@ -67,15 +71,20 @@ const Workout4Screen = () => {
       image: require('../assets/Workout4screen/Botharmsdumbbell.gif'),
     },
   ];
-
   return (
     <SafeAreaView style={[styles.container, Platform.OS === 'android' && styles.androidPadding]}>
       <ScrollView stickyHeaderIndices={[0]}>
-        <View style={styles.toolbar}>
-        </View>
+        <View style={styles.toolbar}></View>
         <View style={styles.content}>
           {workouts.map((workout) => (
-            <View key={workout.id} style={styles.workoutContainer}>
+            <Pressable
+              key={workout.id}
+              onPress={() => handleWorkoutPress(workout)}
+              style={({ pressed }) => [
+                styles.workoutContainer,
+                pressed ? styles.workoutPressed : {},
+              ]}
+            >
               <View style={styles.workoutImageContainer}>
                 <Image source={workout.image} style={styles.workoutImage} />
               </View>
@@ -83,15 +92,29 @@ const Workout4Screen = () => {
                 <Text style={styles.workoutName}>{workout.name}</Text>
                 <Text style={styles.workoutReps}>{workout.reps}</Text>
               </View>
-            </View>
+            </Pressable>
           ))}
         </View>
+        {selectedWorkout && (
+          <Modal animationType="fade" transparent={true} visible={true}>
+            <View style={styles.modalContainer}>
+              <TouchableOpacity
+                activeOpacity={1}
+                onPress={() => setSelectedWorkout(null)}
+                style={styles.modalContent}
+              >
+                <Image source={selectedWorkout.image} style={styles.enlargedWorkoutImage} />
+                <Text style={styles.enlargedWorkoutName}>{selectedWorkout.name}</Text>
+                <Text style={styles.enlargedWorkoutReps}>{selectedWorkout.reps}</Text>
+              </TouchableOpacity>
+            </View>
+          </Modal>
+        )}
       </ScrollView>
     </SafeAreaView>
   );
 };
 
-export default Workout4Screen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -128,6 +151,11 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 3,
   },
+  workoutPressed: {
+    transform: [{ scale: 1.1 }],
+    shadowOpacity: 0.5,
+    elevation: 6,
+  },
   workoutImageContainer: {
     flex: 1,
     alignItems: 'flex-start',
@@ -154,4 +182,33 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginLeft: 10,
   },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    padding: 20,
+    width: '80%',
+  },
+  enlargedWorkoutImage: {
+    width: 200,
+    height: 200,
+    resizeMode: 'contain',
+    marginBottom: 10,
+  },
+  enlargedWorkoutName: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  enlargedWorkoutReps: {
+    fontSize: 20,
+  },
 });
+
+export default Workout4Screen;
