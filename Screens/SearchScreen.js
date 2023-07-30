@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react';
-import { StyleSheet, View, Text, FlatList, Image, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, FlatList, Image, TextInput, TouchableOpacity, Alert, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { data, myWorkouts } from './Data/workouts';
-import { useTheme } from '@react-navigation/native';
+import { data, myWorkouts } from './Data/workouts'; // Import created workouts list
 import { AppContext } from '../context/AppContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SearchScreen = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -11,9 +11,18 @@ const SearchScreen = ({ navigation }) => {
   const [selectedWorkouts, setSelectedWorkouts] = useState([]);
   const { colors, isDarkTheme } = useContext(AppContext);
 
+  // Function to save the workouts to AsyncStorage
+  const saveWorkoutsToAsyncStorage = async () => {
+    try {
+      await AsyncStorage.setItem('@myWorkouts', JSON.stringify(myWorkouts));
+    } catch (error) {
+      console.error('Error saving workouts to AsyncStorage:', error);
+    }
+  };
+
   const handleSearchQueryChange = (query) => {
     setSearchQuery(query);
-    
+
     const filtered = data.filter(
       (workout) =>
         workout.name.toLowerCase().includes(query.toLowerCase()) ||
@@ -23,27 +32,26 @@ const SearchScreen = ({ navigation }) => {
   };
 
   const handleAddToMyWorkout = (selectedItem) => {
-    // Ask user to select a workout before adding an exercise
-    Alert.alert(
-      'Select a Workout',
-      'Choose a workout from the list below:',
-      [
-        ...myWorkouts.map((item) => ({
-          text: item.name,
-          onPress: () => handleAddToWorkout(selectedItem, item),
-        })),
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-      ]
-    );
-  };
+    // Show a dialog box to select a workout from the created workouts list
+    const workoutsList = myWorkouts.map((workout) => ({
+      text: workout.name,
+      onPress: () => {
+        const updatedWorkouts = [...selectedWorkouts, selectedItem];
+        setSelectedWorkouts(updatedWorkouts);
 
-  const handleAddToWorkout = (selectedItem, selectedWorkout) => {
-    const updatedWorkouts = [...selectedWorkouts, selectedItem];
-    setSelectedWorkouts(updatedWorkouts);
-    selectedWorkout.exercises.push(selectedItem); // Add the selected exercise to the selected workout
+        // Add the selected exercise to the chosen workout
+        workout.exercises.push(selectedItem);
+
+        // Save the updated workouts to AsyncStorage
+        saveWorkoutsToAsyncStorage();
+
+        // Show a success message
+        Alert.alert('Exercise Added', `${selectedItem.name} added to ${workout.name}`);
+      },
+    }));
+
+    // Show a dialog with the list of created workouts to select from
+    Alert.alert('Select a Workout', '', workoutsList);
   };
 
   const renderItem = ({ item }) => (
@@ -70,9 +78,9 @@ const SearchScreen = ({ navigation }) => {
     <View style={[styles.container, isDarkTheme && styles.darkText]}>
       <View style={[styles.toolbar, isDarkTheme && styles.darkText]}>
         <TextInput
-          style={[styles.searchInput,, isDarkTheme && styles.darkText]}
+          style={[styles.searchInput, isDarkTheme && styles.darkText]}
           placeholder="Search workouts..."
-          placeholderTextColor={isDarkTheme ? "#999" : "#ccc"}
+          placeholderTextColor={isDarkTheme ? '#999' : '#ccc'}
           value={searchQuery}
           onChangeText={handleSearchQueryChange}
         />
@@ -86,6 +94,7 @@ const SearchScreen = ({ navigation }) => {
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {
@@ -154,10 +163,7 @@ const styles = StyleSheet.create({
   },
   darkBox: {
     backgroundColor: '#333333', // Dark mode background color for the box
-},
+  },
 });
-
-
-
 
 export default SearchScreen;

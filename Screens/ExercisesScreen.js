@@ -1,8 +1,36 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View, Text, FlatList, Image } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ExercisesScreen = ({ route }) => {
   const { workout } = route.params;
+
+  // Function to save the exercises of a workout in AsyncStorage
+  const saveExercisesToAsyncStorage = async (workoutId, exercises) => {
+    try {
+      await AsyncStorage.setItem(`@exercises_${workoutId}`, JSON.stringify(exercises));
+    } catch (error) {
+      console.error('Error saving exercises to AsyncStorage:', error);
+    }
+  };
+
+  // Function to load the exercises of a workout from AsyncStorage
+  const loadExercisesFromAsyncStorage = async (workoutId) => {
+    try {
+      const exercisesString = await AsyncStorage.getItem(`@exercises_${workoutId}`);
+      if (exercisesString) {
+        const exercises = JSON.parse(exercisesString);
+        // Do something with the loaded exercises, if needed
+      }
+    } catch (error) {
+      console.error('Error loading exercises from AsyncStorage:', error);
+    }
+  };
+
+  useEffect(() => {
+    // Load exercises from AsyncStorage when the component mounts
+    loadExercisesFromAsyncStorage(workout.id);
+  }, [workout.id]);
 
   const renderItem = ({ item }) => (
     <View style={[styles.exerciseContainer, styles.shadow]}>
