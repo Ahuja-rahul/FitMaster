@@ -50,17 +50,7 @@ const HomeScreen = ({ navigation }) => {
 
             <View style={[styles.container, isDarkTheme && styles.darkText]}>
                 <View style={[styles.boxContainer, isDarkTheme && styles.darkText]}>
-                    {/* <Pressable
-                        style={[styles.box, { width: boxSize, height: boxSize }, isDarkTheme && styles.darkText]}
-                        onPress={() => handleBoxPress('BacknBicep Beginner')}
-                    >
-                        <Image
-                            source={require('../assets/WorkoutScreen/BacknBicepB.png')}
-                            style={styles.image}
-                        />
-                        <Text style={[styles.boxText, isDarkTheme && styles.darkText]}>Back n Bicep</Text>
-                        <Text style={[styles.boxText2, isDarkTheme && styles.darkText]}>Beginner</Text>
-                    </Pressable> */}
+                   
                    <Pressable
                         style={[styles.box, { width: boxSize, height: boxSize }, isDarkTheme && styles.darkBox]}
                         onPress={() => handleBoxPress('BacknBicep Beginner')}
@@ -83,7 +73,7 @@ const HomeScreen = ({ navigation }) => {
                             style={styles.image}
                         />
                         <Text style={[styles.boxText, isDarkTheme && styles.darkText]}>Back n Bicep</Text>
-                        <Text style={[styles.boxText, isDarkTheme && styles.darkText]}>Advanced</Text>
+                        <Text style={[styles.boxText2, isDarkTheme && styles.darkText]}>Advanced</Text>
                     </Pressable>
 
                     <Pressable
@@ -95,7 +85,7 @@ const HomeScreen = ({ navigation }) => {
                             style={styles.image}
                         />
                         <Text style={[styles.boxText, isDarkTheme && styles.darkText]}>Chest n Tricep</Text>
-                        <Text style={[styles.boxText, isDarkTheme && styles.darkText]}>Beginner</Text>
+                        <Text style={[styles.boxText2, isDarkTheme && styles.darkText]}>Beginner</Text>
                     </Pressable>
 
                     <Pressable
@@ -107,7 +97,7 @@ const HomeScreen = ({ navigation }) => {
                             style={styles.image}
                         />
                         <Text style={[styles.boxText, isDarkTheme && styles.darkText]}>Chest n Tricep</Text>
-                        <Text style={[styles.boxText, isDarkTheme && styles.darkText]}>Advanced</Text>
+                        <Text style={[styles.boxText2, isDarkTheme && styles.darkText]}>Advanced</Text>
                     </Pressable>
 
                     <Pressable
@@ -119,7 +109,7 @@ const HomeScreen = ({ navigation }) => {
                             style={styles.image}
                         />
                         <Text style={[styles.boxText, isDarkTheme && styles.darkText]}>Shoulders n Legs</Text>
-                        <Text style={[styles.boxText, isDarkTheme && styles.darkText]}>Beginner</Text>
+                        <Text style={[styles.boxText2, isDarkTheme && styles.darkText]}>Beginner</Text>
                     </Pressable>
 
                     <Pressable
@@ -131,7 +121,7 @@ const HomeScreen = ({ navigation }) => {
                             style={styles.image}
                         />
                         <Text style={[styles.boxText, isDarkTheme && styles.darkText]}>Shoulders n Legs</Text>
-                        <Text style={[styles.boxText, isDarkTheme && styles.darkText]}>Advanced</Text>
+                        <Text style={[styles.boxText2, isDarkTheme && styles.darkText]}>Advanced</Text>
                     </Pressable>
                 </View>
             </View>

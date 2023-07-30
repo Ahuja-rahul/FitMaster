@@ -86,7 +86,8 @@ const MyWorkoutScreen = ({ navigation }) => {
       <FlatList
         data={createdWorkouts}
         renderItem={renderWorkoutItem}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => item.id.toString()
+        }
       />
     </View>
   );
