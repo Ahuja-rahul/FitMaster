@@ -13,6 +13,10 @@ const Banner1 = () => {
   const handleBoxPress = (screenName) => {
     navigation.navigate(screenName);
   };
+  
+  const handleCloseModal = () => {
+    setSelectedWorkout(null);
+  };
 
   const handleWorkoutPress = (workout) => {
     setSelectedWorkout(workout);
@@ -109,18 +113,21 @@ const Banner1 = () => {
 
         {selectedWorkout && (
           <Modal animationType="fade" transparent={true} visible={true}>
-            <View style={[styles.modalContainer, isDarkTheme && styles.darkText]}>
-              <TouchableOpacity
-                activeOpacity={1}
-                onPress={() => setSelectedWorkout(null)}
-                style={[styles.modalContent, isDarkTheme && styles.darkText]}
-              >
-                <Image source={selectedWorkout.image} style={styles.enlargedWorkoutImage} />
-                <Text style={[styles.enlargedWorkoutName, isDarkTheme && styles.darkText]}>{selectedWorkout.name}</Text>
-                <Text style={[styles.enlargedWorkoutReps, isDarkTheme && styles.darkText]}>{selectedWorkout.reps}</Text>
+          <View style={[styles.modalContainer, isDarkTheme && styles.darkText && styles.darkBox ]}>
+            <TouchableOpacity
+              activeOpacity={1}
+              onPress={handleCloseModal}
+              style={[styles.modalContent, isDarkTheme && styles.darkText && styles.darkContainer ]}
+            >
+            <TouchableOpacity style={styles.closeButton} onPress={handleCloseModal}>
+                <Ionicons name="close-circle-outline" size={30} color={isDarkTheme ? '#FFFFFF' : 'black'} />
               </TouchableOpacity>
-            </View>
-          </Modal>
+              <Image source={selectedWorkout.image} style={styles.enlargedWorkoutImage} />
+              <Text style={[styles.enlargedWorkoutName, isDarkTheme && styles.darkText]}>{selectedWorkout.name}</Text>
+              <Text style={[styles.enlargedWorkoutReps, isDarkTheme && styles.darkText]}>{selectedWorkout.reps}</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
         )}
       </ScrollView>
     </SafeAreaView>
@@ -132,7 +139,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   darkContainer: {
-    flex: 1,
+    
     backgroundColor: '#000000', // Dark mode background color
   },
   androidPadding: {
@@ -142,7 +149,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    paddingVertical: 10,
+    // paddingVertical: 10,
     paddingHorizontal: 16,
     backgroundColor: '#f5f5f5',
   },
@@ -230,6 +237,12 @@ const styles = StyleSheet.create({
   },
   darkBox: {
     backgroundColor: '#333333', // Dark mode background color for the box
+},
+closeButton: {
+  position: 'absolute',
+  top: 10,
+  right: 10,
+  zIndex: 1,
 },
 });
 

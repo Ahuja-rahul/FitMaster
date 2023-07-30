@@ -8,8 +8,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const SearchScreen = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredWorkouts, setFilteredWorkouts] = useState(data);
-  const [selectedWorkout, setSelectedWorkout] = useState(null);
+  const [selectedWorkouts, setSelectedWorkouts] = useState([]);
   const { colors, isDarkTheme } = useContext(AppContext);
+  const [selectedWorkout, setSelectedWorkout] = useState(null);
 
   // Function to save the workouts to AsyncStorage
   const saveWorkoutsToAsyncStorage = async () => {
@@ -19,13 +20,15 @@ const SearchScreen = ({ navigation }) => {
       console.error('Error saving workouts to AsyncStorage:', error);
     }
   };
-   // Set the selected workout when pressed
-  const handleWorkoutPress = (workout) => {
-    setSelectedWorkout(workout); 
+  const handleBoxPress = (screenName) => {
+    navigation.navigate(screenName);
   };
-// Close the modal by setting selectedWorkout to null
+
+  const handleWorkoutPress = (workout) => {
+    setSelectedWorkout(workout);
+  };
   const handleCloseModal = () => {
-    setSelectedWorkout(null); 
+    setSelectedWorkout(null);
   };
 
   const handleSearchQueryChange = (query) => {
@@ -71,12 +74,11 @@ const SearchScreen = ({ navigation }) => {
         <Text style={[styles.workoutName, isDarkTheme && styles.darkText]}>{item.name}</Text>
         <Text style={[styles.workoutName, isDarkTheme && styles.darkText]}>{item.reps}</Text>
       </View>
-      <TouchableOpacity onPress={() => handleWorkoutPress(item)}>
+      <TouchableOpacity onPress={() => handleAddToMyWorkout(item)}>
         <Ionicons name="add-circle" size={24} color="green" />
       </TouchableOpacity>
     </View>
   );
-  
 
   let title = null;
   if (searchQuery !== '' && filteredWorkouts.length > 0) {
@@ -101,22 +103,23 @@ const SearchScreen = ({ navigation }) => {
         keyExtractor={(item) => item.id.toString()}
       />
       {selectedWorkout && (
-        <Modal animationType="fade" transparent={true} visible={true}>
-          <View style={[styles.modalContainer, isDarkTheme && styles.darkText && styles.darkBox]}>
-            <TouchableOpacity activeOpacity={1} onPress={handleCloseModal} style={[styles.modalContent, isDarkTheme && styles.darkText && styles.darkContainer]}>
-             
-              <TouchableOpacity style={styles.closeButton} onPress={handleCloseModal}>
+          <Modal animationType="fade" transparent={true} visible={true}>
+          <View style={[styles.modalContainer, isDarkTheme && styles.darkText && styles.darkBox ]}>
+            <TouchableOpacity
+              activeOpacity={1}
+              onPress={handleCloseModal}
+              style={[styles.modalContent, isDarkTheme && styles.darkText && styles.darkContainer ]}
+            >
+            <TouchableOpacity style={styles.closeButton} onPress={handleCloseModal}>
                 <Ionicons name="close-circle-outline" size={30} color={isDarkTheme ? '#FFFFFF' : 'black'} />
               </TouchableOpacity>
-           
               <Image source={selectedWorkout.image} style={styles.enlargedWorkoutImage} />
-             
               <Text style={[styles.enlargedWorkoutName, isDarkTheme && styles.darkText]}>{selectedWorkout.name}</Text>
               <Text style={[styles.enlargedWorkoutReps, isDarkTheme && styles.darkText]}>{selectedWorkout.reps}</Text>
             </TouchableOpacity>
           </View>
         </Modal>
-      )}
+        )}
     </View>
   );
 };
@@ -183,44 +186,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 18,
     marginBottom: 10,
-  },modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-  modalContent: {
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    padding: 20,
-    width: '80%',
-  },
-  enlargedWorkoutImage: {
-    width: 200,
-    height: 200,
-    resizeMode: 'contain',
-    marginBottom: 10,
-  },
-  enlargedWorkoutName: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 5,
-  },
-  enlargedWorkoutReps: {
-    fontSize: 20,
   },
   darkText: {
     color: '#FFFFFF', // Dark mode text color
   },
   darkBox: {
     backgroundColor: '#333333', // Dark mode background color for the box
-  },
-  closeButton: {
-    position: 'absolute',
-    top: 10,
-    right: 10,
-    zIndex: 1,
   },
 });
 

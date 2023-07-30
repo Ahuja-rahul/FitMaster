@@ -410,8 +410,8 @@ const SettingScreen = ({ navigation }) => {
             value={newReminderTitle}
             onChangeText={setNewReminderTitle}
           />
-          <TouchableOpacity style={styles.timePickerButton} onPress={handleTimePicker}>
-            <Text style={styles.timePickerButtonText}>{newReminderTime || 'Select Time'}</Text>
+          <TouchableOpacity style={[styles.timePickerButton, isDarkTheme && styles.darkContainer]} onPress={handleTimePicker}>
+            <Text style={[styles.timePickerButtonText, isDarkTheme && styles.darkText]}>{newReminderTime || 'Select Time'}</Text>
           </TouchableOpacity>
           <Button title="Add" onPress={add} />
         </View>
@@ -435,11 +435,11 @@ const SettingScreen = ({ navigation }) => {
           transparent={true}
           onRequestClose={handleModalClose}
         >
-          <View style={[styles.modalContainer, isDarkTheme && styles.darkText]}>
-            <View style={[styles.modalContent, isDarkTheme && styles.darkText]}>
-              <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Change Profile Name</Text>
+          <View style={[styles.modalContainer, isDarkTheme && styles.darkText && styles.darkBox]}>
+            <View style={[styles.modalContent, isDarkTheme && styles.darkText&& styles.darkContainer]}>
+              <Text style={[styles.title, isDarkTheme && styles.darkText]}>Change Profile Name</Text>
               <TextInput
-                style={[styles.settingText, isDarkTheme && styles.darkText]}
+                style={[styles.subtitle, isDarkTheme && styles.darkText]}
                 value={newProfileName}
                 onChangeText={setNewProfileName}
               />
@@ -465,7 +465,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5F5',
   },
   darkContainer: {
-    flex: 1,
+   
     padding: 16,
     backgroundColor: '#000000', // Dark mode background color
   },
@@ -614,6 +614,9 @@ const styles = StyleSheet.create({
     borderColor: '#666', 
     color: '#FFFFFF',
   },
+  darkBox: {
+    backgroundColor: '#333333', // Dark mode background color for the box
+},
 });
 
 

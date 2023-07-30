@@ -32,17 +32,16 @@ const HomeScreen = ({ navigation }) => {
                 showsHorizontalScrollIndicator={false}
             >
                 <Pressable style={[styles.hriozontalBanner, isDarkTheme && styles.darkText]} onPress={() => handleBoxPress('Six Pack Abs')}>
-                    <Image source={require('../assets/banner1abs/absPic.jpeg')} style={styles.bannerImage} />
+                    <Image source={require('../assets/banner/ABWORKOUT.png')} style={styles.bannerImage} />
                 </Pressable>
                 <Pressable style={styles.hriozontalBanner} onPress={() => handleBoxPress('Weight Loss')}>
-                    <Image source={require('../assets/banner1abs/loss.jpg')} style={styles.bannerImage} />
+                    <Image source={require('../assets/banner/WeightLoss.png')} style={styles.bannerImage} />
                 </Pressable>
                 <Pressable style={styles.hriozontalBanner} onPress={() => handleBoxPress('HIIT')}>
-                    <Image source={require('../assets/banner1abs/HIIT.webp')} style={styles.bannerImage} />
+                    <Image source={require('../assets/banner/HIIT.webp')} style={styles.bannerImage} />
+
                 </Pressable>
-                {/* <Pressable style={styles.hriozontalBanner} onPress={() => handleBoxPress('Banner')}>
-                    <Image source={require('../assets/bannerImage1.jpg')} style={styles.bannerImage} />
-                </Pressable> */}
+                
             </ScrollView>
 
 
@@ -145,6 +144,7 @@ const styles = StyleSheet.create({
         height: '100%',
         resizeMode: 'cover',
         borderRadius: 10,
+      
     },
     boxContainer: {
         flexDirection: 'row',

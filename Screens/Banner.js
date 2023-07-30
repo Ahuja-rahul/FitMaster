@@ -9,10 +9,17 @@ const Banner = () => {
   const handleBoxPress = (screenName) => {
     navigation.navigate(screenName);
   };
+  const handleWorkoutPress = (workout) => {
+    setSelectedWorkout(workout);
+  };
+  const handleCloseModal = () => {
+    setSelectedWorkout(null);
+  };
 
   const handleBackPress = () => {
     navigation.navigate('Dash');
   };
+
 
   return (
     <View style={styles.container}>
@@ -39,6 +46,12 @@ const styles = StyleSheet.create({
     top: 10,
     left: 10,
     padding: 10,
+  },
+  closeButton: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    zIndex: 1,
   },
 });
 
