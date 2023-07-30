@@ -55,11 +55,11 @@ const SearchScreen = ({ navigation }) => {
   };
 
   const renderItem = ({ item }) => (
-    <View style={[styles.workoutContainer, isDarkTheme && styles.darkText]}>
+    <View style={[styles.workoutContainer, isDarkTheme && styles.darkText && styles.darkBox]}>
       <View style={[styles.workoutImageContainer, isDarkTheme && styles.darkText]}>
         <Image source={item.image} style={styles.workoutImage} />
       </View>
-      <View style={[styles.workoutInfoContainer, isDarkTheme && styles.darkText]}>
+      <View style={[styles.workoutInfoContainer, isDarkTheme && styles.darkText && styles.darkBox]}>
         <Text style={[styles.workoutName, isDarkTheme && styles.darkText]}>{item.name}</Text>
         <Text style={[styles.workoutName, isDarkTheme && styles.darkText]}>{item.reps}</Text>
       </View>
@@ -71,14 +71,14 @@ const SearchScreen = ({ navigation }) => {
 
   let title = null;
   if (searchQuery !== '' && filteredWorkouts.length > 0) {
-    title = <Text style={styles.title}>Results for: {searchQuery}</Text>;
+    title = <Text style={[styles.title, isDarkTheme && styles.darkText && styles.darkBox]}>Results for: {searchQuery}</Text>;
   }
 
   return (
-    <View style={[styles.container, isDarkTheme && styles.darkText]}>
-      <View style={[styles.toolbar, isDarkTheme && styles.darkText]}>
+    <View style={[styles.container, isDarkTheme && styles.darkText && styles.darkBox]}>
+      <View style={[styles.toolbar, isDarkTheme && styles.darkText && styles.darkBox]}>
         <TextInput
-          style={[styles.searchInput, isDarkTheme && styles.darkText]}
+          style={[styles.searchInput, isDarkTheme && styles.darkText && styles.darkBox]}
           placeholder="Search workouts..."
           placeholderTextColor={isDarkTheme ? '#999' : '#ccc'}
           value={searchQuery}

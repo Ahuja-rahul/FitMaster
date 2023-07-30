@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect , useContext} from 'react';
 import { View, Text, Button, FlatList, TouchableOpacity, Alert, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { myWorkouts } from './Data/workouts';
+import { AppContext } from '../context/AppContext';
 
 const MyWorkoutScreen = ({ navigation }) => {
   const [createdWorkouts, setCreatedWorkouts] = useState([]);
+  const { colors, isDarkTheme } = useContext(AppContext);
 
   // Function to save the created workouts in AsyncStorage
   const saveWorkoutsToAsyncStorage = async () => {
@@ -65,20 +67,22 @@ const MyWorkoutScreen = ({ navigation }) => {
   };
 
   const renderWorkoutItem = ({ item }) => (
-    <View style={styles.workoutItemContainer}>
+    <View style={[styles.workoutItemContainer, isDarkTheme && styles.darkContainer ]}>
       <TouchableOpacity style={styles.workoutItem} onPress={() => handleSelectWorkout(item)}>
-        <Text style={styles.workoutName}>{item.name}</Text>
+        <Text style={[styles.workoutName, isDarkTheme && styles.darkText]}>{item.name}</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => handleDeleteWorkout(item.id)} style={styles.deleteButton}>
+      <TouchableOpacity onPress={() => handleDeleteWorkout(item.id)} style={[styles.deleteButton, isDarkTheme && styles.darkBox]}>
         <Text style={styles.deleteButtonText}>Delete</Text>
       </TouchableOpacity>
     </View>
   );
+  
+  
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, isDarkTheme && styles.darkText && styles.darkBox && styles.darkContainer]}>
       <Button title="Create Workout" onPress={handleCreateWorkout} />
-      <Text style={styles.subheader}>Created Workouts:</Text>
+      <Text style={[styles.subheader, isDarkTheme && styles.darkText && styles.darkBox && styles.darkContainer]}>Created Workouts:</Text>
       <FlatList
         data={createdWorkouts}
         renderItem={renderWorkoutItem}
@@ -93,10 +97,15 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
   },
+  darkContainer: {
+    flex: 1,
+    backgroundColor: '#000000', // Dark mode background color
+  },
   subheader: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 10,
+    color: '#478484', 
   },
   workoutItemContainer: {
     flexDirection: 'row',
@@ -121,6 +130,12 @@ const styles = StyleSheet.create({
   deleteButtonText: {
     color: 'white',
     fontWeight: 'bold',
+  },
+  darkText: {
+    color: '#FFFFFF', // Dark mode text color
+  },
+  darkBox: {
+    backgroundColor: '#333333', // Dark mode background color for the box
   },
 });
 

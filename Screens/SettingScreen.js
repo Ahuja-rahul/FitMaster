@@ -307,31 +307,26 @@ const SettingScreen = ({ navigation }) => {
   return (
     <ScrollView>
       <View style={[styles.settingText, isDarkTheme && styles.darkText]}>
-        <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Profile</Text>
-        <TouchableOpacity style={[styles.profileContainer,isDarkTheme && styles.darkText]}>
+        <Text style={[styles.title, isDarkTheme && styles.darkText ]}>Profile</Text>
+        <TouchableOpacity style={[styles.profileContainer,isDarkTheme && styles.darkText && styles.darkContainer]}>
           <Image
             style={styles.profileImage}
             source={require('../assets/icon.png')}
           />
-          <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>{profileName}</Text>
+          <Text style={[styles.title, isDarkTheme && styles.darkText]}>{profileName}</Text>
         </TouchableOpacity>
 
-        <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Settings</Text>
+        <Text style={[styles.title, isDarkTheme && styles.darkText]}>Settings</Text>
 
-        <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Profile</Text>
+        <Text style={[styles.title, isDarkTheme && styles.darkText]}>Profile</Text>
         <View style={styles.settingItem}>
           <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Profile Name</Text>
           <Button title="Change Name" onPress={handleModalOpen} />
         </View>
-        <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Body Measurements</Text>
+        <Text style={[styles.title, isDarkTheme && styles.darkText]}>Body Measurements</Text>
         <View style={styles.settingItem}>
           <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Height</Text>
-          {/* <TextInput
-            style={[styles.settingText, isDarkTheme && styles.darkText]}
-            placeholder="Enter height"
-            value={bodyMeasurements.height}
-            onChangeText={(text) => setBodyMeasurements({ ...bodyMeasurements, height: text })}
-          /> */}
+          
           <TextInput
             style={[styles.settingText, isDarkTheme && styles.darkText]}
             placeholder="Enter height"
@@ -380,7 +375,7 @@ const SettingScreen = ({ navigation }) => {
             onChangeText={(text) => setBodyMeasurements({ ...bodyMeasurements, hips: text })}
           />
         </View>
-        <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>General</Text>
+        <Text style={[styles.title, isDarkTheme && styles.darkText]}>General</Text>
         <View style={styles.settingItem}>
           <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Notifications</Text>
           <Switch
@@ -397,7 +392,7 @@ const SettingScreen = ({ navigation }) => {
   />
 </View> */}
 
-        <View style={styles.settingItem}>
+        <View style={[styles.settingItem, isDarkTheme && styles.darkText ]}>
           <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Dark Mode</Text>
           <Switch
             value={isDarkTheme}
@@ -421,19 +416,6 @@ const SettingScreen = ({ navigation }) => {
           <Button title="Add" onPress={add} />
         </View>
 
-        {/* <FlatList
-          data={reminders}
-          renderItem={({ item }) => (
-            <View style={styles.reminderItem}>
-              <Text style={[styles.darkText]}>{item.title}</Text>
-              <Text style={[styles.reminderTime, isDarkTheme && styles.darkText]}>{item.time}</Text>
-              <TouchableOpacity onPress={() => handleDeleteReminder(item.id)}>
-                <Text style={[styles.deleteReminderText, isDarkTheme && styles.darkText]}>Delete</Text>
-              </TouchableOpacity>
-            </View>
-          )}
-          keyExtractor={(item) => item.id}
-        /> */}
 
         {newReminderTimePickerVisible && (
           <DateTimePicker
