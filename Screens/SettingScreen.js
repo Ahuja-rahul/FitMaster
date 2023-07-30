@@ -320,12 +320,12 @@ const SettingScreen = ({ navigation }) => {
 
         <Text style={[styles.title, isDarkTheme && styles.darkText]}>Profile</Text>
         <View style={styles.settingItem}>
-          <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Profile Name</Text>
+          <Text style={[styles.subtitle, isDarkTheme && styles.darkText]}>Profile Name</Text>
           <Button title="Change Name" onPress={handleModalOpen} />
         </View>
         <Text style={[styles.title, isDarkTheme && styles.darkText]}>Body Measurements</Text>
         <View style={styles.settingItem}>
-          <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Height</Text>
+          <Text style={[styles.subtitle, isDarkTheme && styles.darkText]}>Height</Text>
           
           <TextInput
             style={[styles.settingText, isDarkTheme && styles.darkText]}
@@ -336,7 +336,7 @@ const SettingScreen = ({ navigation }) => {
           />
         </View>
         <View style={styles.settingItem}>
-          <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Weight</Text>
+          <Text style={[styles.subtitle, isDarkTheme && styles.darkText]}>Weight</Text>
           <TextInput
             style={[styles.settingText, isDarkTheme && styles.darkText]}
             placeholder="Enter weight"
@@ -346,7 +346,7 @@ const SettingScreen = ({ navigation }) => {
           />
         </View>
         <View style={styles.settingItem}>
-          <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Chest</Text>
+          <Text style={[styles.subtitle, isDarkTheme && styles.darkText]}>Chest</Text>
           <TextInput
             style={[styles.settingText, isDarkTheme && styles.darkText]}
             placeholder="Enter chest measurement"
@@ -356,7 +356,7 @@ const SettingScreen = ({ navigation }) => {
           />
         </View>
         <View style={styles.settingItem}>
-          <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Waist</Text>
+          <Text style={[styles.subtitle, isDarkTheme && styles.darkText]}>Waist</Text>
           <TextInput
             style={[styles.settingText, isDarkTheme && styles.darkText]}
             placeholder="Enter waist measurement"
@@ -366,7 +366,7 @@ const SettingScreen = ({ navigation }) => {
           />
         </View>
         <View style={styles.settingItem}>
-          <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Hips</Text>
+          <Text style={[styles.subtitle, isDarkTheme && styles.darkText]}>Hips</Text>
           <TextInput
             style={[styles.settingText, isDarkTheme && styles.darkText]}
             placeholder="Enter hips measurement"
@@ -377,7 +377,7 @@ const SettingScreen = ({ navigation }) => {
         </View>
         <Text style={[styles.title, isDarkTheme && styles.darkText]}>General</Text>
         <View style={styles.settingItem}>
-          <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Notifications</Text>
+          <Text style={[styles.subtitle, isDarkTheme && styles.darkText]}>Notifications</Text>
           <Switch
             value={notificationEnabled}
             onValueChange={toggleNotification}
@@ -393,7 +393,7 @@ const SettingScreen = ({ navigation }) => {
 </View> */}
 
         <View style={[styles.settingItem, isDarkTheme && styles.darkText ]}>
-          <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Dark Mode</Text>
+          <Text style={[styles.subtitle, isDarkTheme && styles.darkText]}>Dark Mode</Text>
           <Switch
             value={isDarkTheme}
             onValueChange={(value) => setIsDarkTheme(value)}
@@ -401,10 +401,10 @@ const SettingScreen = ({ navigation }) => {
         </View>
 
 
-        <Text style={[styles.settingText, isDarkTheme && styles.darkText]}>Reminders</Text>
+        <Text style={[styles.subtitle, isDarkTheme && styles.darkText]}>Reminders</Text>
         <View style={styles.addReminderContainer}>
           <TextInput
-            style={[styles.settingText, isDarkTheme && styles.darkText]}
+            style={[styles.addReminderInput, isDarkTheme && styles.darkText]}
             placeholder="Enter reminder title"
             placeholderTextColor={isDarkTheme ? "#999" : "#ccc"}
             value={newReminderTitle}
@@ -415,7 +415,8 @@ const SettingScreen = ({ navigation }) => {
           </TouchableOpacity>
           <Button title="Add" onPress={add} />
         </View>
-
+        
+     
 
         {newReminderTimePickerVisible && (
           <DateTimePicker
@@ -503,6 +504,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
     color: '#333',
   },
+
   subtitle: {
     fontSize: 18,
     fontWeight: 'bold',
