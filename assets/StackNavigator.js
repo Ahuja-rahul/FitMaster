@@ -14,6 +14,7 @@ import SettingScreen from '../Screens/SettingScreen';
 import ProfileScreen from '../Screens/ProfileScreen';
 import Banner2 from '../Screens/Banner2WeightLoss';
 import Banner3 from '../Screens/HIIT';
+import ExercisesScreen from '../Screens/ExercisesScreen';
 
 
 const Stack = createStackNavigator();
@@ -35,7 +36,7 @@ function MyStack() {
       <Stack.Screen name="Six Pack Abs" component={Banner1} options={{ headerShown: true, headerBackTitleVisible: false }} />
       <Stack.Screen name="Weight Loss" component={Banner2} options={{ headerShown: true, headerBackTitleVisible: false }} />
       <Stack.Screen name="HIIT" component={Banner3} options={{ headerShown: true, headerBackTitleVisible: false }} />
-
+      <Stack.Screen name="My Workouts" component={ExercisesScreen} options={{ headerShown: true, headerBackTitleVisible: false }} />
 
       <Stack.Screen name="Settings" component={SettingScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: true }} />

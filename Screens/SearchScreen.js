@@ -1,10 +1,9 @@
 import React, { useState, useContext } from 'react';
-import { StyleSheet, View, Text, FlatList, Image, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, FlatList, Image, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { data, myWorkouts } from './Data/workouts';
 import { useTheme } from '@react-navigation/native';
 import { AppContext } from '../context/AppContext';
-
 
 const SearchScreen = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -15,7 +14,6 @@ const SearchScreen = ({ navigation }) => {
   const handleSearchQueryChange = (query) => {
     setSearchQuery(query);
     
-
     const filtered = data.filter(
       (workout) =>
         workout.name.toLowerCase().includes(query.toLowerCase()) ||
@@ -25,9 +23,27 @@ const SearchScreen = ({ navigation }) => {
   };
 
   const handleAddToMyWorkout = (selectedItem) => {
+    // Ask user to select a workout before adding an exercise
+    Alert.alert(
+      'Select a Workout',
+      'Choose a workout from the list below:',
+      [
+        ...myWorkouts.map((item) => ({
+          text: item.name,
+          onPress: () => handleAddToWorkout(selectedItem, item),
+        })),
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+      ]
+    );
+  };
+
+  const handleAddToWorkout = (selectedItem, selectedWorkout) => {
     const updatedWorkouts = [...selectedWorkouts, selectedItem];
     setSelectedWorkouts(updatedWorkouts);
-    myWorkouts.push(selectedItem);
+    selectedWorkout.exercises.push(selectedItem); // Add the selected exercise to the selected workout
   };
 
   const renderItem = ({ item }) => (

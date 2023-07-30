@@ -137,7 +137,7 @@ const SettingScreen = ({ navigation }) => {
     setNewReminderTimePickerVisible(false);
   };
 
-  // Load profile data from AsyncStorage on component mount
+  
   useEffect(() => {
     loadProfileData();
     loadReminders();
