@@ -1,11 +1,14 @@
-import React, { useState, useEffect , useContext} from 'react';
-import { View, Text, Button, FlatList, TouchableOpacity, Alert, StyleSheet } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { View, Text, Button, FlatList, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { myWorkouts } from './Data/workouts';
 import { AppContext } from '../context/AppContext';
+import Modal from 'react-native-modal'; // Import the react-native-modal library
 
 const MyWorkoutScreen = ({ navigation }) => {
   const [createdWorkouts, setCreatedWorkouts] = useState([]);
+  const [isModalVisible, setIsModalVisible] = useState(false); // State to control the modal
+  const [newWorkoutName, setNewWorkoutName] = useState(''); // State to store the new workout name
   const { colors, isDarkTheme } = useContext(AppContext);
 
   // Function to save the created workouts in AsyncStorage
@@ -35,20 +38,27 @@ const MyWorkoutScreen = ({ navigation }) => {
     loadWorkoutsFromAsyncStorage();
   }, []);
 
+  const toggleModal = () => {
+    setIsModalVisible(!isModalVisible); // Toggle the state to show/hide the modal
+  };
+
   const handleCreateWorkout = () => {
-    // Show an input dialog to create a new workout
-    Alert.prompt('Create a New Workout', 'Enter workout name:', (name) => {
-      if (name) {
-        const newWorkout = {
-          id: createdWorkouts.length + 1,
-          name,
-          exercises: [], // Initialize with an empty array of exercises for the new workout
-        };
-        myWorkouts.push(newWorkout);
-        setCreatedWorkouts([...createdWorkouts, newWorkout]);
-        saveWorkoutsToAsyncStorage(); // Save the updated workouts to AsyncStorage
-      }
-    });
+    // Show the custom modal to create a new workout
+    toggleModal();
+  };
+
+  const handleCreateNewWorkout = () => {
+    if (newWorkoutName) {
+      const newWorkout = {
+        id: createdWorkouts.length + 1,
+        name: newWorkoutName,
+        exercises: [], // Initialize with an empty array of exercises for the new workout
+      };
+      myWorkouts.push(newWorkout);
+      setCreatedWorkouts([...createdWorkouts, newWorkout]);
+      saveWorkoutsToAsyncStorage(); // Save the updated workouts to AsyncStorage
+    }
+    toggleModal(); // Close the modal after creating the workout
   };
 
   const handleDeleteWorkout = (workoutId) => {
@@ -67,17 +77,15 @@ const MyWorkoutScreen = ({ navigation }) => {
   };
 
   const renderWorkoutItem = ({ item }) => (
-    <View style={[styles.workoutItemContainer, isDarkTheme && styles.darkContainer ]}>
+    <View style={styles.workoutItemContainer}>
       <TouchableOpacity style={styles.workoutItem} onPress={() => handleSelectWorkout(item)}>
-        <Text style={[styles.workoutName, isDarkTheme && styles.darkText]}>{item.name}</Text>
+        <Text style={styles.workoutName}>{item.name}</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => handleDeleteWorkout(item.id)} style={[styles.deleteButton, isDarkTheme && styles.darkBox]}>
+      <TouchableOpacity onPress={() => handleDeleteWorkout(item.id)} style={styles.deleteButton}>
         <Text style={styles.deleteButtonText}>Delete</Text>
       </TouchableOpacity>
     </View>
   );
-  
-  
 
   return (
     <View style={[styles.container, isDarkTheme && styles.darkText && styles.darkBox && styles.darkContainer]}>
@@ -86,9 +94,28 @@ const MyWorkoutScreen = ({ navigation }) => {
       <FlatList
         data={createdWorkouts}
         renderItem={renderWorkoutItem}
-        keyExtractor={(item) => item.id.toString()
-        }
+        keyExtractor={(item) => item.id.toString()}
       />
+      {/* Custom Modal */}
+      <Modal isVisible={isModalVisible}>
+        <View style={styles.modalContainer}>
+          <Text style={styles.modalTitle}>Create a New Workout</Text>
+          <TextInput
+            style={styles.input}
+            value={newWorkoutName}
+            onChangeText={setNewWorkoutName}
+            placeholder="Enter workout name"
+          />
+          <View style={styles.modalButtonContainer}>
+            <TouchableOpacity onPress={toggleModal} style={[styles.modalButton, styles.cancelButton]}>
+              <Text style={styles.modalButtonText}>Cancel</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleCreateNewWorkout} style={[styles.modalButton, styles.createButton]}>
+              <Text style={styles.modalButtonText}>Create</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -112,7 +139,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    // paddingVertical: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
   },
@@ -137,6 +163,43 @@ const styles = StyleSheet.create({
   },
   darkBox: {
     backgroundColor: '#333333', // Dark mode background color for the box
+  },
+  // Modal styles
+  modalContainer: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 8,
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 4,
+    padding: 10,
+    marginBottom: 20,
+  },
+  modalButtonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  modalButton: {
+    padding: 10,
+    borderRadius: 4,
+    marginLeft: 10,
+  },
+  cancelButton: {
+    backgroundColor: 'gray',
+  },
+  createButton: {
+    backgroundColor: 'green',
+  },
+  modalButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
   },
 });
 

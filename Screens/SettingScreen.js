@@ -137,7 +137,7 @@ const SettingScreen = ({ navigation }) => {
     setNewReminderTimePickerVisible(false);
   };
 
-  
+
   useEffect(() => {
     loadProfileData();
     loadReminders();
@@ -292,7 +292,7 @@ const SettingScreen = ({ navigation }) => {
       token = (await Notifications.getExpoPushTokenAsync()).data;
       console.log(token);
     } else {
-      //alert('Must use physical device for Push Notifications');
+
       console.log("Using Emulator")
     }
 
@@ -300,15 +300,15 @@ const SettingScreen = ({ navigation }) => {
   }
 
   function add() {
-    console.log(globalHours);
-    scheduleReminder(globalHours, globalMinutes);
+    alert(`Reminder for ${globalHours}:${globalMinutes} has been added.`);
+    scheduleReminder(globalHours, globalMinutes, newReminderTitle);
   }
 
   return (
     <ScrollView>
       <View style={[styles.settingText, isDarkTheme && styles.darkText]}>
-        <Text style={[styles.title, isDarkTheme && styles.darkText ]}>Profile</Text>
-        <TouchableOpacity style={[styles.profileContainer,isDarkTheme && styles.darkText && styles.darkContainer]}>
+      <Text style={[styles.title, isDarkTheme && styles.darkText]}>Profile</Text>
+        <TouchableOpacity style={[styles.profileContainer, isDarkTheme && styles.darkText && styles.darkContainer]}>
           <Image
             style={styles.profileImage}
             source={require('../assets/icon.png')}
@@ -316,9 +316,9 @@ const SettingScreen = ({ navigation }) => {
           <Text style={[styles.title, isDarkTheme && styles.darkText]}>{profileName}</Text>
         </TouchableOpacity>
 
-        <Text style={[styles.title, isDarkTheme && styles.darkText]}>Settings</Text>
 
-        <Text style={[styles.title, isDarkTheme && styles.darkText]}>Profile</Text>
+
+ 
         <View style={styles.settingItem}>
           <Text style={[styles.subtitle, isDarkTheme && styles.darkText]}>Profile Name</Text>
           <Button title="Change Name" onPress={handleModalOpen} />
@@ -326,13 +326,18 @@ const SettingScreen = ({ navigation }) => {
         <Text style={[styles.title, isDarkTheme && styles.darkText]}>Body Measurements</Text>
         <View style={styles.settingItem}>
           <Text style={[styles.subtitle, isDarkTheme && styles.darkText]}>Height</Text>
-          
           <TextInput
             style={[styles.settingText, isDarkTheme && styles.darkText]}
-            placeholder="Enter height"
+            placeholder="Enter height in cm"
             placeholderTextColor={isDarkTheme ? "#999" : "#ccc"}
             value={bodyMeasurements.height}
-            onChangeText={(text) => setBodyMeasurements({ ...bodyMeasurements, height: text })}
+            onChangeText={(text) => {
+              // Check if the input is a positive number before updating the state
+              if (/^\d*\.?\d*$/.test(text)) {
+                setBodyMeasurements({ ...bodyMeasurements, height: text });
+              }
+            }}
+            keyboardType="numeric" // Only allow numeric input
           />
         </View>
         <View style={styles.settingItem}>
@@ -342,7 +347,13 @@ const SettingScreen = ({ navigation }) => {
             placeholder="Enter weight"
             placeholderTextColor={isDarkTheme ? "#999" : "#ccc"}
             value={bodyMeasurements.weight}
-            onChangeText={(text) => setBodyMeasurements({ ...bodyMeasurements, weight: text })}
+            onChangeText={(text) => {
+              // Check if the input is a positive number before updating the state
+              if (/^\d*\.?\d*$/.test(text)) {
+                setBodyMeasurements({ ...bodyMeasurements, weight: text });
+              }
+            }}
+            keyboardType="numeric" // Only allow numeric input
           />
         </View>
         <View style={styles.settingItem}>
@@ -352,7 +363,13 @@ const SettingScreen = ({ navigation }) => {
             placeholder="Enter chest measurement"
             placeholderTextColor={isDarkTheme ? "#999" : "#ccc"}
             value={bodyMeasurements.chest}
-            onChangeText={(text) => setBodyMeasurements({ ...bodyMeasurements, chest: text })}
+            onChangeText={(text) => {
+              // Check if the input is a positive number before updating the state
+              if (/^\d*\.?\d*$/.test(text)) {
+                setBodyMeasurements({ ...bodyMeasurements, chest: text });
+              }
+            }}
+            keyboardType="numeric" // Only allow numeric input
           />
         </View>
         <View style={styles.settingItem}>
@@ -362,7 +379,13 @@ const SettingScreen = ({ navigation }) => {
             placeholder="Enter waist measurement"
             placeholderTextColor={isDarkTheme ? "#999" : "#ccc"}
             value={bodyMeasurements.waist}
-            onChangeText={(text) => setBodyMeasurements({ ...bodyMeasurements, waist: text })}
+            onChangeText={(text) => {
+              // Check if the input is a positive number before updating the state
+              if (/^\d*\.?\d*$/.test(text)) {
+                setBodyMeasurements({ ...bodyMeasurements, waist: text });
+              }
+            }}
+            keyboardType="numeric" // Only allow numeric input
           />
         </View>
         <View style={styles.settingItem}>
@@ -372,7 +395,13 @@ const SettingScreen = ({ navigation }) => {
             placeholder="Enter hips measurement"
             placeholderTextColor={isDarkTheme ? "#999" : "#ccc"}
             value={bodyMeasurements.hips}
-            onChangeText={(text) => setBodyMeasurements({ ...bodyMeasurements, hips: text })}
+            onChangeText={(text) => {
+              // Check if the input is a positive number before updating the state
+              if (/^\d*\.?\d*$/.test(text)) {
+                setBodyMeasurements({ ...bodyMeasurements, hips: text });
+              }
+            }}
+            keyboardType="numeric" // Only allow numeric input
           />
         </View>
         <Text style={[styles.title, isDarkTheme && styles.darkText]}>General</Text>
@@ -392,7 +421,7 @@ const SettingScreen = ({ navigation }) => {
   />
 </View> */}
 
-        <View style={[styles.settingItem, isDarkTheme && styles.darkText ]}>
+        <View style={[styles.settingItem, isDarkTheme && styles.darkText]}>
           <Text style={[styles.subtitle, isDarkTheme && styles.darkText]}>Dark Mode</Text>
           <Switch
             value={isDarkTheme}
@@ -415,8 +444,8 @@ const SettingScreen = ({ navigation }) => {
           </TouchableOpacity>
           <Button title="Add" onPress={add} />
         </View>
-        
-     
+
+
 
         {newReminderTimePickerVisible && (
           <DateTimePicker
@@ -436,7 +465,7 @@ const SettingScreen = ({ navigation }) => {
           onRequestClose={handleModalClose}
         >
           <View style={[styles.modalContainer, isDarkTheme && styles.darkText && styles.darkBox]}>
-            <View style={[styles.modalContent, isDarkTheme && styles.darkText&& styles.darkContainer]}>
+            <View style={[styles.modalContent, isDarkTheme && styles.darkText && styles.darkContainer]}>
               <Text style={[styles.title, isDarkTheme && styles.darkText]}>Change Profile Name</Text>
               <TextInput
                 style={[styles.subtitle, isDarkTheme && styles.darkText]}
@@ -465,7 +494,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5F5',
   },
   darkContainer: {
-   
+
     padding: 16,
     backgroundColor: '#000000', // Dark mode background color
   },
@@ -496,7 +525,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#333',
   },
-  
+
   title: {
     fontSize: 24,
     fontWeight: 'bold',
@@ -607,16 +636,16 @@ const styles = StyleSheet.create({
   },
   darkProfileContainer: {
     backgroundColor: '#333',
-    borderColor: '#666', 
+    borderColor: '#666',
   },
   darkTextInput: {
-    backgroundColor: '#333',  
-    borderColor: '#666', 
+    backgroundColor: '#333',
+    borderColor: '#666',
     color: '#FFFFFF',
   },
   darkBox: {
     backgroundColor: '#333333', // Dark mode background color for the box
-},
+  },
 });
 
 

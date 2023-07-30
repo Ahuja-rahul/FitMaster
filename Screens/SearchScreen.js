@@ -10,7 +10,6 @@ const SearchScreen = ({ navigation }) => {
   const [filteredWorkouts, setFilteredWorkouts] = useState(data);
   const [selectedWorkouts, setSelectedWorkouts] = useState([]);
   const { colors, isDarkTheme } = useContext(AppContext);
-  const [selectedWorkout, setSelectedWorkout] = useState(null);
 
   // Function to save the workouts to AsyncStorage
   const saveWorkoutsToAsyncStorage = async () => {
@@ -19,16 +18,6 @@ const SearchScreen = ({ navigation }) => {
     } catch (error) {
       console.error('Error saving workouts to AsyncStorage:', error);
     }
-  };
-  const handleBoxPress = (screenName) => {
-    navigation.navigate(screenName);
-  };
-
-  const handleWorkoutPress = (workout) => {
-    setSelectedWorkout(workout);
-  };
-  const handleCloseModal = () => {
-    setSelectedWorkout(null);
   };
 
   const handleSearchQueryChange = (query) => {
@@ -43,34 +32,44 @@ const SearchScreen = ({ navigation }) => {
   };
 
   const handleAddToMyWorkout = (selectedItem) => {
-    // Show a dialog box to select a workout from the created workouts list
-    const workoutsList = myWorkouts.map((workout) => ({
-      text: workout.name,
-      onPress: () => {
-        const updatedWorkouts = [...selectedWorkouts, selectedItem];
-        setSelectedWorkouts(updatedWorkouts);
+  // Show a dialog box to select a workout from the created workouts list
+  const workoutsList = myWorkouts.map((workout) => ({
+    text: workout.name,
+    onPress: () => {
+      const updatedWorkouts = [...selectedWorkouts, selectedItem];
+      setSelectedWorkouts(updatedWorkouts);
 
-        // Add the selected exercise to the chosen workout
-        workout.exercises.push(selectedItem);
+      // Add the selected exercise to the chosen workout
+      workout.exercises.push(selectedItem);
 
-        // Save the updated workouts to AsyncStorage
-        saveWorkoutsToAsyncStorage();
+      // Save the updated workouts to AsyncStorage
+      saveWorkoutsToAsyncStorage();
 
-        // Show a success message
-        Alert.alert('Exercise Added', `${selectedItem.name} added to ${workout.name}`);
-      },
-    }));
+      // Show a success message
+      Alert.alert('Exercise Added', `${selectedItem.name} added to ${workout.name}`);
+    },
+  }));
 
-    // Show a dialog with the list of created workouts to select from
-    Alert.alert('Select a Workout', '', workoutsList);
-  };
+  // Add a cancel option to the workouts list
+  workoutsList.push({
+    text: 'Cancel',
+    style: 'cancel', // This will display the button as a cancel button on iOS
+    onPress: () => {
+      // Do nothing, as the user has canceled the action
+    },
+  });
+
+  // Show a dialog with the list of created workouts to select from
+  Alert.alert('Select a Workout', '', workoutsList);
+};
+
 
   const renderItem = ({ item }) => (
-    <View style={[styles.workoutContainer, isDarkTheme && styles.darkText && styles.darkBox]}>
+    <View style={[styles.workoutContainer, isDarkTheme && styles.darkText]}>
       <View style={[styles.workoutImageContainer, isDarkTheme && styles.darkText]}>
         <Image source={item.image} style={styles.workoutImage} />
       </View>
-      <View style={[styles.workoutInfoContainer, isDarkTheme && styles.darkText && styles.darkBox]}>
+      <View style={[styles.workoutInfoContainer, isDarkTheme && styles.darkText]}>
         <Text style={[styles.workoutName, isDarkTheme && styles.darkText]}>{item.name}</Text>
         <Text style={[styles.workoutName, isDarkTheme && styles.darkText]}>{item.reps}</Text>
       </View>
@@ -82,14 +81,14 @@ const SearchScreen = ({ navigation }) => {
 
   let title = null;
   if (searchQuery !== '' && filteredWorkouts.length > 0) {
-    title = <Text style={[styles.title, isDarkTheme && styles.darkText && styles.darkBox]}>Results for: {searchQuery}</Text>;
+    title = <Text style={styles.title}>Results for: {searchQuery}</Text>;
   }
 
   return (
-    <View style={[styles.container, isDarkTheme && styles.darkText && styles.darkBox]}>
-      <View style={[styles.toolbar, isDarkTheme && styles.darkText && styles.darkBox]}>
+    <View style={[styles.container, isDarkTheme && styles.darkText]}>
+      <View style={[styles.toolbar, isDarkTheme && styles.darkText]}>
         <TextInput
-          style={[styles.searchInput, isDarkTheme && styles.darkText && styles.darkBox]}
+          style={[styles.searchInput, isDarkTheme && styles.darkText]}
           placeholder="Search workouts..."
           placeholderTextColor={isDarkTheme ? '#999' : '#ccc'}
           value={searchQuery}
@@ -102,24 +101,6 @@ const SearchScreen = ({ navigation }) => {
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
       />
-      {selectedWorkout && (
-          <Modal animationType="fade" transparent={true} visible={true}>
-          <View style={[styles.modalContainer, isDarkTheme && styles.darkText && styles.darkBox ]}>
-            <TouchableOpacity
-              activeOpacity={1}
-              onPress={handleCloseModal}
-              style={[styles.modalContent, isDarkTheme && styles.darkText && styles.darkContainer ]}
-            >
-            <TouchableOpacity style={styles.closeButton} onPress={handleCloseModal}>
-                <Ionicons name="close-circle-outline" size={30} color={isDarkTheme ? '#FFFFFF' : 'black'} />
-              </TouchableOpacity>
-              <Image source={selectedWorkout.image} style={styles.enlargedWorkoutImage} />
-              <Text style={[styles.enlargedWorkoutName, isDarkTheme && styles.darkText]}>{selectedWorkout.name}</Text>
-              <Text style={[styles.enlargedWorkoutReps, isDarkTheme && styles.darkText]}>{selectedWorkout.reps}</Text>
-            </TouchableOpacity>
-          </View>
-        </Modal>
-        )}
     </View>
   );
 };
