@@ -49,16 +49,30 @@ const MyWorkoutScreen = ({ navigation }) => {
     });
   };
 
+  const handleDeleteWorkout = (workoutId) => {
+    // Find the index of the workout in the array
+    const index = createdWorkouts.findIndex((workout) => workout.id === workoutId);
+    if (index !== -1) {
+      // Remove the workout from the array
+      createdWorkouts.splice(index, 1);
+      setCreatedWorkouts([...createdWorkouts]);
+      saveWorkoutsToAsyncStorage(); // Save the updated workouts to AsyncStorage
+    }
+  };
+
   const handleSelectWorkout = (selectedWorkout) => {
     navigation.navigate('My Workouts', { workout: selectedWorkout });
   };
 
   const renderWorkoutItem = ({ item }) => (
-    <TouchableOpacity onPress={() => handleSelectWorkout(item)}>
-      <View style={styles.workoutItem}>
+    <View style={styles.workoutItemContainer}>
+      <TouchableOpacity style={styles.workoutItem} onPress={() => handleSelectWorkout(item)}>
         <Text style={styles.workoutName}>{item.name}</Text>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => handleDeleteWorkout(item.id)} style={styles.deleteButton}>
+        <Text style={styles.deleteButtonText}>Delete</Text>
+      </TouchableOpacity>
+    </View>
   );
 
   return (
@@ -74,29 +88,39 @@ const MyWorkoutScreen = ({ navigation }) => {
   );
 };
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-  },
-  header: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 10,
   },
   subheader: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 10,
   },
-  workoutItem: {
-    padding: 10,
+  workoutItemContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
   },
+  workoutItem: {
+    flex: 1,
+    padding: 10,
+  },
   workoutName: {
     fontSize: 18,
+  },
+  deleteButton: {
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    backgroundColor: 'red',
+  },
+  deleteButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
   },
 });
 
