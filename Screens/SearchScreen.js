@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { View, Text, FlatList, Image, TextInput, TouchableOpacity, Alert, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { data } from './Data/workouts'; // Import created workouts list
@@ -6,12 +6,15 @@ import { AppContext } from '../context/AppContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { myWorkouts } from './MyWorkoutScreen';
 
+var workouts;
+
 const SearchScreen = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredWorkouts, setFilteredWorkouts] = useState(data);
   const [selectedWorkouts, setSelectedWorkouts] = useState([]);
   const { colors, isDarkTheme } = useContext(AppContext);
-
+  const [createdWorkouts, setCreatedWorkouts] = useState([]);
+  
   // Function to save the workouts to AsyncStorage
   const saveWorkoutsToAsyncStorage = async () => {
     try {
@@ -32,39 +35,57 @@ const SearchScreen = ({ navigation }) => {
     setFilteredWorkouts(filtered);
   };
 
+  const loadWorkoutList = async () => {
+    try {
+      const workoutsString = await AsyncStorage.getItem('@myWorkouts');
+      if (workoutsString) {
+        workouts = JSON.parse(workoutsString);
+        setCreatedWorkouts(workouts);
+        workouts = workoutsString
+      }
+    } catch (error) {
+      console.error('Error loading workouts from AsyncStorage:', error);
+    }
+  };
+  useEffect(() => {
+    // Load workouts from AsyncStorage when the component mounts
+    loadWorkoutList();
+  }, []);
+
+
   const handleAddToMyWorkout = (selectedItem) => {
+    
+    // Show a dialog box to select a workout from the created workouts list
+    loadWorkoutList()
+    const workoutsList = createdWorkouts.map((workout) => ({
+      text: workout.name,
+      onPress: () => {
+        const updatedWorkouts = [...selectedWorkouts, selectedItem];
+        setSelectedWorkouts(updatedWorkouts);
+        console.log(JSON.stringify(selectedWorkouts))
+        // Add the selected exercise to the chosen workout
+        workout.exercises.push(selectedItem);
 
-    console.log("cvdvdv"+selectedWorkouts);
-  // Show a dialog box to select a workout from the created workouts list
-  const workoutsList = myWorkouts.map((workout) => ({
-    text: workout.name,
-    onPress: () => {
-      const updatedWorkouts = [...selectedWorkouts, selectedItem];
-      setSelectedWorkouts(updatedWorkouts);
-      console.log(JSON.stringify(selectedWorkouts))
-      // Add the selected exercise to the chosen workout
-      workout.exercises.push(selectedItem);
+        // Save the updated workouts to AsyncStorage
+        saveWorkoutsToAsyncStorage();
 
-      // Save the updated workouts to AsyncStorage
-      saveWorkoutsToAsyncStorage();
+        // Show a success message
+        Alert.alert('Exercise Added', `${selectedItem.name} added to ${workout.name}`);
+      },
+    }));
 
-      // Show a success message
-      Alert.alert('Exercise Added', `${selectedItem.name} added to ${workout.name}`);
-    },
-  }));
+    // Add a cancel option to the workouts list
+    workoutsList.push({
+      text: 'Cancel',
+      style: 'cancel', // This will display the button as a cancel button on iOS
+      onPress: () => {
+        // Do nothing, as the user has canceled the action
+      },
+    });
 
-  // Add a cancel option to the workouts list
-  workoutsList.push({
-    text: 'Cancel',
-    style: 'cancel', // This will display the button as a cancel button on iOS
-    onPress: () => {
-      // Do nothing, as the user has canceled the action
-    },
-  });
-
-  // Show a dialog with the list of created workouts to select from
-  Alert.alert('Select a Workout', '', workoutsList);
-};
+    // Show a dialog with the list of created workouts to select from
+    Alert.alert('Select a Workout', '', workoutsList);
+  };
 
 
   const renderItem = ({ item }) => (

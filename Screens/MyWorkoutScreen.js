@@ -53,7 +53,7 @@ export default MyWorkoutScreen = ({ navigation }) => {
   const handleCreateNewWorkout = () => {
     if (newWorkoutName) {
       const newWorkout = {
-        id: uuidv4(), 
+        id: Math.random(), 
         name: newWorkoutName,
         exercises: [], // Initialize with an empty array of exercises for the new workout
       };
@@ -62,6 +62,7 @@ export default MyWorkoutScreen = ({ navigation }) => {
       //myWorkouts = createdWorkouts
       myWorkouts.push(newWorkout)
       saveWorkoutsToAsyncStorage();
+    
      
     }
     toggleModal(); // Close the modal after creating the workout
