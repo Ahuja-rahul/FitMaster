@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { data } from './Data/workouts'; // Import created workouts list
 import { AppContext } from '../context/AppContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Modal from 'react-native-modal'; // Import the modal component
 import { myWorkouts } from './MyWorkoutScreen';
 
 var workouts;
@@ -11,10 +12,16 @@ var workouts;
 const SearchScreen = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredWorkouts, setFilteredWorkouts] = useState(data);
-  const [selectedWorkouts, setSelectedWorkouts] = useState([]);
+  // const [selectedWorkouts, setSelectedWorkouts] = useState([]);
+  const [selectedItem, setSelectedItem] = useState(null);
   const { colors, isDarkTheme } = useContext(AppContext);
   const [createdWorkouts, setCreatedWorkouts] = useState([]);
+<<<<<<< HEAD
   
+=======
+  const [isModalVisible, setModalVisible] = useState(false); // State to control the visibility of the custom modal
+
+>>>>>>> bdb511d (Fixes updation of workout list in Search Screen)
   // Function to save the workouts to AsyncStorage
   const saveWorkoutsToAsyncStorage = async () => {
     try {
@@ -41,13 +48,18 @@ const SearchScreen = ({ navigation }) => {
       if (workoutsString) {
         workouts = JSON.parse(workoutsString);
         setCreatedWorkouts(workouts);
+<<<<<<< HEAD
         workouts = workoutsString
+=======
+        workouts = workoutsString;
+>>>>>>> bdb511d (Fixes updation of workout list in Search Screen)
       }
     } catch (error) {
       console.error('Error loading workouts from AsyncStorage:', error);
     }
   };
   useEffect(() => {
+<<<<<<< HEAD
     // Load workouts from AsyncStorage when the component mounts
     loadWorkoutList();
   }, []);
@@ -87,6 +99,40 @@ const SearchScreen = ({ navigation }) => {
     Alert.alert('Select a Workout', '', workoutsList);
   };
 
+=======
+    const unsubscribe = navigation.addListener('focus', () => {
+      loadWorkoutList();
+    });
+
+    // Cleanup the event listener when the component unmounts
+    return unsubscribe;
+  }, [navigation]); // Make sure to add `navigation` to the dependency array
+
+
+  const handleAddToMyWorkout = (selectedItem) => {
+    // Show the custom modal with the list of created workouts to select from
+    setModalVisible(true);
+  };
+
+  const handleWorkoutSelection = (workout) => {
+    // Handle workout selection here using the previously stored selected item
+    const updatedWorkouts = [...selectedWorkouts, selectedItem];
+    setSelectedWorkouts(updatedWorkouts);
+    console.log(JSON.stringify(selectedWorkouts));
+  
+    // Add the selected exercise to the chosen workout
+    workout.exercises.push(selectedItem);
+  
+    // Save the updated workouts to AsyncStorage
+    saveWorkoutsToAsyncStorage();
+  
+    // Show a success message
+    Alert.alert('Exercise Added', `${selectedItem.name} added to ${workout.name}`);
+  
+    // Hide the modal
+    setModalVisible(false);
+  };
+>>>>>>> bdb511d (Fixes updation of workout list in Search Screen)
 
   const renderItem = ({ item }) => (
     <View style={[styles.workoutContainer, isDarkTheme && styles.darkText]}>
@@ -125,6 +171,23 @@ const SearchScreen = ({ navigation }) => {
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
       />
+
+      {/* Custom Modal */}
+      <Modal isVisible={isModalVisible}>
+        <View style={styles.modalContent}>
+          {createdWorkouts.map((workout) => (
+            <TouchableOpacity
+              key={workout.name}
+              onPress={() => handleWorkoutSelection(workout)}
+            >
+              <Text style={styles.modalItemText}>{workout.name}</Text>
+            </TouchableOpacity>
+          ))}
+          <TouchableOpacity onPress={() => setModalVisible(false)}>
+            <Text style={[styles.modalItemText, styles.modalItemCancel]}>Cancel</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -197,6 +260,30 @@ const styles = StyleSheet.create({
   },
   darkBox: {
     backgroundColor: '#333333', // Dark mode background color for the box
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 22,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 8,
+    borderColor: 'rgba(0, 0, 0, 0.1)',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 3,
+  },
+  modalItemText: {
+    fontSize: 16,
+    paddingVertical: 12,
+    textAlign: 'center',
+  },
+  modalItemCancel: {
+    color: 'red',
   },
 });
 
