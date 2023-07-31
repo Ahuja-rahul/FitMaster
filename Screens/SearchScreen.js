@@ -89,8 +89,8 @@ const SearchScreen = ({ navigation }) => {
 
 
   const renderItem = ({ item }) => (
-    <View style={[styles.workoutContainer, isDarkTheme && styles.darkText]}>
-      <View style={[styles.workoutImageContainer, isDarkTheme && styles.darkText]}>
+    <View style={[styles.workoutContainer, isDarkTheme && styles.darkText&& styles.darkBox]}>
+      <View style={[styles.workoutImageContainer, isDarkTheme && styles.darkText ]}>
         <Image source={item.image} style={styles.workoutImage} />
       </View>
       <View style={[styles.workoutInfoContainer, isDarkTheme && styles.darkText]}>
@@ -109,10 +109,10 @@ const SearchScreen = ({ navigation }) => {
   }
 
   return (
-    <View style={[styles.container, isDarkTheme && styles.darkText]}>
-      <View style={[styles.toolbar, isDarkTheme && styles.darkText]}>
+    <View style={[styles.container, isDarkTheme && styles.darkText && styles.darkContainer]}>
+      <View style={[styles.toolbar, isDarkTheme && styles.darkText&& styles.darkContainer]}>
         <TextInput
-          style={[styles.searchInput, isDarkTheme && styles.darkText]}
+          style={[styles.searchInput, isDarkTheme && styles.darkText && styles.darkBox]}
           placeholder="Search workouts..."
           placeholderTextColor={isDarkTheme ? '#999' : '#ccc'}
           value={searchQuery}
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   darkContainer: {
-    flex: 1,
+    
     backgroundColor: '#000000', // Dark mode background color
   },
   toolbar: {

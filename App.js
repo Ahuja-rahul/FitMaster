@@ -9,6 +9,8 @@ import 'react-native-get-random-values';
 import DarkTheme from './theme/DarkTheme'
 import DefaultTheme from './theme/DefaultTheme';
 import { AppContext } from './context/AppContext';
+import { AppProvider } from './context/AppContext';
+
 export default function App() {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
   
@@ -20,6 +22,7 @@ export default function App() {
   });
 
   return (
+    <AppProvider>
     <SafeAreaProvider style={{ flex: 1 }}>
       <StatusBar style={isDarkTheme ? 'light' : 'dark'} />
       <NavigationContainer theme={isDarkTheme ? DarkTheme : DefaultTheme}>
@@ -28,6 +31,7 @@ export default function App() {
       </AppContext.Provider>
       </NavigationContainer>
     </SafeAreaProvider>
+    </AppProvider>
   );
 }
 

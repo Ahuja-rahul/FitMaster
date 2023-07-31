@@ -324,10 +324,10 @@ const SettingScreen = ({ navigation }) => {
           <Button title="Change Name" onPress={handleModalOpen} />
         </View>
         <Text style={[styles.title, isDarkTheme && styles.darkText]}>Body Measurements</Text>
-        <View style={styles.settingItem}>
+        <View style={styles.settingItem}>        
           <Text style={[styles.subtitle, isDarkTheme && styles.darkText]}>Height</Text>
           <TextInput
-            style={[styles.settingText, isDarkTheme && styles.darkText]}
+            style={[styles.settingText, styles.input, isDarkTheme && styles.darkText]}
             placeholder="Enter height in cm"
             placeholderTextColor={isDarkTheme ? "#999" : "#ccc"}
             value={bodyMeasurements.height}
@@ -343,7 +343,7 @@ const SettingScreen = ({ navigation }) => {
         <View style={styles.settingItem}>
           <Text style={[styles.subtitle, isDarkTheme && styles.darkText]}>Weight</Text>
           <TextInput
-            style={[styles.settingText, isDarkTheme && styles.darkText]}
+            style={[styles.settingText, styles.input, isDarkTheme && styles.darkText]}
             placeholder="Enter weight"
             placeholderTextColor={isDarkTheme ? "#999" : "#ccc"}
             value={bodyMeasurements.weight}
@@ -359,7 +359,7 @@ const SettingScreen = ({ navigation }) => {
         <View style={styles.settingItem}>
           <Text style={[styles.subtitle, isDarkTheme && styles.darkText]}>Chest</Text>
           <TextInput
-            style={[styles.settingText, isDarkTheme && styles.darkText]}
+            style={[styles.settingText,  styles.input,isDarkTheme && styles.darkText]}
             placeholder="Enter chest measurement"
             placeholderTextColor={isDarkTheme ? "#999" : "#ccc"}
             value={bodyMeasurements.chest}
@@ -375,7 +375,7 @@ const SettingScreen = ({ navigation }) => {
         <View style={styles.settingItem}>
           <Text style={[styles.subtitle, isDarkTheme && styles.darkText]}>Waist</Text>
           <TextInput
-            style={[styles.settingText, isDarkTheme && styles.darkText]}
+            style={[styles.settingText, styles.input, isDarkTheme && styles.darkText]}
             placeholder="Enter waist measurement"
             placeholderTextColor={isDarkTheme ? "#999" : "#ccc"}
             value={bodyMeasurements.waist}
@@ -389,9 +389,9 @@ const SettingScreen = ({ navigation }) => {
           />
         </View>
         <View style={styles.settingItem}>
-          <Text style={[styles.subtitle, isDarkTheme && styles.darkText]}>Hips</Text>
+          <Text style={[styles.subtitle, isDarkTheme && styles.darkText]}>Hips   </Text>
           <TextInput
-            style={[styles.settingText, isDarkTheme && styles.darkText]}
+            style={[styles.settingText, styles.input, isDarkTheme && styles.darkText]}
             placeholder="Enter hips measurement"
             placeholderTextColor={isDarkTheme ? "#999" : "#ccc"}
             value={bodyMeasurements.hips}
@@ -521,6 +521,7 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   profileName: {
+
     fontSize: 20,
     fontWeight: 'bold',
     color: '#333',
@@ -532,6 +533,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     marginTop: 16,
     color: '#333',
+    paddingLeft: 10,
   },
 
   subtitle: {
@@ -540,6 +542,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
     marginBottom: 8,
     color: '#666',
+    paddingLeft: 10,
   },
   settingItem: {
     paddingVertical: 12,
@@ -552,6 +555,8 @@ const styles = StyleSheet.create({
   settingText: {
     fontSize: 16,
     color: '#333',
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   darkText: {
     color: '#FFFFFF', // Dark mode text color
@@ -646,6 +651,8 @@ const styles = StyleSheet.create({
   darkBox: {
     backgroundColor: '#333333', // Dark mode background color for the box
   },
+  
+  
 });
 
 

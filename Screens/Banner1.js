@@ -51,37 +51,32 @@ const Banner1 = () => {
       id: 5,
       name: 'Side Jackknife',
       reps: '25 reps and 3 sets',
-      image: require('../assets/Workout1screen/HammerCurls.gif'),
+      image: require('../assets/banner/1/sidejackknife.gif'),
     },
     {
       id: 6,
       name: 'Hanging Leg Raise',
       reps: '25 reps and 3 sets',
-      image: require('../assets/Workout1screen/AlternatingDumbbellCurls.gif'),
+      image: require('../assets/banner/1/hanginglegraise.gif'),
     },
+  
     {
       id: 7,
-      name: 'Hanging Leg Raise',
+      name: 'Bear Crawls',
       reps: '25 reps and 3 sets',
-      image: require('../assets/Workout1screen/AlternatingDumbbellCurls.gif'),
+      image: require('../assets/banner/1/bear-crawl-movement.gif'),
     },
     {
       id: 8,
-      name: 'Bear Crawls',
+      name: 'Cable Crunch',
       reps: '25 reps and 3 sets',
-      image: require('../assets/Workout1screen/AlternatingDumbbellCurls.gif'),
+      image: require('../assets/banner/1/CableCrunch.gif'),
     },
     {
       id: 9,
-      name: 'Cable Crunch',
-      reps: '25 reps and 3 sets',
-      image: require('../assets/Workout1screen/AlternatingDumbbellCurls.gif'),
-    },
-    {
-      id: 10,
       name: 'Plank',
       reps: '3 sets, 30 sec each +20 sec each set',
-      image: require('../assets/Workout1screen/AlternatingDumbbellCurls.gif'),
+      image: require('../assets/banner/1/plank.gif'),
     },
   ];
 
