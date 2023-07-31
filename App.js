@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import Dashboard from './Dashboard';
 import MyStack from './assets/StackNavigator';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-
+import 'react-native-get-random-values';
 import DarkTheme from './theme/DarkTheme'
 import DefaultTheme from './theme/DefaultTheme';
 import { AppContext } from './context/AppContext';

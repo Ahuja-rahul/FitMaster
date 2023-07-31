@@ -1,9 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { View, Text, FlatList, Image, TextInput, TouchableOpacity, Alert, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { data, myWorkouts } from './Data/workouts'; // Import created workouts list
+import { data } from './Data/workouts'; // Import created workouts list
 import { AppContext } from '../context/AppContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { myWorkouts } from './MyWorkoutScreen';
 
 const SearchScreen = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -32,13 +33,15 @@ const SearchScreen = ({ navigation }) => {
   };
 
   const handleAddToMyWorkout = (selectedItem) => {
+
+    console.log("cvdvdv"+selectedWorkouts);
   // Show a dialog box to select a workout from the created workouts list
   const workoutsList = myWorkouts.map((workout) => ({
     text: workout.name,
     onPress: () => {
       const updatedWorkouts = [...selectedWorkouts, selectedItem];
       setSelectedWorkouts(updatedWorkouts);
-
+      console.log(JSON.stringify(selectedWorkouts))
       // Add the selected exercise to the chosen workout
       workout.exercises.push(selectedItem);
 

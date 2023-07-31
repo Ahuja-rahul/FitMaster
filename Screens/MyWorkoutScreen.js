@@ -1,15 +1,18 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, Button, FlatList, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { myWorkouts } from './Data/workouts';
+//import { myWorkouts } from './Data/workouts';
 import { AppContext } from '../context/AppContext';
 import Modal from 'react-native-modal'; // Import the react-native-modal library
+import { v4 as uuidv4 } from 'uuid';
 
-const MyWorkoutScreen = ({ navigation }) => {
+export var myWorkouts = []
+export default MyWorkoutScreen = ({ navigation }) => {
   const [createdWorkouts, setCreatedWorkouts] = useState([]);
-  const [isModalVisible, setIsModalVisible] = useState(false); // State to control the modal
-  const [newWorkoutName, setNewWorkoutName] = useState(''); // State to store the new workout name
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [newWorkoutName, setNewWorkoutName] = useState('');
   const { colors, isDarkTheme } = useContext(AppContext);
+  myWorkouts = createdWorkouts
 
   // Function to save the created workouts in AsyncStorage
   const saveWorkoutsToAsyncStorage = async () => {
@@ -50,13 +53,16 @@ const MyWorkoutScreen = ({ navigation }) => {
   const handleCreateNewWorkout = () => {
     if (newWorkoutName) {
       const newWorkout = {
-        id: createdWorkouts.length + 1,
+        id: uuidv4(), 
         name: newWorkoutName,
         exercises: [], // Initialize with an empty array of exercises for the new workout
       };
-      myWorkouts.push(newWorkout);
+
       setCreatedWorkouts([...createdWorkouts, newWorkout]);
-      saveWorkoutsToAsyncStorage(); // Save the updated workouts to AsyncStorage
+      //myWorkouts = createdWorkouts
+      myWorkouts.push(newWorkout)
+      saveWorkoutsToAsyncStorage();
+     
     }
     toggleModal(); // Close the modal after creating the workout
   };
@@ -88,7 +94,7 @@ const MyWorkoutScreen = ({ navigation }) => {
   );
 
   return (
-    <View style={[styles.container, isDarkTheme && styles.darkText && styles.darkBox && styles.darkContainer]}>
+ <View style={[styles.container, isDarkTheme && styles.darkText && styles.darkBox && styles.darkContainer]}>
       <Button title="Create Workout" onPress={handleCreateWorkout} />
       <Text style={[styles.subheader, isDarkTheme && styles.darkText && styles.darkBox && styles.darkContainer]}>Created Workouts:</Text>
       <FlatList
@@ -96,7 +102,6 @@ const MyWorkoutScreen = ({ navigation }) => {
         renderItem={renderWorkoutItem}
         keyExtractor={(item) => item.id.toString()}
       />
-      {/* Custom Modal */}
       <Modal isVisible={isModalVisible}>
         <View style={styles.modalContainer}>
           <Text style={styles.modalTitle}>Create a New Workout</Text>
@@ -202,5 +207,3 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-
-export default MyWorkoutScreen;
