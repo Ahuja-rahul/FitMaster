@@ -13,9 +13,11 @@ const SearchScreen = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredWorkouts, setFilteredWorkouts] = useState(data);
   const [selectedWorkouts, setSelectedWorkouts] = useState([]);
+  const [selectedItem, setSelectedItem] = useState(null);
   const { colors, isDarkTheme } = useContext(AppContext);
   const [createdWorkouts, setCreatedWorkouts] = useState([]);
-  
+  const [isModalVisible, setModalVisible] = useState(false); // State to control the visibility of the custom modal
+
   // Function to save the workouts to AsyncStorage
   const saveWorkoutsToAsyncStorage = async () => {
     try {
@@ -42,16 +44,20 @@ const SearchScreen = ({ navigation }) => {
       if (workoutsString) {
         workouts = JSON.parse(workoutsString);
         setCreatedWorkouts(workouts);
-        workouts = workoutsString
+        workouts = workoutsString;
       }
     } catch (error) {
       console.error('Error loading workouts from AsyncStorage:', error);
     }
   };
   useEffect(() => {
-    // Load workouts from AsyncStorage when the component mounts
-    loadWorkoutList();
-  }, []);
+    const unsubscribe = navigation.addListener('focus', () => {
+      loadWorkoutList();
+    });
+
+    // Cleanup the event listener when the component unmounts
+    return unsubscribe;
+  }, [navigation]); // Make sure to add `navigation` to the dependency array
 
 
   const handleAddToMyWorkout = (selectedItem) => {
@@ -77,7 +83,6 @@ const SearchScreen = ({ navigation }) => {
     // Hide the modal
     setModalVisible(false);
   };
-
 
   const renderItem = ({ item }) => (
     <View style={[styles.workoutContainer, isDarkTheme && styles.darkText]}>
