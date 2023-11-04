@@ -53,7 +53,7 @@ export default MyWorkoutScreen = ({ navigation }) => {
   const handleCreateNewWorkout = () => {
     if (newWorkoutName) {
       const newWorkout = {
-        id: Math.random(), 
+        id: uuidv4(), 
         name: newWorkoutName,
         exercises: [], // Initialize with an empty array of exercises for the new workout
       };
@@ -62,7 +62,6 @@ export default MyWorkoutScreen = ({ navigation }) => {
       //myWorkouts = createdWorkouts
       myWorkouts.push(newWorkout)
       saveWorkoutsToAsyncStorage();
-    
      
     }
     toggleModal(); // Close the modal after creating the workout
@@ -86,7 +85,7 @@ export default MyWorkoutScreen = ({ navigation }) => {
   const renderWorkoutItem = ({ item }) => (
     <View style={styles.workoutItemContainer}>
       <TouchableOpacity style={styles.workoutItem} onPress={() => handleSelectWorkout(item)}>
-        <Text style={[styles.workoutName, isDarkTheme && styles.darkText]}>{item.name}</Text>
+        <Text style={styles.workoutName}>{item.name}</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => handleDeleteWorkout(item.id)} style={styles.deleteButton}>
         <Text style={styles.deleteButtonText}>Delete</Text>
@@ -104,14 +103,13 @@ export default MyWorkoutScreen = ({ navigation }) => {
         keyExtractor={(item) => item.id.toString()}
       />
       <Modal isVisible={isModalVisible}>
-        <View style={[styles.modalContainer, isDarkTheme && styles.darkText && styles.darkBox ]}>
-          <Text style={[styles.modalTitle ,isDarkTheme && styles.darkText ]}>Create a New Workout</Text>
+        <View style={styles.modalContainer}>
+          <Text style={styles.modalTitle}>Create a New Workout</Text>
           <TextInput
-            style={[styles.input ,isDarkTheme && styles.darkText ]}
+            style={styles.input}
             value={newWorkoutName}
             onChangeText={setNewWorkoutName}
             placeholder="Enter workout name"
-            placeholderTextColor={isDarkTheme ? "#999" : "#ccc"}
           />
           <View style={styles.modalButtonContainer}>
             <TouchableOpacity onPress={toggleModal} style={[styles.modalButton, styles.cancelButton]}>
